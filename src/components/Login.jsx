@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { authQueries } from '../queries/authQueries';
+import authQueries from '../queries/authQueries';
 
 function Login() {
     const [username, setUsername] = useState('');

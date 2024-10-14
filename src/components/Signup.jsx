@@ -2,16 +2,32 @@
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';  
-// import '../Signup.css';
-import { authQueries } from '../queries/authQueries';
+import '../styles/Auth.css';
+import authQueries from '../queries/authQueries';
 
 
 function Signup() {
+    const [type, setType] = useState('user')
+    
+    //for users
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('');
-    const [bio, setBio] = useState("Hello World, this is my bio!");
+    const [summary, setSummary] = useState('Hello World, this is my summary!');
     const [pfp, setPfp] = useState(null);
+    const [website, setWebsite] = useState('');
+    const [location, setLocation] = useState('');
+
+    //for companies
+    const [companyName, setCompanyName] = useState('');
+    const [companyPassword, setCompanyPassword] = useState('');
+    const [companySummary, setCompanySummary] = useState('Hello World, this is my summary!');
+    const [companyLogo, setCompanyLogo] = useState(null);
+    const [companyArea, setCompanyArea] = useState('');
+    const [companyLocation, setCompanyLoaction] = useState('');
+    const [companyWebsite, setCompanyWebsite] = useState('');
+
     const [err, setErr] = useState('');
+
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -20,7 +36,7 @@ function Signup() {
         const formData = new FormData();
         formData.append('username', username);
         formData.append('password', password);
-        formData.append('bio', bio);
+        formData.append('summary', summary);
         formData.append('pfp', pfp);
 
         try {
@@ -40,54 +56,158 @@ function Signup() {
         setPfp(file);
     };
 
+    const handleTypeChange = (e) => {
+        const result = e.target.value
+        setType(result);
+    }
+
     return (
         <div className="container">
         <form onSubmit={handleSubmit} className="form">
             <legend className="legend">Signup</legend>
-            <label htmlFor="username" className="label">* Username</label>
-            <input
-                type="text" 
-                name="username"
-                value={username}
-                maxLength={15}
-                onChange={(e) => setUsername(e.target.value)}
-                className="input"
-                onFocus={(e) => e.target.style.borderColor = '#f5a462'}
-                onBlur={(e) => e.target.style.borderColor = '#ddd'}
-            />
-            <label htmlFor="password" className="label">* Password</label>
-            <input
-                type="password" 
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="input"
-                onFocus={(e) => e.target.style.borderColor = '#f5a462'}
-                onBlur={(e) => e.target.style.borderColor = '#ddd'}
-            />
-            <label htmlFor="bio" className="label">Bio</label>
-            <input
-                type="text" 
-                name="bio"
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                className="input"
-                onFocus={(e) => e.target.style.borderColor = '#f5a462'}
-                onBlur={(e) => e.target.style.borderColor = '#ddd'}
-            />
-            <div className="file-upload-container">
-                <label htmlFor="fileUpload" className="file-upload-btn">
-                    Upload Profile Picture
-                </label>
-                <input
-                    type="file"
-                    name="pfp"
-                    id="fileUpload"
-                    onChange={handleFileChange}
-                    accept=".png, .jpg, .jpeg"
-                />
-            </div>
-
+            <select value={type} onChange={handleTypeChange} >
+                <option key={1} value={'user'}>User</option>
+                <option key={2} value={'company'}>Company</option>
+            </select>
+            {type == 'user' ? (
+                //if its a user, show this form
+                <div>
+                    <label htmlFor="username" className="label">* Username</label>
+                    <input
+                        type="text" 
+                        name="username"
+                        value={username}
+                        maxLength={15}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="input"
+                        onFocus={(e) => e.target.style.borderColor = '#f5a462'}
+                        onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                    />
+                    <label htmlFor="password" className="label">* Password</label>
+                    <input
+                        type="password" 
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="input"
+                        onFocus={(e) => e.target.style.borderColor = '#f5a462'}
+                        onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                    />
+                    <label htmlFor="summary" className="label">Summary</label>
+                    <input
+                        type="text" 
+                        name="summary"
+                        value={summary}
+                        onChange={(e) => setSummary(e.target.value)}
+                        className="input"
+                        onFocus={(e) => e.target.style.borderColor = '#f5a462'}
+                        onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                    />
+                    <label htmlFor="website" className="label">Website</label>
+                    <input 
+                        type="text"
+                        name="website"
+                        value={website}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        className="input"
+                        onFocus={(e) => e.target.style.borderColor = '#f5a462'}
+                        onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                    />
+                    <label htmlFor="location" className="label">Location</label>
+                    <input 
+                        type="text"
+                        name="location"
+                        value={location}
+                        className="input"
+                        onChange={(e) => setLocation(e.target.value)}
+                    />
+                    <div className="file-upload-container">
+                        <label htmlFor="fileUpload" className="file-upload-btn">
+                            Upload Profile Picture
+                        </label>
+                        <input
+                            type="file"
+                            name="pfp"
+                            id="fileUpload"
+                            onChange={handleFileChange}
+                            accept=".png, .jpg, .jpeg"
+                        />
+                        </div>
+                </div>
+            ) : (
+                //if its a company, show this form instead
+                <div>
+                    <label htmlFor="companyName" className="label">* Company Name</label>
+                    <input
+                        type="text" 
+                        name="companyName"
+                        value={companyName}
+                        maxLength={30}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                        className="input"
+                        onFocus={(e) => e.target.style.borderColor = '#f5a462'}
+                        onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                    />
+                    <label htmlFor="companyPassword" className="label">* Company Password</label>
+                    <input
+                        type="password" 
+                        name="companyPassword"
+                        value={companyPassword}
+                        onChange={(e) => setCompanyPassword(e.target.value)}
+                        className="input"
+                        onFocus={(e) => e.target.style.borderColor = '#f5a462'}
+                        onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                    />
+                    <label htmlFor="companySummary" className="label">Company Summary</label>
+                    <input
+                        type="text" 
+                        name="companySummary"
+                        value={companySummary}
+                        onChange={(e) => setCompanySummary(e.target.value)}
+                        className="input"
+                        onFocus={(e) => e.target.style.borderColor = '#f5a462'}
+                        onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                    />
+                    <label htmlFor="companyWebsite" className="label">Company Website</label>
+                    <input 
+                        type="text"
+                        name="companyWebsite"
+                        value={companyWebsite}
+                        onChange={(e) => setCompanyWebsite(e.target.value)}
+                        className="input"
+                        onFocus={(e) => e.target.style.borderColor = '#f5a462'}
+                        onBlur={(e) => e.target.style.borderColor = '#ddd'}
+                    />
+                    <label htmlFor="companyArea" className="label">Company Area</label>
+                    <input 
+                        type="text"
+                        name="companyArea"
+                        value={companyArea}
+                        onChange={(e) => setCompanyArea(e.target.value)}
+                        className="input"
+                    />
+                    <label htmlFor="companyLocation" className="label">Company Location</label>
+                    <input 
+                        type="text"
+                        name="companyLocation"
+                        value={companyLocation}
+                        onChange={(e) => setCompanyLoaction(e.target.value)}
+                        className="input"
+                    />
+                    <div className="file-upload-container">
+                        <label htmlFor="fileUpload" className="file-upload-btn">
+                            Upload logo
+                        </label>
+                        <input
+                            type="file"
+                            name="companyLogo"
+                            id="fileUpload"
+                            onChange={handleFileChange}
+                            accept=".png, .jpg, .jpeg"
+                        />
+                    </div>
+                </div>
+            )}
             <button type="submit" className="button">Sign up</button>
         </form>
         <p className="paragraph">Already have an account?</p>
