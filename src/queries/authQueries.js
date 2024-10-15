@@ -13,7 +13,7 @@ const authQueries = {
     signup: async(formData) => {
         return await fetch(`${API_URL}signup`, {
             method: 'POST',
-            body: JSON.stringify(formData)
+            body: formData
         });
     }
 };

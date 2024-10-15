@@ -13,7 +13,7 @@ function Signup() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('');
     const [summary, setSummary] = useState('Hello World, this is my summary!');
-    const [pfp, setPfp] = useState(null);
+    // const [pfp, setPfp] = useState(null);
     const [website, setWebsite] = useState('');
     const [location, setLocation] = useState('');
 
@@ -21,7 +21,7 @@ function Signup() {
     const [companyName, setCompanyName] = useState('');
     const [companyPassword, setCompanyPassword] = useState('');
     const [companySummary, setCompanySummary] = useState('Hello World, this is my summary!');
-    const [companyLogo, setCompanyLogo] = useState(null);
+    // const [companyLogo, setCompanyLogo] = useState(null);
     const [companyArea, setCompanyArea] = useState('');
     const [companyLocation, setCompanyLoaction] = useState('');
     const [companyWebsite, setCompanyWebsite] = useState('');
@@ -34,15 +34,34 @@ function Signup() {
         event.preventDefault();
 
         const formData = new FormData();
-        formData.append('username', username);
-        formData.append('password', password);
-        formData.append('summary', summary);
-        formData.append('pfp', pfp);
+        if (type === 'user') {
+            formData.append('username', username);
+            formData.append('password', password);
+            formData.append('summary', summary);
+            formData.append('location', location);
+            formData.append('website', website);
+            // formData.append('pfp', pfp);
+        } else if (type === 'company') {
+            formData.append('name', companyName);
+            formData.append('password', companyPassword);
+            // formData.append('logo', companyLogo);
+            formData.append('area', companyArea);
+            formData.append('location', companyLocation);
+            formData.append('summary', companySummary);
+            formData.append('website', companyWebsite);
+        } else {
+            throw new Error('Type not recognized');
+        }
 
+        formData.append('type', type);
+      
         try {
+            //log the user/company in
             const response = await authQueries.signup(formData)
             if (!response.ok) {
-                throw new Error('response not okay', response.ok); 
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to sign up');
+
             }
             navigate('/login');
         } catch (err) {
@@ -51,10 +70,17 @@ function Signup() {
         }
     }
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setPfp(file);
-    };
+    // const handleFileChange = (e) => {
+    //     const file = e.target.files[0];
+
+    //     if (type === 'user') {
+    //         setPfp(file);
+    //     } else if (type === 'company') {
+    //         setCompanyLogo(file);
+    //     } else {
+    //         throw new Error('Type not recognized')
+    //     }
+    // };
 
     const handleTypeChange = (e) => {
         const result = e.target.value
@@ -125,13 +151,13 @@ function Signup() {
                         <label htmlFor="fileUpload" className="file-upload-btn">
                             Upload Profile Picture
                         </label>
-                        <input
+                        {/* <input
                             type="file"
                             name="pfp"
                             id="fileUpload"
                             onChange={handleFileChange}
                             accept=".png, .jpg, .jpeg"
-                        />
+                        /> */}
                         </div>
                 </div>
             ) : (
@@ -198,13 +224,13 @@ function Signup() {
                         <label htmlFor="fileUpload" className="file-upload-btn">
                             Upload logo
                         </label>
-                        <input
+                        {/* <input
                             type="file"
                             name="companyLogo"
                             id="fileUpload"
                             onChange={handleFileChange}
                             accept=".png, .jpg, .jpeg"
-                        />
+                        /> */}
                     </div>
                 </div>
             )}
