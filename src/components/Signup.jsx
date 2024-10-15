@@ -92,8 +92,8 @@ function Signup() {
         <form onSubmit={handleSubmit} className="form">
             <legend className="legend">Signup</legend>
             <select value={type} onChange={handleTypeChange} >
-                <option key={1} value={'user'}>User</option>
-                <option key={2} value={'company'}>Company</option>
+                <option value={'user'}>User</option>
+                <option value={'company'}>Company</option>
             </select>
             {type == 'user' ? (
                 //if its a user, show this form
@@ -159,6 +159,8 @@ function Signup() {
                             accept=".png, .jpg, .jpeg"
                         /> */}
                         </div>
+                        <button type="submit" className="button">Sign up</button>
+
                 </div>
             ) : (
                 //if its a company, show this form instead
@@ -232,9 +234,9 @@ function Signup() {
                             accept=".png, .jpg, .jpeg"
                         /> */}
                     </div>
+                    <button type="submit" className="button">Sign up</button>
                 </div>
             )}
-            <button type="submit" className="button">Sign up</button>
         </form>
         <p className="paragraph">Already have an account?</p>
         <Link 
