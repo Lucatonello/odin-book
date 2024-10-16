@@ -8,7 +8,7 @@ function Comments({ comments }) {
                 {comments.map((comment, index) => (
                     <li key={index}>
                         <strong>{comment.authorOrcompanyName}</strong>
-                        <p>{comment.text} hnfajiskfh iasuf</p>
+                        <p>{comment.text}</p>
                     </li>
                 ))} 
             </ul>
