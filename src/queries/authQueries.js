@@ -24,7 +24,7 @@ const authQueries = {
             method: 'POST',
             body: formData
         });
-    }
+    },
 };
 
 export default authQueries;
