@@ -1,9 +1,32 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import postsQueries from '../queries/postsQueries';
 
 function Comments({ comments }) {
-    console.log('comments the component receives ', comments);
+    const [newComment, setNewComment] = useState('');
+    
+    const id = localStorage.getItem('authorid'); 
+    const type = localStorage.getItem('type');
+    const postid = comments[0].postid;
+
+    const handleSubmit = async () => {
+        try {
+            await postsQueries.addComment(newComment, id, postid, type);
+        } catch (err) {
+            console.error(err);
+        }
+    }
     return (
         <div>
+            <form onSubmit={handleSubmit}>
+                <input 
+                    type="text"
+                    placeholder='Add comment...'
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                />
+                {newComment.length !== 0 && <button type='submit'>Comment</button>}
+            </form>
             <ul>
                 {comments.map((comment, index) => (
                     <li key={index}>
