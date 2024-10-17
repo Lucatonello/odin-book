@@ -12,6 +12,7 @@ function Comments({ comments }) {
     const handleSubmit = async () => {
         try {
             await postsQueries.addComment(newComment, id, postid, type);
+            setNewComment("");
         } catch (err) {
             console.error(err);
         }

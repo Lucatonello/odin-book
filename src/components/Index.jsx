@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import postsQueries from '../queries/postsQueries';
 import Comments from './Comments';
+import NewPost from './NewPost';
 
 function Index() {
     const [posts, setPosts] = useState([]);
+
     const [showComments, setShowComments] = useState(false);
+    const [showNewPost, setShowNewPost] = useState(false);
 
     const id = localStorage.getItem('authorid'); 
     const type = localStorage.getItem('type');
@@ -38,7 +41,8 @@ function Index() {
 
     return (
         <div>
-            <h1>Hello world</h1>
+            <button type="button" onClick={() => setShowNewPost(true)}>Start posting...</button>
+            {showNewPost && <NewPost onHide={() => setShowNewPost(false)} />}
             <ul>
                 {posts.map(post => (
                     <li key={post.id}>
