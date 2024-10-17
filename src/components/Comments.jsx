@@ -2,12 +2,11 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import postsQueries from '../queries/postsQueries';
 
-function Comments({ comments }) {
+function Comments({ comments, postid }) {
     const [newComment, setNewComment] = useState('');
-    
+    console.log('props In comments: ', comments);
     const id = localStorage.getItem('authorid'); 
     const type = localStorage.getItem('type');
-    const postid = comments[0].postid;
 
     const handleSubmit = async () => {
         try {
@@ -28,14 +27,16 @@ function Comments({ comments }) {
                 />
                 {newComment.length !== 0 && <button type='submit'>Comment</button>}
             </form>
-            <ul>
-                {comments.map((comment, index) => (
-                    <li key={index}>
-                        <strong>{comment.authorOrcompanyName}</strong>
-                        <p>{comment.text}</p>
-                    </li>
-                ))} 
-            </ul>
+            {postid !== null ? (
+                <ul>
+                    {comments.map((comment, index) => (
+                        <li key={index}>
+                            <strong>{comment.authorOrcompanyName}</strong>
+                            <p>{comment.text}</p>
+                        </li>
+                    ))} 
+                </ul>
+            ) : ''}
         </div>
     );
 }
@@ -47,6 +48,7 @@ Comments.propTypes = {
             text: PropTypes.string.isRequired,
         })
     ).isRequired,
+    postid: PropTypes.number.isRequired,
 };
 
 export default Comments;

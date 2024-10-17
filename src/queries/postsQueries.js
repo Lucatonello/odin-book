@@ -27,6 +27,16 @@ const postsQueries = {
             },
             body: JSON.stringify({ newComment, id, postid, type })
         });
+    },
+    newPost: async (newPost, id, type) => {
+        return await fetch(`${API_URL}newPost`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({ newPost, id, type })
+        });
     }
 }
 

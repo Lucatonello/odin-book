@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import postsQueries from '../queries/postsQueries';
 import Comments from './Comments';
 import NewPost from './NewPost';
+import Navbar from './Navbar';
+import styles from '../styles/Index.module.css';
 
 function Index() {
     const [posts, setPosts] = useState([]);
 
-    const [showComments, setShowComments] = useState(false);
+    const [showComments, setShowComments] = useState(null);
     const [showNewPost, setShowNewPost] = useState(false);
 
     const id = localStorage.getItem('authorid'); 
@@ -41,18 +43,20 @@ function Index() {
 
     return (
         <div>
+            <Navbar />
+            
             <button type="button" onClick={() => setShowNewPost(true)}>Start posting...</button>
             {showNewPost && <NewPost onHide={() => setShowNewPost(false)} />}
             <ul>
                 {posts.map(post => (
-                    <li key={post.id}>
+                    <li style={{ border: '1px solid black' }} key={post.id}>
                         <strong>{post.author_name}</strong>
                         <p>{post.text}</p>
                         <p>👍{post.total_likes}</p>
                         <button type="button" onClick={() => handleAddLike(post.id)}>Like</button>
-                        <button type="button" onClick={() => setShowComments(true)}>Comment</button>
+                        <button type="button" onClick={() => setShowComments(post.id)}>Comment</button>
 
-                        {showComments && <Comments comments={post.comments}/>}
+                        {showComments == post.id && <Comments comments={post.comments} postid={post.id}/>}
                     </li>
                 ))}
             </ul>
