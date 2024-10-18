@@ -1,7 +1,10 @@
 import linkedInIcon from '../images/linkedin.png';
 import styles from '../styles/Navbar.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
+    const navigate = useNavigate();
+
     return (
         <nav className={styles.navbar}>
             {/* LinkedIn Icon */}
@@ -65,7 +68,8 @@ function Navbar() {
                     <img 
                         src={linkedInIcon} 
                         alt="Profile Icon" 
-                        className={styles.icon} 
+                        className={styles.icon}
+                        onClick={() => navigate('/profile')} 
                     />
                     <span>Me</span>
                 </div>
