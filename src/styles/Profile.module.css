@@ -1,0 +1,56 @@
+body {
+    background-color: #f5f3f0;
+} 
+
+.profileContainer {
+    max-width: 804px; /* Limit the width of the profile container */
+    margin: auto; /* Center the container */
+    position: relative; /* Allow positioning of the profile picture */
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.bannerContainer {
+    position: relative; /* Needed to position the profile picture over the banner */
+}
+
+.bannerImage {
+    width: 100%; /* Make the banner responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px;
+}
+
+.profilePicture {
+    position: absolute; /* Overlap the banner */
+    top: 110px; /* Adjust to the desired position */
+    left: 20px; /* Space from the left side */
+    height: 121.33px; /* Height as per your requirement */
+    width: 121.33px; /* Width as per your requirement */
+    border-radius: 50%; /* Make it circular */
+    border: 3px solid white; /* Optional: Add a border for better visibility */
+}
+
+.username {
+    font-size: 24px; /* LinkedIn style for username */
+    font-weight: bold; /* Make it bold */
+    margin: 40px 0px 0px 20px; /* Spacing above the username */
+}
+.titles {
+    font-size: 24px; /* LinkedIn style for username */
+    font-weight: bold; /* Make it bold */
+    margin: 10px 0px 0px 20px;
+}
+
+.summary,
+.location,
+.website,
+.connections {
+    margin: 10px 0px 10px 20px; /* Add vertical spacing for all text elements */
+    font-size: 16px; /* Standard font size */
+    color: #555; /* Subtle gray color */
+}
+.about {
+    padding: 20px;
+    margin: 0;
+}
