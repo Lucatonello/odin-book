@@ -3,14 +3,16 @@ import memberQueries from '../queries/memberQueries';
 import linkedInLogo from '../images/linkedin.png'
 import defaultBanner from '../images/default-banner.png';
 import companyLogo from '../images/default-company-logo.png';
+import schoolLogo from '../images/default-school-logo.png';
 import Navbar from './Navbar';
 import styles from '../styles/Profile.module.css'; 
 
 function Profile() {
     const [memberData, setMemberData] = useState('');
-    const [memberActivity, setMemberActivity] = useState([])
+    const [memberActivity, setMemberActivity] = useState([]);
 
-    const [userExperience, setUserExperience] = useState([]) 
+    const [userExperience, setUserExperience] = useState([]); 
+    const [userEducation , setUserEducation] = useState([]);
     
     const type = localStorage.getItem('type');
     const id = localStorage.getItem('authorid');
@@ -47,7 +49,12 @@ function Profile() {
                 const experienceResponse = await memberQueries.getUserExperience(id)
                 const experienceData = await experienceResponse.json();
                 setUserExperience(experienceData);
-                console.log('exp data', experienceData);
+
+                //get education data
+                const educationResponse = await memberQueries.getUserEducation(id);
+                const educationData = await educationResponse.json();
+                setUserEducation(educationData);
+                console.log('ed data', educationData)
             } else {
                 return 
             }
@@ -134,9 +141,13 @@ function Profile() {
                 <ul>
                     {userExperience && (
                         userExperience.map(exp => (
-                            <li style={{ display: 'flex' }} key={exp.id}>
+                            <li style={{ display: 'flex', borderBottom: '1px solid #e8e8e8', width: '90%', margin: '10px 0px' }} key={exp.id}>
                                 <div className={styles.logoContainer}>
-                                    <img src={companyLogo} alt="Company Logo" style={{ height: '47.99px', width: '47.99px', marginRight: '10px' }} />
+                                    <img 
+                                        src={companyLogo} 
+                                        alt="Company Logo" 
+                                        style={{ height: '47.99px', width: '47.99px', marginRight: '10px' }} 
+                                    />
                                 </div>
                                 <div className={styles.jobDetailsContainer}>
                                     <strong>{exp.title}</strong>
@@ -147,12 +158,41 @@ function Profile() {
                                     </p>
                                     
                                     <p className={styles.experienceP} style={{ color: '#555' }}>{exp.location}</p>
-                                    <hr />
                                 </div>
                             </li>
                         ))
                     )}
                 </ul>
+            </div>
+
+            {/* Education */}
+            <div className={styles.profileContainer}>
+                <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Education</h1>
+                {userEducation && (
+                    <ul>
+                        {userEducation.map(ed => (
+                            <li style={{ display: 'flex', borderBottom: '1px solid #e8e8e8', width: '90%', margin: '10px 0px' }} key={ed.id}>
+                                 <div className={styles.logoContainer}>
+                                        <img 
+                                            src={schoolLogo} 
+                                            alt="Company Logo" 
+                                            style={{ height: '47.99px', width: '47.99px', marginRight: '10px' }} 
+                                        />
+                                </div>
+                                <div className={styles.jobDetailsContainer}>
+                                        <strong>{ed.school}</strong>
+                                        <p className={styles.experienceP} >{ed.degree}</p>
+    
+                                        <p className={styles.experienceP} style={{ color: '#555' }}>
+                                            {ed.startdate} - {ed.enddate ? ed.enddate : ed.isactive ? 'Present' : null}
+                                        </p>
+                                        
+                                        <p className={styles.experienceP} style={{ color: '#555' }}>{ed.location}</p>
+                                    </div>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
         </>
     );

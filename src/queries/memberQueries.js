@@ -33,6 +33,14 @@ const memberQueries = {
                 Authorization: `Bearer ${token}`
             }
         });
+    },
+    getUserEducation: async (id) => {
+        return await fetch(`${API_URL}getUserEducation/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
     }
 }
 
