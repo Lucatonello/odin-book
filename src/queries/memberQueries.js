@@ -17,6 +17,22 @@ const memberQueries = {
                 Authorization: `Bearer ${token}`
             }
         });
+    },
+    getMemberActivity: async (type, id) => {
+        return await fetch(`${API_URL}getMemberActivity/${type}/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    },
+    getUserExperience: async (id) => {
+        return await fetch(`${API_URL}getUserExperience/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
     }
 }
 

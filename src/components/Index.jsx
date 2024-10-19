@@ -3,7 +3,7 @@ import postsQueries from '../queries/postsQueries';
 import Comments from './Comments';
 import NewPost from './NewPost';
 import Navbar from './Navbar';
-import styles from '../styles/Index.module.css';
+// import styles from '../styles/Index.module.css';
 
 function Index() {
     const [posts, setPosts] = useState([]);

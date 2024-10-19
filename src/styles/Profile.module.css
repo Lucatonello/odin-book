@@ -54,3 +54,47 @@ body {
     padding: 20px;
     margin: 0;
 }
+.activityUl li {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 90%; /* Increase the width to occupy more space */
+  }
+  
+  .activityUl li p {
+    margin: 0;
+    color: #666;
+  }
+  
+  .activityUl {
+    list-style-type: none;
+    margin-left: 0; /* Align with the strong element */
+    padding: 0px;
+  }
+  
+  .strongTitle {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #0073b1;
+  }
+  
+  .activityContainer {
+    display: flex;
+    justify-content: space-between; /* Space between posts and comments */
+    gap: 20px; /* Optional, adds space between columns */
+  }
+  
+  .activitySection {
+    flex: 1; /* Equal width for both columns */
+  }
+.post {
+    margin-left: 20px;
+}
+.logoContainer {
+  display: flex;
+}
+.experienceP {
+  margin: 3px;
+}
