@@ -41,6 +41,14 @@ const memberQueries = {
                 Authorization: `Bearer ${token}`
             }
         });
+    },
+    getUserSkills: async (id) => {
+        return await fetch(`${API_URL}getUserSkills/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
     }
 }
 

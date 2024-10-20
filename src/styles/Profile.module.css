@@ -3,53 +3,56 @@ body {
 } 
 
 .profileContainer {
-    max-width: 804px; /* Limit the width of the profile container */
-    margin: auto; /* Center the container */
-    position: relative; /* Allow positioning of the profile picture */
+    max-width: 804px; 
+    margin: auto; 
+    position: relative; 
     margin-top: 15px;
     border-radius: 10px;
     background-color: white;
-    padding: 15px;
+    padding: 10px;
 }
 
 .bannerContainer {
-    position: relative; /* Needed to position the profile picture over the banner */
+    position: relative; 
 }
 
 .bannerImage {
-    width: 100%; /* Make the banner responsive */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto; 
     border-radius: 10px;
 }
 
 .profilePicture {
-    position: absolute; /* Overlap the banner */
-    top: 110px; /* Adjust to the desired position */
-    left: 20px; /* Space from the left side */
-    height: 121.33px; /* Height as per your requirement */
-    width: 121.33px; /* Width as per your requirement */
-    border-radius: 50%; /* Make it circular */
-    border: 3px solid white; /* Optional: Add a border for better visibility */
+    position: absolute;
+    top: 110px;
+    left: 20px;
+    height: 121.33px;
+    width: 121.33px;
+    border-radius: 50%;
+    border: 3px solid white;
 }
 
 .username {
-    font-size: 24px; /* LinkedIn style for username */
-    font-weight: bold; /* Make it bold */
-    margin: 40px 0px 0px 20px; /* Spacing above the username */
+    font-size: 24px;
+    font-weight: bold;
+    margin: 40px 0px 0px 20px;
 }
 .titles {
-    font-size: 24px; /* LinkedIn style for username */
-    font-weight: bold; /* Make it bold */
+    font-size: 24px;
+    font-weight: bold;
     margin: 10px 0px 0px 20px;
+}
+li {
+  list-style: none;
 }
 
 .summary,
 .location,
 .website,
 .connections {
-    margin: 10px 0px 10px 20px; /* Add vertical spacing for all text elements */
-    font-size: 16px; /* Standard font size */
-    color: #555; /* Subtle gray color */
+    margin: 10px 0px 10px 20px; 
+    font-size: 16px;
+    color: #555; 
 }
 .about {
     padding: 20px;
@@ -60,7 +63,7 @@ body {
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
-    max-width: 90%; /* Increase the width to occupy more space */
+    max-width: 90%;
   }
   
   .activityUl li p {
@@ -70,7 +73,7 @@ body {
   
   .activityUl {
     list-style-type: none;
-    margin-left: 0; /* Align with the strong element */
+    margin-left: 0;
     padding: 0px;
   }
   
@@ -83,12 +86,12 @@ body {
   
   .activityContainer {
     display: flex;
-    justify-content: space-between; /* Space between posts and comments */
-    gap: 20px; /* Optional, adds space between columns */
+    justify-content: space-between;
+    gap: 20px;
   }
   
   .activitySection {
-    flex: 1; /* Equal width for both columns */
+    flex: 1;
   }
 .post {
     margin-left: 20px;

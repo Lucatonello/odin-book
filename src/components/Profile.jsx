@@ -13,6 +13,7 @@ function Profile() {
 
     const [userExperience, setUserExperience] = useState([]); 
     const [userEducation , setUserEducation] = useState([]);
+    const [userSkills, setUserSkills] = useState([]);
     
     const type = localStorage.getItem('type');
     const id = localStorage.getItem('authorid');
@@ -54,7 +55,12 @@ function Profile() {
                 const educationResponse = await memberQueries.getUserEducation(id);
                 const educationData = await educationResponse.json();
                 setUserEducation(educationData);
-                console.log('ed data', educationData)
+
+                //get skills data
+                const skillsResponse = await memberQueries.getUserSkills(id);
+                const skillsData = await skillsResponse.json();
+                setUserSkills(skillsData);
+                console.log('skills data', skillsData);
             } else {
                 return 
             }
@@ -82,16 +88,16 @@ function Profile() {
                 <p className={styles.location}>{memberData.location}</p>
                 <a className={styles.website} href={memberData.website} target='__blank' style={{ color: '#0a66c2', textDecoration: 'none'}}>{memberData.website}</a>
                 <div style={{ display: 'flex' }}>
-                    <p className={styles.connections} style={{ color: '#0a66c2'}}>
+                    <p className={styles.connections}>
                         {memberData.connections_count} connections 
                     </p>
                     <p className={styles.connections} style={{ marginLeft: '10px'}}>
                         {memberData.followers_count} followers
                     </p>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                {/* <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                     <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
-                </svg>
+                </svg> */}
             </div>
             {/* About */}
             {memberData.about && (
@@ -189,6 +195,19 @@ function Profile() {
                                         
                                         <p className={styles.experienceP} style={{ color: '#555' }}>{ed.location}</p>
                                     </div>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+            {/* Skills */}
+            <div className={styles.profileContainer}>
+                <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Skills</h1>
+                {userSkills && (
+                    <ul>
+                        {userSkills.map(skill => (
+                            <li key={skill.id} style={{ borderBottom: '1px solid #e8e8e8', width: '90%' }}>
+                                <p>{skill.skill}</p>
                             </li>
                         ))}
                     </ul>
