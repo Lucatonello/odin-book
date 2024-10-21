@@ -49,6 +49,15 @@ const memberQueries = {
                 Authorization: `Bearer ${token}`
             }
         });
+    },
+    updateUserIntro: async(filteredData, userid) => {
+        return await fetch(`${API_URL}updateUserIntro/${userid}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: filteredData
+        });
     }
 }
 

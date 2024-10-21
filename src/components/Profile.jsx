@@ -1,22 +1,34 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import memberQueries from '../queries/memberQueries';
 import linkedInLogo from '../images/linkedin.png'
 import defaultBanner from '../images/default-banner.png';
 import companyLogo from '../images/default-company-logo.png';
 import schoolLogo from '../images/default-school-logo.png';
 import Navbar from './Navbar';
+import EditProfile from './EditProfile'
+import NewPost from './NewPost';
 import styles from '../styles/Profile.module.css'; 
 
 function Profile() {
     const [memberData, setMemberData] = useState('');
     const [memberActivity, setMemberActivity] = useState([]);
-
+    const [isAdmin, setIsAdmin] = useState(false);
     const [userExperience, setUserExperience] = useState([]); 
     const [userEducation , setUserEducation] = useState([]);
     const [userSkills, setUserSkills] = useState([]);
-    
-    const type = localStorage.getItem('type');
-    const id = localStorage.getItem('authorid');
+
+    const [showEditProfile, setShowEditProfile] = useState(false);
+
+    const userId = localStorage.getItem('authorid');
+    const { type } = useParams();
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (userId == id) {
+            setIsAdmin(true);
+        } else return
+    }, [id, userId]);
 
     useEffect(() => {
         const getMemberData = async () => {
@@ -61,15 +73,14 @@ function Profile() {
                 const skillsData = await skillsResponse.json();
                 setUserSkills(skillsData);
                 console.log('skills data', skillsData);
-            } else {
-                return 
-            }
+            } else return
         }
         getUserExperience();
     }, [id, type])
 
     return (
         <>
+            {showEditProfile && <EditProfile onHide={() => setShowEditProfile(false)} memberData={memberData} />}
             <Navbar />
             {/* Main header */}
             <div className={styles.profileContainer}>
@@ -95,9 +106,12 @@ function Profile() {
                         {memberData.followers_count} followers
                     </p>
                 </div>
-                {/* <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-                    <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
-                </svg> */}
+                {isAdmin && (
+                    <svg onClick={() => setShowEditProfile(true)} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
+                    </svg>
+
+                )}
             </div>
             {/* About */}
             {memberData.about && (

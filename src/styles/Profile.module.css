@@ -1,5 +1,7 @@
 body {
     background-color: #f5f3f0;
+    margin: 0;
+    padding: 0;
 } 
 
 .profileContainer {

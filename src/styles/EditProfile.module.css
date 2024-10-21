@@ -1,0 +1,39 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.container {
+    position: relative;
+    z-index: 1001;
+    width: 744px;
+    max-height: calc(100vh - 96px);
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); 
+    overflow-y: auto;
+}
+.input {
+    margin: 7px 0px 24px 0px;
+    width: 90%;
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1.3px solid;
+    font-size: 16px;
+}
+.save {
+    color: white;
+    background-color: #0A66C2;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 16px;
+    font-size: 16px;
+}

@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 function Navbar() {
     const navigate = useNavigate();
 
+    const type = localStorage.getItem('type');
+    const id = localStorage.getItem('authorid');
+
     return (
         <nav className={styles.navbar}>
             {/* LinkedIn Icon */}
@@ -70,7 +73,7 @@ function Navbar() {
                         src={linkedInIcon} 
                         alt="Profile Icon" 
                         className={styles.icon}
-                        onClick={() => navigate('/profile')} 
+                        onClick={() => navigate(`/profile/${type}/${id}`)} 
                     />
                     <span>Me</span>
                 </div>

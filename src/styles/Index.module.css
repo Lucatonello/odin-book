@@ -2,3 +2,21 @@ body, html {
     margin: 0px;
     padding: 0px;
 }
+.postsContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    gap: 20px;
+}
+.postsContainer li {
+    width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+.top, .bottom, .section {
+    display: flex;
+}
+.bottom {
+    justify-content: center;
+}
