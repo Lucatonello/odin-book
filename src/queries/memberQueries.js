@@ -54,10 +54,21 @@ const memberQueries = {
         return await fetch(`${API_URL}updateUserIntro/${userid}`, {
             method: 'PUT',
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
             },
-            body: filteredData
+            body: JSON.stringify(filteredData),
         });
+    },
+    updateUserAbout: async (userid, newAbout) => {
+        return await fetch(`${API_URL}updateUserAbout/${userid}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ newAbout }),
+        })
     }
 }
 

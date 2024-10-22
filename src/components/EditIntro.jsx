@@ -30,7 +30,12 @@ function EditProfile({ onHide, memberData }) {
     return (
         <div className={styles.overlay} onClick={onHide}>
             <div className={styles.container} onClick={(e) => e.stopPropagation()}>
-                <h1>Edit intro</h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                    <h1 style={{ margin: '5px 0px'}}>Edit intro</h1>
+                    <svg style={{ margin: '5px 0px'}} className={styles.close} onClick={onHide} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                    </svg>
+                </div>
                 <hr />
                 <form onSubmit={handleSubmit}>
                     <legend>Full name*</legend>
