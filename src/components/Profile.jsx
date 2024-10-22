@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import memberQueries from '../queries/memberQueries';
 import linkedInLogo from '../images/linkedin.png'
 import defaultBanner from '../images/default-banner.png';
 import companyLogo from '../images/default-company-logo.png';
 import schoolLogo from '../images/default-school-logo.png';
 import Navbar from './Navbar';
-import EditIntro from './EditIntro'
-import EditAbout from './EditAbout';
-import NewPost from './NewPost';
+import EditIntro from './edit&add-Components/EditIntro'
+import EditAbout from './edit&add-Components/EditAbout';
+import NewPost from './edit&add-Components/NewPost';
+import NewExperience from './edit&add-Components/NewExperience';
+
 import styles from '../styles/Profile.module.css'; 
 
 function Profile() {
@@ -19,8 +21,11 @@ function Profile() {
     const [userEducation , setUserEducation] = useState([]);
     const [userSkills, setUserSkills] = useState([]);
 
+    const [showNewPost, setShowNewPost] = useState(false);
+
     const [showEditIntro, setShowEditIntro] = useState(false);
     const [showEditAbout, setShowEditAbout] = useState(false);
+    const [showNewExperience, setShowNewExperience] = useState(false);
 
     const userId = localStorage.getItem('authorid');
     const { type } = useParams();
@@ -82,9 +87,13 @@ function Profile() {
 
     return (
         <>
+            {/* Pop up tabs */}
             {showEditIntro && <EditIntro onHide={() => setShowEditIntro(false)} memberData={memberData} />}
             {showEditAbout && <EditAbout onHide={() => setShowEditAbout(false)} memberData={memberData} />}
+            {showNewPost && <NewPost onHide={() => setShowNewPost(false)} />}
+            {showNewExperience && <NewExperience onHide={() => setShowNewExperience(false)} userId={userId} />}
             <Navbar />
+
             {/* Main header */}
             <div className={styles.profileContainer}>
                 <div className={styles.bannerContainer}>
@@ -122,17 +131,21 @@ function Profile() {
                     <h1 className={styles.titles} style={{ paddingTop: '10px'}}>About</h1>
                     <p className={styles.about}>{memberData.about}</p>
                     {isAdmin && (
-                    <svg onClick={() => setShowEditAbout(true)} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-                        <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
-                    </svg>
-
-                )}
+                        <svg onClick={() => setShowEditAbout(true)} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                            <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
+                        </svg>
+                    )}
                 </div>
             )}
 
             {/* Activity */}
             <div className={styles.profileContainer}>
-                <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Activity</h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                    <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Activity</h1>
+                    {isAdmin && (
+                        <button onClick={() => setShowNewPost(true)} className={styles.createPost} type='button'>Create a post</button>
+                    )}
+                </div>
 
                 <div className={styles.activityContainer}>
                     {/* Posts Section */}
@@ -166,7 +179,19 @@ function Profile() {
 
             {/* Experience */}
             <div className={styles.profileContainer}>
-                <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Experience</h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Experience</h1>
+                    {isAdmin && (
+                        <div style={{ display: 'flex' }}>
+                            <svg onClick={() => setShowNewExperience(true)} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                            </svg>
+                            <svg style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
+                            </svg>
+                        </div>
+                    )}
+                </div>
                 <ul>
                     {userExperience && (
                         userExperience.map(exp => (

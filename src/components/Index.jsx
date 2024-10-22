@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import postsQueries from '../queries/postsQueries';
 import Comments from './Comments';
-import NewPost from './NewPost';
+import NewPost from './edit&add-Components/NewPost';
 import Navbar from './Navbar';
 import defaultpfp from '../images/user.png';
 import styles from '../styles/Index.module.css';

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import styles from '../styles/EditProfile.module.css'
-import memberQueries from "../queries/memberQueries";
+import styles from '../../styles/EditProfile.module.css'
+import memberQueries from "../../queries/memberQueries";
 
 function EditAbout({ onHide, memberData }) {
     const [newAbout, setNewAbout] = useState("");

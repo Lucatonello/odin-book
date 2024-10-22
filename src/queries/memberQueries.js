@@ -69,6 +69,16 @@ const memberQueries = {
             },
             body: JSON.stringify({ newAbout }),
         })
+    },
+    newExperience: async (userid, data) => {
+        return await fetch(`${API_URL}newExperience/${userid}`, {
+            method: 'POST',
+            heders: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
     }
 }
 

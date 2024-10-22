@@ -1,6 +1,6 @@
 import { useState } from "react";
-import postsQueries from '../queries/postsQueries';
-import styles from '../styles/NewPost.module.css'
+import postsQueries from '../../queries/postsQueries';
+import styles from '../../styles/NewPost.module.css'
 
 function NewPost ({ onHide }) {
     const [newPost, setNewPost] = useState('');

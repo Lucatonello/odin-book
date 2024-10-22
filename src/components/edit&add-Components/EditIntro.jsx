@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import styles from '../styles/EditProfile.module.css'
-import memberQueries from "../queries/memberQueries";
+import styles from '../../styles/EditProfile.module.css'
+import memberQueries from "../../queries/memberQueries";
 
 function EditProfile({ onHide, memberData }) {
     const [newUsername, setNewUsername] = useState('');
@@ -24,6 +24,11 @@ function EditProfile({ onHide, memberData }) {
             // eslint-disable-next-line no-unused-vars
             Object.entries(newData).filter(([key, value]) => value.length > 0)
         );
+
+        if ('username' in filteredData ) {
+            localStorage.setItem('username', filteredData.username)
+        }
+
         console.log('f data', filteredData);
         await memberQueries.updateUserIntro(filteredData, userid);
     }

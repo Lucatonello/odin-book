@@ -37,3 +37,20 @@
     padding: 6px 16px;
     font-size: 16px;
 }
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+.bottom {
+    display: flex;
+    justify-content: flex-end;
+}
+.save {
+    color: white;
+    background-color: #0A66C2;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 16px;
+    margin: 7px;
+    font-size: 16px;
+}
