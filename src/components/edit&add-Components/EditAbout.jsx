@@ -1,9 +1,10 @@
 import { useState } from "react";
+import PropTypes from 'prop-types';
 import styles from '../../styles/EditProfile.module.css'
 import memberQueries from "../../queries/memberQueries";
 
 function EditAbout({ onHide, memberData }) {
-    const [newAbout, setNewAbout] = useState("");
+    const [newAbout, setNewAbout] = useState(memberData.about);
 
     const userid = localStorage.getItem('authorid');
 
@@ -28,7 +29,6 @@ function EditAbout({ onHide, memberData }) {
                     <textarea 
                         type="text" 
                         value={newAbout}
-                        placeholder={memberData.about}
                         className={styles.input}
                         onChange={(e) => setNewAbout(e.target.value)}
                     />
@@ -41,5 +41,10 @@ function EditAbout({ onHide, memberData }) {
         </div>
     );
 }
+
+EditAbout.propTypes = {
+    onHide: PropTypes.func.isRequired, 
+    memberData: PropTypes.object.isRequired, 
+};
 
 export default EditAbout;

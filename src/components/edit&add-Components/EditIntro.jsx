@@ -1,13 +1,13 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
+import PropTypes from 'prop-types';
 import styles from '../../styles/EditProfile.module.css'
 import memberQueries from "../../queries/memberQueries";
 
 function EditProfile({ onHide, memberData }) {
-    const [newUsername, setNewUsername] = useState('');
-    const [newSummary, setNewSummary] = useState('');
-    const [newLocation, setNewLocation] = useState('');
-    const [newWebsite, setNewWebsite] = useState('');
+    const [newUsername, setNewUsername] = useState(memberData.username);
+    const [newSummary, setNewSummary] = useState(memberData.summary);
+    const [newLocation, setNewLocation] = useState(memberData.location);
+    const [newWebsite, setNewWebsite] = useState(memberData.website);
 
     const userid = localStorage.getItem('authorid')
 
@@ -47,7 +47,6 @@ function EditProfile({ onHide, memberData }) {
                     <input 
                         type="text" 
                         value={newUsername}
-                        placeholder={memberData.username}
                         className={styles.input}
                         onChange={(e) => setNewUsername(e.target.value)}
                     />
@@ -56,7 +55,6 @@ function EditProfile({ onHide, memberData }) {
                     <input 
                         type="text"
                         value={newSummary} 
-                        placeholder={memberData.summary}
                         className={styles.input}
                         onChange={(e) => setNewSummary(e.target.value)}
                     />
@@ -64,7 +62,7 @@ function EditProfile({ onHide, memberData }) {
                     <input 
                         type="text"
                         value={newLocation}
-                        placeholder={memberData.location} 
+                        placeholder={'Ex: United States'} 
                         className={styles.input}
                         onChange={(e) => setNewLocation(e.target.value)}
                     />
@@ -72,7 +70,6 @@ function EditProfile({ onHide, memberData }) {
                     <input 
                         type="text"
                         value={newWebsite}
-                        placeholder={memberData.website} 
                         className={styles.input}
                         onChange={(e) => setNewWebsite(e.target.value)}
                     />
@@ -85,5 +82,10 @@ function EditProfile({ onHide, memberData }) {
         </div>
     )
 }
+
+EditProfile.propTypes = {
+    onHide: PropTypes.func.isRequired, 
+    memberData: PropTypes.object.isRequired, 
+};
 
 export default EditProfile;

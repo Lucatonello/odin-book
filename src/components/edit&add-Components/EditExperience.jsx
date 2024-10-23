@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import memberQueries from "../../queries/memberQueries";
 import styles from '../../styles/EditProfile.module.css'
 
-function NewExperience({ onHide, userId }) {
-    const [title, setTitle] = useState('');
-    const [employmentType, setEmploymentType] = useState('');
-    const [companyName, setCompanyName] = useState('');
-    const [location, setLocation] = useState('');
-    const [startMonth, setStartMonth] = useState(null);
-    const [startYear, setStartYear] = useState(null);
-    const [endMonth, setEndMonth] = useState(null);
-    const [endYear, setEndYear] = useState(null);
-    const [isActive, setIsActive] = useState('false');
-    const [description, setDescription] = useState('');
+function EditExperience({ onHide, userId, experienceDetails }) {
+    console.log(experienceDetails);
+
+    const [title, setTitle] = useState(experienceDetails.title);
+    const [employmentType, setEmploymentType] = useState(experienceDetails.employmenttype);
+    const [companyName, setCompanyName] = useState(experienceDetails.companyname);
+    const [location, setLocation] = useState(experienceDetails.location.length > 0 ? experienceDetails.location : '');
+    const [startMonth, setStartMonth] = useState(experienceDetails.startmonth);
+    const [startYear, setStartYear] = useState(experienceDetails.startyear);
+    const [endMonth, setEndMonth] = useState(experienceDetails.endmonth);
+    const [endYear, setEndYear] = useState(experienceDetails.endyear);
+    const [isActive, setIsActive] = useState(experienceDetails.isactive === true ? experienceDetails.isActive : 'false');
+    const [description, setDescription] = useState(experienceDetails.description !== ' ' ? experienceDetails.description : '');
 
     const currentYear = new Date().getFullYear();
     const startingYear = 1924;
@@ -37,10 +39,9 @@ function NewExperience({ onHide, userId }) {
             // eslint-disable-next-line no-unused-vars
             Object.entries(data).filter(([key, value]) => value !== '' && value !== null && value !== undefined)
         );
-        await memberQueries.newExperience(userId, filteredData);
+        await memberQueries.editExperience(userId, filteredData);
     }
 
-    //separate functions to handle the event of dropdowns to ensure the state updates properly when the server is slow
     const handleTypeChange = (e) => {
         const newType = e.target.value;
         setEmploymentType(newType);
@@ -70,7 +71,7 @@ function NewExperience({ onHide, userId }) {
         <div className={styles.overlay}>
             <div className={styles.container}>
                 <div className={styles.top}>
-                    <h1 style={{ margin: '0px' }}>Add experience</h1>
+                    <h1 style={{ margin: '0' }}>Edit experience</h1>
                     <svg className={styles.close} onClick={onHide} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                         <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
                     </svg>
@@ -81,6 +82,7 @@ function NewExperience({ onHide, userId }) {
                     <input 
                         type="text" 
                         value={title}
+                        defaultValue={experienceDetails.title}
                         placeholder="Ex: Backend Developer"
                         className={styles.input}
                         onChange={(e) => setTitle(e.target.value)}
@@ -190,13 +192,17 @@ function NewExperience({ onHide, userId }) {
                         <button className={styles.save} type="submit">Save</button>
                     </div>               
                 </form>
+
+                <hr />
             </div>
         </div>
     );
 }
-NewExperience.propTypes = {
+
+EditExperience.propTypes = {
     onHide: PropTypes.func.isRequired, 
-    userId: PropTypes.string.isRequired, 
+    userId: PropTypes.isRequired,
+    experienceDetails: PropTypes.isRequired, 
 };
 
-export default NewExperience;
+export default EditExperience;

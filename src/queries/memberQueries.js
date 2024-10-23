@@ -70,15 +70,25 @@ const memberQueries = {
             body: JSON.stringify({ newAbout }),
         })
     },
-    newExperience: async (userid, data) => {
+    newExperience: async (userid, filteredData) => {
         return await fetch(`${API_URL}newExperience/${userid}`, {
             method: 'POST',
-            heders: {
+            headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(filteredData)
         });
+    },
+    editExperience: async (userid, filteredData) => {
+        return await fetch(`${API_URL}editExperience/${userid}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filteredData)
+        })
     }
 }
 

@@ -10,6 +10,7 @@ import EditIntro from './edit&add-Components/EditIntro'
 import EditAbout from './edit&add-Components/EditAbout';
 import NewPost from './edit&add-Components/NewPost';
 import NewExperience from './edit&add-Components/NewExperience';
+import EditExperience from './edit&add-Components/EditExperience';
 
 import styles from '../styles/Profile.module.css'; 
 
@@ -22,10 +23,11 @@ function Profile() {
     const [userSkills, setUserSkills] = useState([]);
 
     const [showNewPost, setShowNewPost] = useState(false);
-
     const [showEditIntro, setShowEditIntro] = useState(false);
     const [showEditAbout, setShowEditAbout] = useState(false);
     const [showNewExperience, setShowNewExperience] = useState(false);
+    const [experienceDetails, setExperienceDetails] = useState(null);
+    const [showEditExperience, setShowEditExperience] = useState(false);
 
     const userId = localStorage.getItem('authorid');
     const { type } = useParams();
@@ -92,6 +94,7 @@ function Profile() {
             {showEditAbout && <EditAbout onHide={() => setShowEditAbout(false)} memberData={memberData} />}
             {showNewPost && <NewPost onHide={() => setShowNewPost(false)} />}
             {showNewExperience && <NewExperience onHide={() => setShowNewExperience(false)} userId={userId} />}
+            {showEditExperience && <EditExperience onHide={() => setShowEditExperience(false)} userId={userId} experienceDetails={experienceDetails} />}
             <Navbar />
 
             {/* Main header */}
@@ -119,7 +122,7 @@ function Profile() {
                     </p>
                 </div>
                 {isAdmin && (
-                    <svg onClick={() => setShowEditIntro(true)} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                    <svg onClick={() => setShowEditIntro(true)} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                         <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
                     </svg>
 
@@ -131,7 +134,7 @@ function Profile() {
                     <h1 className={styles.titles} style={{ paddingTop: '10px'}}>About</h1>
                     <p className={styles.about}>{memberData.about}</p>
                     {isAdmin && (
-                        <svg onClick={() => setShowEditAbout(true)} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <svg onClick={() => setShowEditAbout(true)} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                             <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
                         </svg>
                     )}
@@ -183,11 +186,8 @@ function Profile() {
                     <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Experience</h1>
                     {isAdmin && (
                         <div style={{ display: 'flex' }}>
-                            <svg onClick={() => setShowNewExperience(true)} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                            <svg onClick={() => setShowNewExperience(true)} className={styles.close} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                 <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
-                            </svg>
-                            <svg style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-                                <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
                             </svg>
                         </div>
                     )}
@@ -205,14 +205,25 @@ function Profile() {
                                 </div>
                                 <div className={styles.jobDetailsContainer}>
                                     <strong>{exp.title}</strong>
-                                    <p className={styles.experienceP} >{exp.companyname} - {exp.employmenytype}</p>
+                                    <p className={styles.experienceP} >{exp.companyname} - {exp.employmenttype}</p>
 
                                     <p className={styles.experienceP} style={{ color: '#555' }}>
-                                        {exp.startdate} - {exp.enddate ? exp.enddate : exp.isactive ? 'Present' : null}
+                                        {exp.startmonth} {exp.startyear} - {exp.endmonth ? exp.endmonth + ' ' + exp.endyear : exp.isactive ? 'Present' : null}
                                     </p>
                                     
                                     <p className={styles.experienceP} style={{ color: '#555' }}>{exp.location}</p>
                                 </div>
+                                {isAdmin && (
+                                    <div style={{ position: 'relative' }}>
+                                        <svg onClick={() => {
+                                            setShowEditExperience(true);
+                                            setExperienceDetails(exp);
+                                        }} 
+                                            style={{ margin: '0px 10px', padding: '5px' }} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                            <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
+                                        </svg>
+                                    </div>
+                                )}
                             </li>
                         ))
                     )}

@@ -37,6 +37,13 @@
     padding: 6px 16px;
     font-size: 16px;
 }
+.close {
+    border-radius: 50%;
+    padding: 5px;
+}
+.close:hover {
+    background-color: rgba(0, 0, 0, 0.1)
+}
 .top {
     display: flex;
     justify-content: space-between;
