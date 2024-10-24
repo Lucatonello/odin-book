@@ -57,3 +57,6 @@ hr {
     margin: 7px;
     font-size: 16px;
 }
+.post:hover {
+    background-color: #095098;
+}

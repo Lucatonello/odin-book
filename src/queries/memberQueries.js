@@ -80,8 +80,8 @@ const memberQueries = {
             body: JSON.stringify(filteredData)
         });
     },
-    editExperience: async (userid, filteredData) => {
-        return await fetch(`${API_URL}editExperience/${userid}`, {
+    editExperience: async (userid, expid, filteredData) => {
+        return await fetch(`${API_URL}editExperience/${userid}/${expid}`, {
             method: 'PUT',
             headers: {
                 Authorization: `Bearer ${token}`,

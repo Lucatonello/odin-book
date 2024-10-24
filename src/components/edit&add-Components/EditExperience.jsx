@@ -4,7 +4,6 @@ import memberQueries from "../../queries/memberQueries";
 import styles from '../../styles/EditProfile.module.css'
 
 function EditExperience({ onHide, userId, experienceDetails }) {
-    console.log(experienceDetails);
 
     const [title, setTitle] = useState(experienceDetails.title);
     const [employmentType, setEmploymentType] = useState(experienceDetails.employmenttype);
@@ -39,7 +38,7 @@ function EditExperience({ onHide, userId, experienceDetails }) {
             // eslint-disable-next-line no-unused-vars
             Object.entries(data).filter(([key, value]) => value !== '' && value !== null && value !== undefined)
         );
-        await memberQueries.editExperience(userId, filteredData);
+        await memberQueries.editExperience(userId, experienceDetails.id, filteredData);
     }
 
     const handleTypeChange = (e) => {
@@ -92,14 +91,14 @@ function EditExperience({ onHide, userId, experienceDetails }) {
                     <legend>Employment type</legend>
                     <select className={styles.input} style={{ width: '92.3%' }} value={employmentType} onChange={handleTypeChange}>
                         <option value=" " disabled>Please select</option>
-                        <option value="fullTime">Full-time</option>
-                        <option value="partTime">part-time</option>
-                        <option value="selfEmployed">Self-employed</option>
-                        <option value="freelance">Freelance</option>
-                        <option value="contract">Contract</option>
-                        <option value="internship">Internship</option>
-                        <option value="apprenticeship">Apprenticeship</option>
-                        <option value="seasonal">Seasonal</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">part-time</option>
+                        <option value="Self-employed">Self-employed</option>
+                        <option value="Freelance">Freelance</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Apprenticeship">Apprenticeship</option>
+                        <option value="Seasonal">Seasonal</option>
                     </select>
 
                     <legend>Company name*</legend>
@@ -157,18 +156,18 @@ function EditExperience({ onHide, userId, experienceDetails }) {
                             <legend>End date*</legend>
                             <select className={styles.input} style={{ width: '45.5%', marginRight: '10px' }} value={endMonth} onChange={handleEndMonthChange}>
                                 <option value="">Month</option>
-                                <option value="january">January</option>
-                                <option value="february">February</option>
-                                <option value="march">March</option>
-                                <option value="april">April</option>
-                                <option value="may">May</option>
-                                <option value="june">June</option>
-                                <option value="july">July</option>
-                                <option value="august">August</option>
-                                <option value="september">September</option>
-                                <option value="october">October</option>
-                                <option value="november">November</option>
-                                <option value="december">December</option>
+                                <option value="Jan">January</option>
+                                <option value="Feb">February</option>
+                                <option value="Mar">March</option>
+                                <option value="Apr">April</option>
+                                <option value="May">May</option>
+                                <option value="Jun">June</option>
+                                <option value="Jul">July</option>
+                                <option value="Aug">August</option>
+                                <option value="Sep">September</option>
+                                <option value="Oct">October</option>
+                                <option value="Nov">November</option>
+                                <option value="Dec">December</option>
                             </select>
 
                             <select className={styles.input} style={{ width: '45.5%', marginRight: '10px' }} value={endYear} onChange={handleEndYearChange}>
@@ -188,12 +187,11 @@ function EditExperience({ onHide, userId, experienceDetails }) {
                     />     
                     <hr />
                 
-                    <div className={styles.bottom}>
+                    <div className={styles.dobuleButtonBottom}>
+                        <button className={styles.delete}>Delete experience</button>
                         <button className={styles.save} type="submit">Save</button>
                     </div>               
                 </form>
-
-                <hr />
             </div>
         </div>
     );
