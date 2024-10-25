@@ -11,6 +11,8 @@ import EditAbout from './edit&add-Components/EditAbout';
 import NewPost from './edit&add-Components/NewPost';
 import NewExperience from './edit&add-Components/NewExperience';
 import EditExperience from './edit&add-Components/EditExperience';
+import NewEducation from './edit&add-Components/NewEducation';
+import EditEducation from './edit&add-Components/EditEducation';
 
 import styles from '../styles/Profile.module.css'; 
 
@@ -21,13 +23,16 @@ function Profile() {
     const [userExperience, setUserExperience] = useState([]); 
     const [userEducation , setUserEducation] = useState([]);
     const [userSkills, setUserSkills] = useState([]);
+    const [experienceDetails, setExperienceDetails] = useState(null);
+    const [educationDetails, setEducationDetails] = useState(null)
 
     const [showNewPost, setShowNewPost] = useState(false);
     const [showEditIntro, setShowEditIntro] = useState(false);
     const [showEditAbout, setShowEditAbout] = useState(false);
     const [showNewExperience, setShowNewExperience] = useState(false);
-    const [experienceDetails, setExperienceDetails] = useState(null);
     const [showEditExperience, setShowEditExperience] = useState(false);
+    const [showNewEducation, setShowNewEducation] = useState(false);
+    const [showEditEducation, setShowEditEducation] = useState(false);
 
     const userId = localStorage.getItem('authorid');
     const { type } = useParams();
@@ -68,6 +73,7 @@ function Profile() {
     useEffect(() => {
         const getUserExperience = async () => {
             if (type === 'user') {
+                //get experience data
                 const experienceResponse = await memberQueries.getUserExperience(id)
                 const experienceData = await experienceResponse.json();
                 setUserExperience(experienceData);
@@ -76,6 +82,7 @@ function Profile() {
                 const educationResponse = await memberQueries.getUserEducation(id);
                 const educationData = await educationResponse.json();
                 setUserEducation(educationData);
+                console.log(educationData)
 
                 //get skills data
                 const skillsResponse = await memberQueries.getUserSkills(id);
@@ -95,6 +102,8 @@ function Profile() {
             {showNewPost && <NewPost onHide={() => setShowNewPost(false)} />}
             {showNewExperience && <NewExperience onHide={() => setShowNewExperience(false)} userId={userId} />}
             {showEditExperience && <EditExperience onHide={() => setShowEditExperience(false)} userId={userId} experienceDetails={experienceDetails} />}
+            {showNewEducation && <NewEducation onHide={() => setShowNewEducation(false)} userId={userId} />}
+            {showEditEducation && <EditEducation onHide={() => setShowEditEducation(false)} userId={userId} educationDetails={educationDetails} />}
             <Navbar />
 
             {/* Main header */}
@@ -182,7 +191,7 @@ function Profile() {
 
             {/* Experience */}
             <div className={styles.profileContainer}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div className={styles.top}>
                     <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Experience</h1>
                     {isAdmin && (
                         <div style={{ display: 'flex' }}>
@@ -232,7 +241,12 @@ function Profile() {
 
             {/* Education */}
             <div className={styles.profileContainer}>
-                <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Education</h1>
+                <div className={styles.top}>
+                    <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Education</h1>
+                    <svg onClick={() => setShowNewEducation(true)} className={styles.close} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                    </svg>
+                </div>
                 {userEducation && (
                     <ul>
                         {userEducation.map(ed => (
@@ -249,11 +263,22 @@ function Profile() {
                                         <p className={styles.experienceP} >{ed.degree}</p>
     
                                         <p className={styles.experienceP} style={{ color: '#555' }}>
-                                            {ed.startdate} - {ed.enddate ? ed.enddate : ed.isactive ? 'Present' : null}
+                                           {ed.startmonth && ed.startmonth} {ed.startyear && ed.startyear} - {ed.endmonth && ed.endmonth} {ed.endyear && ed.endyear}
                                         </p>
                                         
                                         <p className={styles.experienceP} style={{ color: '#555' }}>{ed.location}</p>
-                                    </div>
+                                </div>
+                                {isAdmin && (
+                                <div style={{ position: 'relative' }}>
+                                    <svg onClick={() => {
+                                        setShowEditEducation(true);
+                                        setEducationDetails(ed);
+                                    }} 
+                                        style={{ margin: '0px 10px', padding: '5px' }} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                        <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
+                                    </svg>
+                                </div>
+                                )}
                             </li>
                         ))}
                     </ul>

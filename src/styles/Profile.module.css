@@ -56,6 +56,10 @@ li {
     font-size: 16px;
     color: #555; 
 }
+.top {
+  display: flex;
+  justify-content: space-between;
+}
 .about {
     padding: 20px;
     margin: 0;
@@ -104,6 +108,9 @@ li {
   color: #0A66C2;
   border: 2px solid #0A66C2;
   margin: auto 20px;
+}
+.createPost:hover {
+  background-color: #0a66c234;
 }
 .post {
     margin-left: 20px;

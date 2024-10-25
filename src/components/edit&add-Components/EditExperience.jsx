@@ -41,6 +41,11 @@ function EditExperience({ onHide, userId, experienceDetails }) {
         await memberQueries.editExperience(userId, experienceDetails.id, filteredData);
     }
 
+    const handleDeleteExperience = async () => {
+        await memberQueries.deleteExperience(experienceDetails.id);
+    }
+
+    //separate functions to handle the event of dropdowns to ensure the state updates properly when the server is slow
     const handleTypeChange = (e) => {
         const newType = e.target.value;
         setEmploymentType(newType);
@@ -188,7 +193,7 @@ function EditExperience({ onHide, userId, experienceDetails }) {
                     <hr />
                 
                     <div className={styles.dobuleButtonBottom}>
-                        <button className={styles.delete}>Delete experience</button>
+                        <button className={styles.delete} onClick={handleDeleteExperience}>Delete experience</button>
                         <button className={styles.save} type="submit">Save</button>
                     </div>               
                 </form>

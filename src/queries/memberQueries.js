@@ -1,3 +1,5 @@
+import NewEducation from "../components/edit&add-Components/NewEducation";
+
 const API_URL = 'http://localhost:10000/members/';
 const token = localStorage.getItem('token');
 
@@ -89,6 +91,34 @@ const memberQueries = {
             },
             body: JSON.stringify(filteredData)
         })
+    },
+    deleteExperience: async (expid) => {
+        return await fetch(`${API_URL}deleteExperience/${expid}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+    },
+    newEducation: async (userid, filteredData) => {
+        return await fetch(`${API_URL}newEducation/${userid}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filteredData)
+        })
+    },
+    editEducation: async (userid, educationid, filteredData) => {
+        return await fetch(`${API_URL}editEducation/${userid}/${educationid}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filteredData)
+        });
     }
 }
 

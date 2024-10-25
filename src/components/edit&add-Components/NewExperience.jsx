@@ -91,7 +91,7 @@ function NewExperience({ onHide, userId }) {
                     <select className={styles.input} style={{ width: '92.3%' }} value={employmentType} onChange={handleTypeChange}>
                         <option value=" " disabled>Please select</option>
                         <option value="Full-time">Full-time</option>
-                        <option value="part-time">part-time</option>
+                        <option value="Part-time">Part-time</option>
                         <option value="Self-employed">Self-employed</option>
                         <option value="Freelance">Freelance</option>
                         <option value="Contract">Contract</option>
