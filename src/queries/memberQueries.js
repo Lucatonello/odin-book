@@ -119,6 +119,25 @@ const memberQueries = {
             },
             body: JSON.stringify(filteredData)
         });
+    },
+    deleteEducation: async (educationid) => {
+        return await fetch(`${API_URL}deleteEducation/${educationid}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+    },
+    newSkill: async (userId, skill) => {
+        return await fetch(`${API_URL}newSkill/${userId}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ skill: skill })
+        });
     }
 }
 

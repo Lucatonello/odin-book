@@ -35,7 +35,7 @@ function EditEducation({ onHide, userId, educationDetails }) {
 
     };
     const handleDeleteExperience = async () => {
-
+        await memberQueries.deleteEducation(educationDetails.id)
     };
 
      //separate functions to handle the event of dropdowns to ensure the state updates properly when the server is slow

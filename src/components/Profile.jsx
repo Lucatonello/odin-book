@@ -13,6 +13,7 @@ import NewExperience from './edit&add-Components/NewExperience';
 import EditExperience from './edit&add-Components/EditExperience';
 import NewEducation from './edit&add-Components/NewEducation';
 import EditEducation from './edit&add-Components/EditEducation';
+import NewSkill from './edit&add-Components/NewSkill';
 
 import styles from '../styles/Profile.module.css'; 
 
@@ -33,6 +34,7 @@ function Profile() {
     const [showEditExperience, setShowEditExperience] = useState(false);
     const [showNewEducation, setShowNewEducation] = useState(false);
     const [showEditEducation, setShowEditEducation] = useState(false);
+    const [showNewSkill, setShowNewSkill] = useState(false);
 
     const userId = localStorage.getItem('authorid');
     const { type } = useParams();
@@ -104,6 +106,7 @@ function Profile() {
             {showEditExperience && <EditExperience onHide={() => setShowEditExperience(false)} userId={userId} experienceDetails={experienceDetails} />}
             {showNewEducation && <NewEducation onHide={() => setShowNewEducation(false)} userId={userId} />}
             {showEditEducation && <EditEducation onHide={() => setShowEditEducation(false)} userId={userId} educationDetails={educationDetails} />}
+            {showNewSkill && <NewSkill onHide={() => setShowNewSkill(false)} userId={userId} />}
             <Navbar />
 
             {/* Main header */}
@@ -286,7 +289,12 @@ function Profile() {
             </div>
             {/* Skills */}
             <div className={styles.profileContainer}>
-                <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Skills</h1>
+                <div className={styles.top}>
+                    <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Skills</h1>
+                    <svg onClick={() => setShowNewSkill(true)} className={styles.close} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                    </svg>
+                </div>
                 {userSkills && (
                     <ul>
                         {userSkills.map(skill => (
