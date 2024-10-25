@@ -1,3 +1,4 @@
+import App from "../App";
 import NewEducation from "../components/edit&add-Components/NewEducation";
 
 const API_URL = 'http://localhost:10000/members/';
@@ -138,6 +139,14 @@ const memberQueries = {
             },
             body: JSON.stringify({ skill: skill })
         });
+    },
+    deleteSkill: async (skillid) => {
+        return await fetch(`${API_URL}deleteSkill/${skillid}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
     }
 }
 

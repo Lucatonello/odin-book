@@ -96,6 +96,10 @@ function Profile() {
         getUserExperience();
     }, [id, type])
 
+    const handleDeleteSkill = async (skillid) => {
+        await memberQueries.deleteSkill(skillid);
+    };
+
     return (
         <>
             {/* Pop up tabs */}
@@ -298,8 +302,13 @@ function Profile() {
                 {userSkills && (
                     <ul>
                         {userSkills.map(skill => (
-                            <li key={skill.id} style={{ borderBottom: '1px solid #e8e8e8', width: '90%' }}>
+                            <li key={skill.id} style={{ borderBottom: '1px solid #e8e8e8', width: '90%', display: 'flex', justifyContent: 'space-between' }}>
                                 <p>{skill.skill}</p>
+                                {isAdmin && (
+                                    <svg onClick={() => handleDeleteSkill(skill.id)} style={{ margin: 'auto 5px' }} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                                    </svg>
+                                )}
                             </li>
                         ))}
                     </ul>
