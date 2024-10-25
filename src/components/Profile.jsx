@@ -18,6 +18,7 @@ import NewSkill from './edit&add-Components/NewSkill';
 import styles from '../styles/Profile.module.css'; 
 
 function Profile() {
+    console.log(localStorage);
     const [memberData, setMemberData] = useState('');
     const [memberActivity, setMemberActivity] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
@@ -126,9 +127,15 @@ function Profile() {
                 <h1 className={styles.username}>
                     {type === 'user' ? memberData.username : memberData.name}
                 </h1>
-                <strong style={{ marginBottom: '10px', marginTop: '3px' }} className={styles.summary}>{memberData.summary} </strong>
-                <p className={styles.location}>{memberData.location}</p>
-                <a className={styles.website} href={memberData.website} target='__blank' style={{ color: '#0a66c2', textDecoration: 'none'}}>{memberData.website}</a>
+                {memberData.summary && (
+                    <strong style={{ marginBottom: '10px', marginTop: '3px' }} className={styles.summary}>{memberData.summary} </strong>
+                )}
+                {memberData.location && (
+                    <p className={styles.location}>{memberData.location}</p>
+                )}
+                {memberData.website && (
+                    <a className={styles.website} href={memberData.website} target='__blank' style={{ color: '#0a66c2', textDecoration: 'none'}}>{memberData.website}</a>
+                )}
                 <div style={{ display: 'flex' }}>
                     <p className={styles.connections}>
                         {memberData.connections_count} connections 

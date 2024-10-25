@@ -29,6 +29,7 @@ function Login() {
                 if (response.ok) {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('username', data.username);
+                    localStorage.setItem('authorid', data.userid)
                     navigate('/');
                 } else {
                     console.error('Login failed:', data);
@@ -42,6 +43,7 @@ function Login() {
                 if (response.ok) {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('username', data.username);
+                    localStorage.setItem('authorid', data.userid);
                     navigate('/');
                 } else {
                     console.error('Login failed:', data);
