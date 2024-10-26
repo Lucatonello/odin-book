@@ -1,0 +1,27 @@
+.top {
+    display: flex;
+}
+.newComment {
+    border-radius: 20px;
+    border: 1px solid #b3b3b3;
+    height: 40px;
+    width: 80%;
+    margin-left: 10px;
+    margin-bottom: 50px;
+    padding-left: 10px;
+}
+.save {
+    color: white;
+    background-color: #0A66C2;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 16px;
+    margin: 7px;
+    font-size: 16px;
+}
+.comment {
+    
+}
+ul {
+    padding: 0;
+}
