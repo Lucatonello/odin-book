@@ -1,6 +1,3 @@
-import App from "../App";
-import NewEducation from "../components/edit&add-Components/NewEducation";
-
 const API_URL = 'http://localhost:10000/members/';
 const token = localStorage.getItem('token');
 

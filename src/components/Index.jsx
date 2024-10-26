@@ -45,9 +45,15 @@ function Index() {
     return (
         <div>
             <Navbar />
-            
-            <button type="button" onClick={() => setShowNewPost(true)}>Start posting...</button>
             {showNewPost && <NewPost onHide={() => setShowNewPost(false)} />}
+
+            <div className={styles.post} style={{ display: 'flex', marginTop: '20px' }}>
+                <img src={defaultpfp} alt="profile picture" style={{ height: '47.99px', width: '47.99px' }} />
+                <button onClick={() => setShowNewPost(true)} className={styles.startPosting}>
+                    <strong style={{ color: '#666666' }}>Start a post, share your thoughts</strong>
+                </button>
+            </div>
+
             <ul className={styles.postsContainer}>
                 {posts.map(post => (
                     <li className={styles.post} key={post.id}>
@@ -55,6 +61,7 @@ function Index() {
                             <img src={defaultpfp} alt="profile picture" style={{ height: '47.99px', width: '47.99px' }} />
                             <div>
                                 <strong style={{ marginLeft: '10px' }}>{post.author_name}</strong>
+                                <p className={styles.infoTop} style={{ color: '#666666' }}>{post.author_summary}</p>
                                 <p style={{ margin: '5px 0px 0px 10px' }}>{post.post_date ? post.date : '10/21/24'}</p>
                             </div>
                         </div>

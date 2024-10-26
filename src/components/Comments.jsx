@@ -37,13 +37,15 @@ function Comments({ comments, postid }) {
             {postid !== null ? (
                 <ul>
                     {comments.map((comment, index) => (
-                        <li className={styles.comment} key={index}>
-                            <div className={styles.top}>
+                        <li key={index}>
+                            <div className={styles.commentTop}>
                                 <img src={defaultpfp} alt="profile pic" style={{ height: '47.99px', width: '47.99px' }} />
-                                <strong>{comment.authorOrcompanyName}</strong>
-                                <p></p>
+                                <div>
+                                    <strong className={styles.infoTop}>{comment.authorName}</strong>
+                                    <p className={styles.infoTop} style={{ color: '#666666' }}>{comment.authorSummary}</p>
+                                </div>
                             </div>
-                            <p>{comment.text}</p>
+                            <p style={{ margin: '0px 0px 25px 60px' }}>{comment.text}</p>
                         </li>
                     ))} 
                 </ul>
@@ -55,7 +57,6 @@ function Comments({ comments, postid }) {
 Comments.propTypes = {
     comments: PropTypes.arrayOf(
         PropTypes.shape({
-            authorOrcompanyName: PropTypes.string.isRequired,
             text: PropTypes.string.isRequired,
         })
     ).isRequired,

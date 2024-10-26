@@ -8,13 +8,32 @@ body, html {
     justify-content: center;
     gap: 20px;
 }
+.startPosting {
+    font-size: 1rem;
+    flex-grow: 1;
+    max-width: none;
+    text-align: left;
+    line-height: 1.5;
+    border: 1px solid #b3b3b3;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 35px;
+    padding-left: 1.6rem;
+    margin-left: 10px;
+}
+.startPosting:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
 .post {
     width: 500px;
     margin: 0 auto;
     background-color: white;
     padding: 20px 20px 10px 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #deddd9;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
     border-radius: 10px;
+}
+.infoTop {
+    margin: 5px 0px 0px 10px;
 }
 .top, .bottom, .section {
     display: flex;
