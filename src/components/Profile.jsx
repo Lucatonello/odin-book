@@ -221,7 +221,7 @@ function Profile() {
                     <ul>
                         {userExperience && (
                             userExperience.map(exp => (
-                                <li style={{ display: 'flex', borderBottom: '1px solid #e8e8e8', width: '90%', margin: '10px 0px' }} key={exp.id}>
+                                <li style={{ display: 'flex', borderBottom: '1px solid #e8e8e8', width: '90%', margin: '10px 0px 5px 20px' }} key={exp.id}>
                                     <div className={styles.logoContainer}>
                                         <img 
                                             src={companyLogo} 
@@ -275,7 +275,7 @@ function Profile() {
                     </div>
                         <ul>
                             {userEducation.map(ed => (
-                                <li style={{ display: 'flex', borderBottom: '1px solid #e8e8e8', width: '90%', margin: '10px 0px' }} key={ed.id}>
+                                <li style={{ display: 'flex', borderBottom: '1px solid #e8e8e8', width: '90%', margin: '10px 0px 5px 20px' }} key={ed.id}>
                                     <div className={styles.logoContainer}>
                                             <img 
                                                 src={schoolLogo} 
@@ -330,7 +330,7 @@ function Profile() {
                     {userSkills && (
                         <ul>
                             {userSkills.map(skill => (
-                                <li key={skill.id} style={{ borderBottom: '1px solid #e8e8e8', width: '90%', display: 'flex', justifyContent: 'space-between' }}>
+                                <li key={skill.id} style={{ borderBottom: '1px solid #e8e8e8', width: '90%', display: 'flex', justifyContent: 'space-between', marginLeft: '20px' }}>
                                     <p>{skill.skill}</p>
                                     {isAdmin && (
                                         <svg onClick={() => handleDeleteSkill(skill.id)} style={{ margin: 'auto 5px' }} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">

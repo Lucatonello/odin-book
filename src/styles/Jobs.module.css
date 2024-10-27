@@ -1,0 +1,34 @@
+.pageContainer {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.companyLogo {
+    height: 55.99px;
+    width: 55.99px;
+}
+.jobListContainer {
+    background-color: white;
+    border-radius: 10px;
+    margin: 20px;
+} 
+.jobInfoContainer {
+    border-bottom: 1px solid#e8e8e8;
+    margin: 0px 0px 5px 20px;
+    padding-bottom: 20px;
+}
+.jobTitle {
+    margin: 0px 0px 0px 0px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #0a66c2;
+}
+.jobTitle:hover {
+    text-decoration: underline;
+}
+.infoText {
+    margin: 3px 0px;
+    font-size: 14px;
+}
