@@ -7,6 +7,7 @@ import ViewJob from './ViewJob';
 
 function Jobs() {
     const [jobs, setJobs] = useState([]);
+    const [selectedJob, setSelectedJob] = useState([]);
 
     useEffect(() => {
         const getJobsData = async () => {
@@ -32,7 +33,7 @@ function Jobs() {
                             <li key={job.id} style={{ display: 'flex', padding: '10px 10px 0px 10px' }}>
                                 <img src={defaultCompanyLogo} alt="company logo" className={styles.companyLogo} />
                                 <div className={styles.jobInfoContainer}>
-                                    <a href="/" className={styles.jobTitle}>{job.title}</a>
+                                    <a onClick={() => setSelectedJob(job)} className={styles.jobTitle}>{job.title}</a>
                                     <p className={styles.infoText}>{job.name}</p>
                                     {job.location !== null ? (
                                         <div style={{ display: 'flex' }}>
@@ -45,7 +46,7 @@ function Jobs() {
                         ))}
                     </ul>
                 </div>
-                <ViewJob />
+                    <ViewJob jobInfo={selectedJob} />
             </div>
         </>
     )

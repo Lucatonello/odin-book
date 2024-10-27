@@ -1,0 +1,41 @@
+.viewJobTab {
+    margin: 20px 20px 20px 0px;
+    background-color: white;
+    border-radius: 10px;
+    height: 100vh;
+    overflow-y: scroll;
+    padding: 20px;
+}
+.topLine {
+    display: flex;
+    margin: 0px;
+}
+.companyName {
+    margin: auto 0px auto 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000000E6;
+} 
+.jobTitle {
+    margin: 10px 0px;
+    font-size: 24px;
+    color: #1a1a1a;
+}
+.locationNdApplicants {
+    display: flex;
+
+}
+.locationNdApplicants p {
+    color: #666666;
+    margin: 5px 0px;
+}
+.moreDetails {
+    margin: 10px 0px;
+}
+.type {
+    display: flex;
+}
+.infoIcons {
+    margin-right: 10px;
+}
