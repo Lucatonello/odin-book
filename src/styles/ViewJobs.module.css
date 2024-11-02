@@ -35,7 +35,35 @@
 }
 .type {
     display: flex;
+    margin-bottom: 12px;
 }
 .infoIcons {
     margin-right: 10px;
+}
+.typeBox {
+    margin: auto 0px auto 10px;
+    padding: 1px 8px;
+    background-color: #daebd1;
+    border-radius: 5px;
+    color: #373b35;
+}
+.typeText {
+    margin: auto 0px auto 10px;
+    color: #373b35;
+}
+.apply {
+    color: white;
+    background-color: #0A66C2;
+    border: none;
+    border-radius: 16px;
+    padding: 8px 18px;
+    margin-top: 15px;
+    font-size: 16px;
+}
+.apply:hover {
+    background-color: #095098;
+}
+.aboutTitle {
+    font-size: 20px;
+    color: #1a1a1a;
 }
