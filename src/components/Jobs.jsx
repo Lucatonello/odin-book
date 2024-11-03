@@ -46,7 +46,7 @@ function Jobs() {
                         ))}
                     </ul>
                 </div>
-                    <ViewJob jobInfo={selectedJob} />
+                    {selectedJob !== '[]' && <ViewJob jobInfo={selectedJob} />}
             </div>
         </>
     )

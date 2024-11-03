@@ -14,7 +14,7 @@ function Login() {
     const [companyPassword, setCompanyPassword] = useState('');
 
     const [err, setErr] = useState('');
-    const [type, setType] = useState('');
+    const [type, setType] = useState('user');
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {

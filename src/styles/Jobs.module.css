@@ -1,8 +1,11 @@
+
 .pageContainer {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     max-width: 1200px;
     margin: 0 auto;
+    height: calc(100vh - 53.66px);
+    overflow: hidden;
 }
 .companyLogo {
     height: 55.99px;
@@ -12,7 +15,7 @@
     background-color: white;
     border-radius: 10px;
     margin: 20px;
-    height: 100vh;
+    max-height: calc(100vh - 53.66px);
     overflow-y: scroll;
 } 
 .jobInfoContainer {
