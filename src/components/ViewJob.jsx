@@ -4,10 +4,13 @@
     import { useParams } from 'react-router-dom';
     import jobsQueries from '../queries/jobsQueries';
     import { useEffect, useState } from 'react';
+    import Apply from './Apply';
     import Navbar from './Navbar';
 
     function ViewJob({ jobId: propJobId }) {
         const [jobInfo, setJobInfo] = useState(null);
+
+        const [showApply, setShowApply] = useState(false);
 
         const { id: paramJobId } = useParams();  
 
@@ -29,10 +32,6 @@
             getJobInfo();
         }, [jobId]);
 
-        useEffect(() => {
-            jobInfo ? console.log('JobInfo: ', jobInfo) : console.log('jobInfo not received yet')
-        }, [jobInfo])
-        
         let formattedDescription = [];
         //format new lines in description
         if (jobInfo && jobInfo.description) {
@@ -49,6 +48,7 @@
 
         return (
             <>
+                {showApply && <Apply onHide={() => setShowApply(false)} jobid={jobInfo.id} />}
                 {/* Render the Navbar only if the component was activated from CompanyProfile */}
                 {/* otherwise it will already have a Navbar */}
                 {!propJobId && paramJobId && <Navbar />}
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div className={styles.applyContainer}>
-                        <button className={styles.apply}>Apply</button>
+                        <button className={styles.apply} onClick={() => setShowApply(true)}>Apply</button>
                     </div>
                     <hr style={{ margin: '20px 0px' }} />
                     <div className={styles.descriptionContainer}>

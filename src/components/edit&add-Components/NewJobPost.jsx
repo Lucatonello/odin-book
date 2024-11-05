@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import PropTypes from 'prop-types';
 import styles from '../../styles/EditProfile.module.css'
+import jobsQueries from "../../queries/jobsQueries";
 
 function NewJobPost({ onHide, companyid }) {
     const [title, setTitle] = useState('');
@@ -9,11 +11,26 @@ function NewJobPost({ onHide, companyid }) {
     const [expLevel, setExpLevel] = useState('');
     const [salary, setSalary] = useState(null);
     const [location, setLocation] = useState('');
-    const [isPublic, setIsPublic] = useState(false);
-    const [description, setDescription] = useState('');
+    const [isPublic, setIsPublic] = useState('');
+    const [description, setDescription] = useState(true);
 
-    const handleSubmit = () => {
-        return
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const data = {
+            title,
+            area,
+            jobType,
+            expLevel,
+            salary,
+            location,
+            isPublic,
+            description
+        }
+        const filteredData = Object.fromEntries(
+            Object.entries(data).filter(([key, value]) => value.length > 0)
+        );
+        await jobsQueries.newJobPost(companyid, filteredData);
     };
 
     return (
@@ -77,20 +94,19 @@ function NewJobPost({ onHide, companyid }) {
                     <div style={{ display: 'flex', marginBottom: '24px' }}>
                         <legend>Public *</legend>
                         <select 
-                            value={isPublic ? 'Yes' : 'No'} 
-                            onChange={(e) => setIsPublic(e.target.value === 'Yes')}
+                            value={isPublic ? true : false} 
+                            onChange={(e) => setIsPublic(e.target.value === true)}
                             className={styles.select}
                         >
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            <option value={true}>Yes</option>
+                            <option value={false}>No</option>
                         </select>
                     </div>
                     
                     <legend>Description</legend>
                     <textarea 
-                    style={{ border: '1px solid black', borderRadius: '7px' }}
                         value={description}
-                        className={styles.textarea}
+                        className={styles.input}
                         onChange={(e) => setDescription(e.target.value)}
                     />
                     <hr />

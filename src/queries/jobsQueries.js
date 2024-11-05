@@ -18,6 +18,25 @@ const jobsQueries = {
                 Authorization: 'application/json'
             }
         });
+    },
+    newJobPost: async (companyid, filteredData) => {
+        return await fetch(`${API_URL}newJobPost/${companyid}`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(filteredData)
+        });
+    },
+    applyToJob: async (formData) => {
+        return await fetch(`${API_URL}applyToJob/${formData.get('jobid')}/${formData.get('userid')}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData
+        });
     }
 }
 

@@ -44,7 +44,7 @@ function Index() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar tab={'home'} />
             {showNewPost && <NewPost onHide={() => setShowNewPost(false)} />}
 
             <div className={styles.post} style={{ display: 'flex', marginTop: '20px' }}>
