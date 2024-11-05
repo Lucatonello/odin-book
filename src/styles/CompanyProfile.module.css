@@ -1,0 +1,139 @@
+body {
+    background-color: #f5f3f0;
+    margin: 0;
+    padding: 0;
+} 
+
+.profileContainer {
+    max-width: 804px; 
+    margin: auto; 
+    position: relative; 
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+}
+
+.bannerContainer {
+    position: relative; 
+}
+
+.bannerImage {
+    width: 100%;
+    height: auto; 
+    border-radius: 10px;
+}
+
+.profilePicture {
+    position: absolute;
+    top: 110px;
+    left: 20px;
+    height: 121.33px;
+    width: 121.33px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 40px 0px 0px 20px;
+}
+.titles {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0px 0px 20px;
+}
+li {
+  list-style: none;
+}
+
+.summary,
+.location,
+.website,
+.connections {
+    margin: 10px 0px 10px 20px; 
+    font-size: 16px;
+    color: #555; 
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+.about {
+    padding: 20px;
+    margin: 0;
+}
+.activityUl li {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 90%;
+  }
+  
+  .activityUl li p {
+    margin: 0;
+    color: #666;
+  }
+  
+  .activityUl {
+    list-style-type: none;
+    margin-left: 0;
+    padding: 0px;
+  }
+  
+  .strongTitle {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #0073b1;
+  }
+  
+  .activityContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+.activitySection {
+    flex: 1;
+}
+.createPost {
+  font-size: 16px;
+  padding: 0px 16px;
+  border-radius: 1.6rem;
+  height: 37.98px;
+  background-color: rgba(255, 255, 255, 0);
+  color: #0A66C2;
+  border: 2px solid #0A66C2;
+  margin: auto 20px;
+}
+.createPost:hover {
+  background-color: #0a66c234;
+}
+.post {
+    margin-left: 20px;
+}
+.logoContainer {
+  display: flex;
+}
+.experienceP {
+  margin: 3px;
+}
+.close {
+  border-radius: 50%;
+  padding: 5px;
+}
+.close:hover {
+  background-color: rgba(0, 0, 0, 0.1)
+}
+.jobListContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+.jobTitle:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

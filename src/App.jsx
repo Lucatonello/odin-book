@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Profile from './components/Profile';
 import Jobs from './components/Jobs';
+import ViewJob from './components/ViewJob';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile/:type/:id" element={<Profile />} />
       <Route path="/jobs" element={<Jobs />} />
+      <Route path="/jobs/:id" element={<ViewJob />} />
     </Routes>
   )
 }

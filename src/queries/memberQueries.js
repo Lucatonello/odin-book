@@ -1,3 +1,5 @@
+import App from "../App";
+
 const API_URL = 'http://localhost:10000/members/';
 const token = localStorage.getItem('token');
 
@@ -68,7 +70,7 @@ const memberQueries = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ newAbout }),
-        })
+        });
     },
     newExperience: async (userid, filteredData) => {
         return await fetch(`${API_URL}newExperience/${userid}`, {
@@ -88,7 +90,7 @@ const memberQueries = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(filteredData)
-        })
+        });
     },
     deleteExperience: async (expid) => {
         return await fetch(`${API_URL}deleteExperience/${expid}`, {
@@ -96,7 +98,7 @@ const memberQueries = {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-        })
+        });
     },
     newEducation: async (userid, filteredData) => {
         return await fetch(`${API_URL}newEducation/${userid}`, {
@@ -106,7 +108,7 @@ const memberQueries = {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(filteredData)
-        })
+        });
     },
     editEducation: async (userid, educationid, filteredData) => {
         return await fetch(`${API_URL}editEducation/${userid}/${educationid}`, {
@@ -143,7 +145,15 @@ const memberQueries = {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-        })
+        });
+    },
+    getCompanyJobOpenings: async (id) => {
+        return await fetch(`${API_URL}getCompanyJobOpenings/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
     }
 }
 

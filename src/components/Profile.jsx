@@ -116,7 +116,7 @@ function Profile() {
                     {/* Main header */}
                     <div className={styles.profileContainer}>
                         <div className={styles.bannerContainer}>
-                            <img src={defaultBanner} className={styles.bannerImage} alt="" />
+                            <img src={defaultBanner} className={styles.bannerImage} alt="banner" />
                             <img 
                                 src={linkedInLogo} 
                                 className={styles.profilePicture} 
@@ -199,7 +199,7 @@ function Profile() {
                                 </ul>
                             ) : <p style={{ color: 'rgba(0, 0, 0, 0.6)' }}>Nothing to see for now</p>}
                         </div>
-                    </div>
+                      </div>
                     </div>
         
                     {/* Experience */}
@@ -228,7 +228,7 @@ function Profile() {
                                             </div>
                                             <div className={styles.jobDetailsContainer}>
                                                 <strong>{exp.title}</strong>
-                                                <p className={styles.experienceP} >{exp.companyname} - {exp.employmenttype}</p>
+                                                <p className={styles.experienceP}>{exp.companyname} - {exp.employmenttype}</p>
         
                                                 <p className={styles.experienceP} style={{ color: '#555' }}>
                                                     {exp.startmonth} {exp.startyear} - {exp.endmonth ? exp.endmonth + ' ' + exp.endyear : exp.isactive ? 'Present' : null}

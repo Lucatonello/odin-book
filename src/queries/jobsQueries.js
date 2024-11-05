@@ -10,6 +10,14 @@ const jobsQueries = {
                 Authorization: `Bearer ${token}`,
             }
         });
+    },
+    getJobInfo: async (id) => {
+        return await fetch(`${API_URL}getJobInfo/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: 'application/json'
+            }
+        });
     }
 }
 
