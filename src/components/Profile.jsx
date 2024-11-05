@@ -143,7 +143,7 @@ function Profile() {
                                 {memberData.followers_count} followers
                             </p>
                         </div>
-                        {isAdmin && (
+                        {isAdmin && userId == id && userType == type && (
                             <svg onClick={() => setShowEditIntro(true)} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                 <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
                             </svg>
@@ -155,7 +155,7 @@ function Profile() {
                         <div className={styles.profileContainer}>
                             <h1 className={styles.titles} style={{ paddingTop: '10px'}}>About</h1>
                             <p className={styles.about}>{memberData.about}</p>
-                            {isAdmin && (
+                            {isAdmin && userId == id && userType == type && (
                                 <svg onClick={() => setShowEditAbout(true)} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                     <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
                                 </svg>
@@ -167,7 +167,7 @@ function Profile() {
                     <div className={styles.profileContainer}>
                         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                             <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Activity</h1>
-                            {isAdmin && (
+                            {isAdmin && userId == id && userType == type && (
                                 <button onClick={() => setShowNewPost(true)} className={styles.createPost} type='button'>Create a post</button>
                             )}
                         </div>
@@ -207,7 +207,7 @@ function Profile() {
                         <div className={styles.profileContainer}>
                             <div className={styles.top}>
                                 <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Experience</h1>
-                                {isAdmin && (
+                                {isAdmin && userId == id && userType == type && (
                                     <div style={{ display: 'flex' }}>
                                         <svg onClick={() => setShowNewExperience(true)} className={styles.close} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                             <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
@@ -236,7 +236,7 @@ function Profile() {
                                                 
                                                 <p className={styles.experienceP} style={{ color: '#555' }}>{exp.location}</p>
                                             </div>
-                                            {isAdmin && (
+                                            {isAdmin && userId == id && userType == type && (
                                                 <div style={{ position: 'relative' }}>
                                                     <svg onClick={() => {
                                                         setShowEditExperience(true);
@@ -252,7 +252,7 @@ function Profile() {
                                 )}
                             </ul>
                         </div>
-                    ): isAdmin ? (
+                    ): isAdmin ? userId == id && userType == type && (
                         <div className={styles.profileContainer} style={{ display: 'flex' }}>
                             <h1 className={styles.titles} style={{ color: 'rgba(0, 0, 0, 0.6)'}}>Add first experience</h1>
                             <button onClick={() => setShowNewExperience(true)} className={styles.createPost}>New experience</button>
@@ -264,7 +264,7 @@ function Profile() {
                         <div className={styles.profileContainer}>
                             <div className={styles.top}>
                                 <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Education</h1>
-                                {isAdmin && (
+                                {isAdmin && userId == id && userType == type && (
                                     <svg onClick={() => setShowNewEducation(true)} className={styles.close} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                         <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
                                     </svg>
@@ -290,7 +290,7 @@ function Profile() {
                                                     
                                                     <p className={styles.experienceP} style={{ color: '#555' }}>{ed.location}</p>
                                             </div>
-                                            {isAdmin && (
+                                            {isAdmin && userId == id && userType == type && (
                                             <div style={{ position: 'relative' }}>
                                                 <svg onClick={() => {
                                                     setShowEditEducation(true);
@@ -305,7 +305,7 @@ function Profile() {
                                     ))}
                                 </ul>
                         </div>
-                    ) : isAdmin ? (
+                    ) : isAdmin ? userId == id && userType == type && (
                         <div className={styles.profileContainer} style={{ display: 'flex' }}>
                             <h1 className={styles.titles} style={{ color: 'rgba(0, 0, 0, 0.6)'}}>Add first education</h1>
                             <button onClick={() => setShowNewEducation(true)} className={styles.createPost}>New education</button>
@@ -318,7 +318,7 @@ function Profile() {
                         <div className={styles.profileContainer}>
                             <div className={styles.top}>
                                 <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Skills</h1>
-                                {isAdmin && (
+                                {isAdmin && userId == id && userType == type && (
                                     <svg onClick={() => setShowNewSkill(true)} className={styles.close} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                         <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
                                     </svg>
@@ -329,7 +329,7 @@ function Profile() {
                                     {userSkills.map(skill => (
                                         <li key={skill.id} style={{ borderBottom: '1px solid #e8e8e8', width: '90%', display: 'flex', justifyContent: 'space-between', marginLeft: '20px' }}>
                                             <p>{skill.skill}</p>
-                                            {isAdmin && (
+                                            {isAdmin && userId == id && userType == type && (
                                                 <svg onClick={() => handleDeleteSkill(skill.id)} style={{ margin: 'auto 5px' }} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                                     <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
                                                 </svg>
@@ -339,7 +339,7 @@ function Profile() {
                                 </ul>
                             )}
                         </div>
-                    ) : isAdmin ? (
+                    ) : isAdmin ? userId == id && userType == type && (
                         <div className={styles.profileContainer} style={{ display: 'flex' }}>
                             <h1 className={styles.titles} style={{ color: 'rgba(0, 0, 0, 0.6)'}}>Add first skill</h1>
                             <button onClick={() => setShowNewSkill(true)} className={styles.createPost}>New skill</button>

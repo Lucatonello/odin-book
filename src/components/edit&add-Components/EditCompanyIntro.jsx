@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import styles from '../../styles/EditProfile.module.css'
 import memberQueries from "../../queries/memberQueries";
 
-function EditIntro({ onHide, memberData }) {
-    const [newUsername, setNewUsername] = useState(memberData.username);
-    const [newSummary, setNewSummary] = useState(memberData.summary);
+function EditCompanyIntro({ onHide, memberData }) {
+    const [newUsername, setNewUsername] = useState(memberData.name);
     const [newLocation, setNewLocation] = useState(memberData.location);
     const [newWebsite, setNewWebsite] = useState(memberData.website);
 
@@ -15,8 +14,7 @@ function EditIntro({ onHide, memberData }) {
         e.preventDefault();
 
         const newData = {
-            username: newUsername,
-            summary: newSummary,
+            name: newUsername,
             location: newLocation,
             website: newWebsite
         }
@@ -25,12 +23,12 @@ function EditIntro({ onHide, memberData }) {
             Object.entries(newData).filter(([key, value]) => value.length > 0)
         );
 
-        if ('username' in filteredData ) {
-            localStorage.setItem('username', filteredData.username)
+        if ('name' in filteredData ) {
+            localStorage.setItem('username', filteredData.name)
         }
 
         console.log('f data', filteredData);
-        await memberQueries.updateUserIntro(filteredData, userid);
+        await memberQueries.updateCompanyIntro(filteredData, userid);
     }
     return (
         <div className={styles.overlay} onClick={onHide}>
@@ -43,20 +41,12 @@ function EditIntro({ onHide, memberData }) {
                 </div>
                 <hr />
                 <form onSubmit={handleSubmit}>
-                    <legend>Full name*</legend>
+                    <legend>Company name*</legend>
                     <input 
                         type="text" 
                         value={newUsername}
                         className={styles.input}
                         onChange={(e) => setNewUsername(e.target.value)}
-                    />
-
-                    <legend>Summary</legend>
-                    <input 
-                        type="text"
-                        value={newSummary} 
-                        className={styles.input}
-                        onChange={(e) => setNewSummary(e.target.value)}
                     />
                     <legend>Location</legend>
                     <input 
@@ -83,9 +73,9 @@ function EditIntro({ onHide, memberData }) {
     )
 }
 
-EditIntro.propTypes = {
+EditCompanyIntro.propTypes = {
     onHide: PropTypes.func.isRequired, 
     memberData: PropTypes.object.isRequired, 
 };
 
-export default EditIntro;
+export default EditCompanyIntro;

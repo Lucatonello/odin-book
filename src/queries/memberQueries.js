@@ -72,6 +72,16 @@ const memberQueries = {
             body: JSON.stringify({ newAbout }),
         });
     },
+    updateCompanyAbout: async (companyid, newAbout) => {
+        return await fetch(`${API_URL}updateCompanyAbout/${companyid}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ newAbout }),
+        })
+    },
     newExperience: async (userid, filteredData) => {
         return await fetch(`${API_URL}newExperience/${userid}`, {
             method: 'POST',
@@ -153,6 +163,16 @@ const memberQueries = {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
+        });
+    },
+    updateCompanyIntro: async (filteredData, companyId) => {
+        return await fetch(`${API_URL}updateCompanyIntro/${companyId}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filteredData)
         });
     }
 }
