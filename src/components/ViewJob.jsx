@@ -13,7 +13,7 @@
         const [showApply, setShowApply] = useState(false);
 
         const { id: paramJobId } = useParams();  
-
+        const type = localStorage.getItem('type');
         //use props when available (when this gets called from Jobs component)
         //otherwise, use params (when this gets called from CompanyProfile component)
         const jobId = propJobId || paramJobId;
@@ -79,9 +79,11 @@
                             <p className={styles.typeText}>2 of 3 skills match your profile - you may be a good fit</p> {/* Show actual skills match later */}
                         </div>
                     </div>
-                    <div className={styles.applyContainer}>
-                        <button className={styles.apply} onClick={() => setShowApply(true)}>Apply</button>
-                    </div>
+                    {type == 'user' && (
+                        <div className={styles.applyContainer}>
+                            <button className={styles.apply} onClick={() => setShowApply(true)}>Apply</button>
+                        </div>
+                    )}
                     <hr style={{ margin: '20px 0px' }} />
                     <div className={styles.descriptionContainer}>
                         <h1 className={styles.aboutTitle}>About the job</h1>

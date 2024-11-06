@@ -174,6 +174,16 @@ const memberQueries = {
             },
             body: JSON.stringify(filteredData)
         });
+    },
+    changeJobStatus: async (status, id) => {
+        return await fetch(`${API_URL}changeJobStatus/${id}`, {
+            method: 'PUT',
+            headers: {
+                 Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status })
+        })
     }
 }
 

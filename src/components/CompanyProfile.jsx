@@ -64,6 +64,10 @@ function CompanyProfile() {
         }
         getCompanyJobOpenings();
     }, [id]);
+
+    const handleStatusChange = async (status, id) => {
+        await memberQueries.changeJobStatus(status, id)
+    }
     
     return (
         <>
@@ -168,17 +172,26 @@ function CompanyProfile() {
                     </div>
                     <ul className={styles.jobListContainer}>
                         {jobOpenings.map(job => (
-                            <li key={job.id}>
-                                <div style={{ display: 'flex' }}>
-                                    <div>
-                                        <img src={companyLogo} alt="logo" style={{ height: '47.99px', width: '47.99px', margin: '0px 10px 0px 20px' }} />
+                            (job.public || isAdmin) && (
+                                <li key={job.id}>
+                                    <div style={{ display: 'flex' }}>
+                                        <div>
+                                            <img src={companyLogo} alt="logo" style={{ height: '47.99px', width: '47.99px', margin: '0px 10px 0px 20px' }} />
+                                        </div>
+                                        <div className={styles.jobDetailsContainer}>
+                                            <strong onClick={() => navigate(`/jobs/${job.id}`)} className={styles.jobTitle}>{job.title}</strong>
+                                            <div style={{ display: 'flex' }}>
+                                                <p style={{ margin: '7px 10px 0px 0px', fontSize: '12px' }}>{job.location}</p>
+                                                {isAdmin && userId == id && userType == type && (
+                                                    <>
+                                                        <button onClick={(e) => handleStatusChange(job.public, job.id)} className={job.public == true ? styles.public : styles.private}>{job.public == true ? 'Unpublish' : 'Publish'}</button>
+                                                    </>                                            
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className={styles.jobDetailsContainer}>
-                                        <strong onClick={() => navigate(`/jobs/${job.id}`)} className={styles.jobTitle}>{job.title}</strong>
-                                        <p style={{ marginTop: '7px', fontSize: '12px' }}>{job.location}</p>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            )
                         ))}                
                     </ul>
                 </div>

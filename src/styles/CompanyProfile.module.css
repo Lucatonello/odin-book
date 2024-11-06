@@ -137,3 +137,19 @@ li {
     text-decoration: underline;
     cursor: pointer;
 }
+.public {
+  border: 0;
+  background: rgba(255, 0, 0, 0.719);
+  padding: 7px 10px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+.private {
+  border: 0;
+  background: rgba(23, 190, 32, 0.749);
+  padding: 7px 10px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
