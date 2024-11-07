@@ -37,6 +37,14 @@ const jobsQueries = {
             },
             body: formData
         });
+    },
+    getJobApplicants: async (jobId) => {
+        return await fetch(`${API_URL}getJobApplicants/${jobId}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
     }
 }
 

@@ -1,6 +1,7 @@
     import styles from '../styles/ViewJobs.module.css'
     import PropTypes from 'prop-types';
     import defaultCompanyLogo from '../images/default-company-logo.png';
+    import defaultpfp from '../images/user.png';
     import { useParams } from 'react-router-dom';
     import jobsQueries from '../queries/jobsQueries';
     import { useEffect, useState } from 'react';
@@ -8,18 +9,20 @@
     import Navbar from './Navbar';
 
     function ViewJob({ jobId: propJobId }) {
-        const [jobInfo, setJobInfo] = useState(null);
-
+        const [jobInfo, setJobInfo] = useState([]);
+        const [jobApplicants, setJobApplicants] = useState([]);
         const [showApply, setShowApply] = useState(false);
 
         const { id: paramJobId } = useParams();  
         const type = localStorage.getItem('type');
+        const memberid = localStorage.getItem('authorid')
         //use props when available (when this gets called from Jobs component)
         //otherwise, use params (when this gets called from CompanyProfile component)
         const jobId = propJobId || paramJobId;
-        
+
+                
         useEffect(() => {
-            const getJobInfo = async() => {
+            const getJobInfo = async () => {
                 const response = await jobsQueries.getJobInfo(jobId);
 
                 if (!response.ok) {
@@ -28,9 +31,26 @@
 
                 const data = await response.json();
                 setJobInfo(data[0]);
+                console.log('jobInfo: ', data[0]);
             }
             getJobInfo();
+
+            
         }, [jobId]);
+
+        useEffect(() => {
+            if (jobInfo) {
+                if (type == 'company' && jobInfo.companyid == memberid) {
+                    const getJobApplicants = async () => {
+                        const response = await jobsQueries.getJobApplicants(jobId);
+                        const data = await response.json();
+                        setJobApplicants(data);
+                        console.log('applicants: ', data);
+                    }
+                    getJobApplicants();
+                } else return
+            }
+        }, [jobId, jobInfo, jobInfo.length, type, memberid,]);
 
         let formattedDescription = [];
         //format new lines in description
@@ -45,23 +65,26 @@
         if (!jobInfo || Object.keys(jobInfo).length === 0) {
             return <div>Loading job information...</div>;
         }
-
         return (
             <>
                 {showApply && <Apply onHide={() => setShowApply(false)} jobid={jobInfo.id} />}
                 {/* Render the Navbar only if the component was activated from CompanyProfile */}
                 {/* otherwise it will already have a Navbar */}
                 {!propJobId && paramJobId && <Navbar />}
+
                 <div className={!propJobId && paramJobId ? styles.viewJobTab2 : styles.viewJobTab}>
                     <div className={styles.topLine}>
-                        <img src={jobInfo.logo || defaultCompanyLogo} alt="company logo" style={{ height: '31.99px', width: '31.99px' }} />
-                        <a href="/" className={styles.companyName}>{jobInfo.name}</a>
+                        <img 
+                            src={jobInfo.logo || defaultCompanyLogo} alt="company logo" 
+                            style={{ height: '31.99px', width: '31.99px' }} 
+                        />
+                        <a href={`/profile/company/${jobInfo.companyid}`} className={styles.companyName}>{jobInfo.name}</a>
                     </div>
                     <h1 className={styles.jobTitle}>{jobInfo.title}</h1>
                     <div className={styles.locationNdApplicants}>
                         {jobInfo.location && <p>{jobInfo.location}</p>}
                         <p style={{ margin: 'auto 3px' }}>·</p>
-                        <p>Over 100 applicants</p> {/* Show actual applicants count later */}
+                        <p>{jobInfo.applicant_count} applicants</p>
                     </div>
                     <div className={styles.moreDetails}>
                         <div className={styles.type}>
@@ -89,6 +112,33 @@
                         <h1 className={styles.aboutTitle}>About the job</h1>
                         {formattedDescription}
                     </div>
+                    {type == 'company' && jobInfo.companyid == memberid && (
+                        <>
+                        <hr />
+                            <h1>Applicants ({jobApplicants.length})</h1>
+                            <ul>
+                                {jobApplicants.map(applicant => (
+                                    <li key={applicant.id}>
+                                        <div style={{ display: 'flex' }}>
+                                            <img className={styles.profilePic} src={defaultpfp} alt="profile picture" />
+                                            <div>
+                                                <strong style={{ marginLeft: '10px' }}>{applicant.username}</strong>
+                                                <p className={styles.applicantDetails}>{applicant.summary}</p>
+                                                <p className={styles.applicantDetails} style={{ marginTop: '10px' }}><strong>Email: </strong>{applicant.email}</p>
+                                                <p className={styles.applicantDetails}><strong>Number: </strong>{applicant.number}</p>
+                                                <p className={styles.applicantDetails}>
+                                                    <a href={`http://localhost:10000/uploads/${applicant.cv}`} target="_blank" rel="noopener noreferrer">
+                                                        View CV
+                                                    </a>
+                                                </p>
+                                                <hr style={{ margin: '10px 0px' }} />
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
                 </div>
             </>
         );

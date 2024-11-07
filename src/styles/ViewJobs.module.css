@@ -75,3 +75,10 @@
     font-size: 20px;
     color: #1a1a1a;
 }
+.profilePic {
+    height: 35px;
+    width: 35px;
+}
+.applicantDetails {
+    margin: 3px 0px 0px 10px;
+}

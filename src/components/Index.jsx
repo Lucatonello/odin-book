@@ -5,6 +5,7 @@ import NewPost from './edit&add-Components/NewPost';
 import Navbar from './Navbar';
 import defaultpfp from '../images/user.png';
 import styles from '../styles/Index.module.css';
+import { useNavigate } from "react-router-dom";
 
 function Index() {
     const [posts, setPosts] = useState([]);
@@ -14,6 +15,8 @@ function Index() {
 
     const id = localStorage.getItem('authorid'); 
     const type = localStorage.getItem('type');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchPosts() {
@@ -60,7 +63,7 @@ function Index() {
                         <div className={styles.top}>
                             <img src={defaultpfp} alt="profile picture" style={{ height: '47.99px', width: '47.99px' }} />
                             <div>
-                                <strong style={{ marginLeft: '10px' }}>{post.author_name}</strong>
+                                <strong onClick={() => navigate(`/profile/${post.type}/${post.author_id}`)} className={styles.authorName} style={{ marginLeft: '10px' }}>{post.author_name}</strong>
                                 <p className={styles.infoTop} style={{ color: '#666666' }}>{post.author_summary}</p>
                                 <p style={{ margin: '5px 0px 0px 10px' }}>{post.post_date ? post.date : '10/21/24'}</p>
                             </div>
