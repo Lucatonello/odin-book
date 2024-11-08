@@ -7,12 +7,12 @@ const jobsQueries = {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
-                Authorization: `Bearer ${token}`,
+                Authorization: 'application/json'
             }
         });
     },
-    getJobInfo: async (id) => {
-        return await fetch(`${API_URL}getJobInfo/${id}`, {
+    getJobInfo: async (jobid, userid) => {
+        return await fetch(`${API_URL}getJobInfo/${jobid}/${userid}`, {
             method: 'GET',
             headers: {
                 Authorization: 'application/json'

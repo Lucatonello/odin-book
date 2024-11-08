@@ -7,6 +7,7 @@
     import { useEffect, useState } from 'react';
     import Apply from './Apply';
     import Navbar from './Navbar';
+    import { useNavigate } from 'react-router-dom';
 
     function ViewJob({ jobId: propJobId }) {
         const [jobInfo, setJobInfo] = useState([]);
@@ -19,11 +20,12 @@
         //use props when available (when this gets called from Jobs component)
         //otherwise, use params (when this gets called from CompanyProfile component)
         const jobId = propJobId || paramJobId;
-
+        const userid = localStorage.getItem('authorid');
+        const navigate = useNavigate();
                 
         useEffect(() => {
             const getJobInfo = async () => {
-                const response = await jobsQueries.getJobInfo(jobId);
+                const response = await jobsQueries.getJobInfo(jobId, userid);
 
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status}`);
@@ -36,7 +38,7 @@
             getJobInfo();
 
             
-        }, [jobId]);
+        }, [jobId, userid]);
 
         useEffect(() => {
             if (jobInfo) {
@@ -104,7 +106,15 @@
                     </div>
                     {type == 'user' && (
                         <div className={styles.applyContainer}>
-                            <button className={styles.apply} onClick={() => setShowApply(true)}>Apply</button>
+                            {!jobInfo.has_applied ? (
+                                <button className={styles.apply} onClick={() => setShowApply(true)}>Apply</button>
+                            ) : (
+                                <>
+                                    <h1>Job activity</h1>
+                                    <hr />
+                                    <ul><li style={{ listStyleType: 'circle', marginLeft: '10px' }}>Application submitted</li></ul>
+                                </>
+                            )}
                         </div>
                     )}
                     <hr style={{ margin: '20px 0px' }} />
@@ -122,7 +132,7 @@
                                         <div style={{ display: 'flex' }}>
                                             <img className={styles.profilePic} src={defaultpfp} alt="profile picture" />
                                             <div>
-                                                <strong style={{ marginLeft: '10px' }}>{applicant.username}</strong>
+                                                <strong onClick={() => navigate(`/profile/user/${applicant.userid}`)} className={styles.applicantName} style={{ marginLeft: '10px' }}>{applicant.username}</strong>
                                                 <p className={styles.applicantDetails}>{applicant.summary}</p>
                                                 <p className={styles.applicantDetails} style={{ marginTop: '10px' }}><strong>Email: </strong>{applicant.email}</p>
                                                 <p className={styles.applicantDetails}><strong>Number: </strong>{applicant.number}</p>

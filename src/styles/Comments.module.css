@@ -29,3 +29,12 @@ ul {
 .infoTop {
     margin: 5px 0px 0px 10px;
 }
+.infoTop:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.companyCommentTop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -25,6 +25,9 @@
     text-decoration: none;
     color: #000000E6;
 } 
+.companyName:hover {
+    text-decoration: underline;
+}
 .jobTitle {
     margin: 10px 0px;
     font-size: 24px;
@@ -81,4 +84,8 @@
 }
 .applicantDetails {
     margin: 3px 0px 0px 10px;
+}
+.applicantName:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }

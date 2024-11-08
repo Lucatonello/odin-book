@@ -95,7 +95,15 @@ function CompanyProfile() {
                         <p className={styles.location}>{memberData.location}</p>
                     )}
                     {memberData.website && (
-                        <a className={styles.website} href={memberData.website} target='__blank' style={{ color: '#0a66c2', textDecoration: 'none'}}>{memberData.website}</a>
+                      <a 
+                        className={styles.website} 
+                        href={memberData.website.startsWith('http') ? memberData.website : `https://${memberData.website}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        style={{ color: '#0a66c2', textDecoration: 'none' }}
+                        >
+                        {memberData.website}
+                    </a>
                     )}
                     <div>
                         <p className={styles.connections} style={{ marginLeft: '20px'}}>
@@ -180,8 +188,10 @@ function CompanyProfile() {
                                         </div>
                                         <div className={styles.jobDetailsContainer}>
                                             <strong onClick={() => navigate(`/jobs/${job.id}`)} className={styles.jobTitle}>{job.title}</strong>
+                                            <p className={styles.jobDetails}>{job.applicant_count} Applicants</p>
+
                                             <div style={{ display: 'flex' }}>
-                                                <p style={{ margin: '7px 10px 0px 0px', fontSize: '12px' }}>{job.location}</p>
+                                                <p className={styles.jobDetails}>{job.location}</p>
                                                 {isAdmin && userId == id && userType == type && (
                                                     <>
                                                         <button onClick={(e) => handleStatusChange(job.public, job.id)} className={job.public == true ? styles.public : styles.private}>{job.public == true ? 'Unpublish' : 'Publish'}</button>

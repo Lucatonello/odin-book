@@ -133,7 +133,15 @@ function Profile() {
                             <p className={styles.location}>{memberData.location}</p>
                         )}
                         {memberData.website && (
-                            <a className={styles.website} href={memberData.website} target='__blank' style={{ color: '#0a66c2', textDecoration: 'none'}}>{memberData.website}</a>
+                            <a 
+                            className={styles.website} 
+                            href={memberData.website.startsWith('http') ? memberData.website : `https://${memberData.website}`} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            style={{ color: '#0a66c2', textDecoration: 'none' }}
+                            >
+                            {memberData.website}
+                        </a>
                         )}
                         <div style={{ display: 'flex' }}>
                             <p className={styles.connections}>

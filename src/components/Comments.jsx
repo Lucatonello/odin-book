@@ -3,12 +3,15 @@ import { useState } from 'react';
 import postsQueries from '../queries/postsQueries';
 import defaultpfp from '../images/user.png';
 import styles from '../styles/Comments.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function Comments({ comments, postid }) {
     const [newComment, setNewComment] = useState('');
     console.log('props In comments: ', comments);
     const id = localStorage.getItem('authorid'); 
     const type = localStorage.getItem('type');
+
+    const navigate = useNavigate();
 
     const handleSubmit = async () => {
         try {
@@ -40,9 +43,9 @@ function Comments({ comments, postid }) {
                         <li key={index}>
                             <div className={styles.commentTop}>
                                 <img src={defaultpfp} alt="profile pic" style={{ height: '47.99px', width: '47.99px' }} />
-                                <div>
-                                    <strong className={styles.infoTop}>{comment.authorName}</strong>
-                                    <p className={styles.infoTop} style={{ color: '#666666' }}>{comment.authorSummary}</p>
+                                <div className={comment.type == 'company' ? styles.companyCommentTop : ''}>
+                                    <strong onClick={() => navigate(`/profile/${comment.type}/${comment.authorid}`)} className={styles.infoTop}>{comment.authorName}</strong>
+                                    {comment.summary !== '' && <p style={{ color: '#666666', margin: '5px 0px 0px 10px' }}>{comment.authorSummary}</p>}
                                 </div>
                             </div>
                             <p style={{ margin: '0px 0px 25px 60px' }}>{comment.text}</p>
