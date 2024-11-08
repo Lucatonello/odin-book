@@ -179,12 +179,41 @@ const memberQueries = {
         return await fetch(`${API_URL}changeJobStatus/${id}`, {
             method: 'PUT',
             headers: {
-                 Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ status })
         })
-    }
+    },
+    follow: async (userId, id, userType, type) => {
+        return await fetch(`${API_URL}follow/${userId}/${id}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userType, type})
+        });
+    },
+    checkFollow: async (userId, id, userType, type) => {
+        return await fetch(`${API_URL}checkFollow/${userId}/${id}/${userType}/${type}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+    },
+    unfollow: async (userId, id, userType, type) => {
+        return await fetch(`${API_URL}unfollow/${userId}/${id}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userType, type})
+        });
+    },
 }
 
 export default memberQueries

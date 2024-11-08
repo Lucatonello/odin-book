@@ -128,3 +128,29 @@ li {
 .close:hover {
   background-color: rgba(0, 0, 0, 0.1)
 }
+.follow {
+  color: white;
+  margin: 15px 15px 0px 20px;
+  background-color: #0A66C2;
+  border: none;
+  border-radius: 1.6rem;
+  padding: 8px 18px;
+  font-size: 16px;
+}
+.connect {
+  padding: 0px 16px;
+  border-radius: 1.6rem;
+  height: 37.98px;
+  background-color: rgba(255, 255, 255, 0);
+  color: #0A66C2;
+  border: 2px solid #0A66C2;
+  margin-top: 15px;
+}
+.follow:hover {
+  background-color: #084888;
+  cursor: pointer;
+}
+.connect:hover {
+  background-color: #0a66c234;
+  cursor: pointer;
+}
