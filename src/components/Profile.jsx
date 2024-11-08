@@ -26,8 +26,9 @@ function Profile() {
     const [userEducation , setUserEducation] = useState([]);
     const [userSkills, setUserSkills] = useState([]);
     const [experienceDetails, setExperienceDetails] = useState(null);
-    const [educationDetails, setEducationDetails] = useState(null)
-    const [isFollowing, setIsFollowing] = useState(null)
+    const [educationDetails, setEducationDetails] = useState(null);
+    const [isFollowing, setIsFollowing] = useState(null);
+    const [isConnected, setIsConnected] = useState(null);
 
     const [showNewPost, setShowNewPost] = useState(false);
     const [showEditIntro, setShowEditIntro] = useState(false);
@@ -117,7 +118,11 @@ function Profile() {
     const handleUnfollow = async () => {
         await memberQueries.unfollow(userId, id, userType, type);
         setIsFollowing(false);
-    }
+    };
+    const handleConnect = async () => {
+        await memberQueries.connect(userId, id, userType, type);
+        setIsConnected(true);
+    };
 
     return (
         <>
@@ -177,7 +182,9 @@ function Profile() {
                                 {!isFollowing ? (
                                     <button className={styles.follow} onClick={() => handleFollow()}>Follow</button>
                                 ) : <button style={{ marginLeft: '20px', marginRight: '10px' }} className={styles.connect} onClick={() => handleUnfollow()}>Unfollow</button>}
-                                <button className={styles.connect}>Connect</button>
+                                {!isConnected && (
+                                    <button onClick={() => handleConnect()} className={styles.connect}>Connect</button>
+                                )}
                             </div>
                         )}
                         {isAdmin && userId == id && userType == type && (

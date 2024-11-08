@@ -214,6 +214,16 @@ const memberQueries = {
             body: JSON.stringify({ userType, type})
         });
     },
+    connect: async (userId, id, userType, type) => {
+        return await fetch(`${API_URL}connect/${userId}/${id}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userType, type})
+        });
+    }
 }
 
 export default memberQueries
