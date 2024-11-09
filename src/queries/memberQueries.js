@@ -223,6 +223,15 @@ const memberQueries = {
             },
             body: JSON.stringify({ userType, type})
         });
+    },
+    getUserConnections: async (userid) => {
+        return await fetch(`${API_URL}getUserConnections/${userid}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
     }
 }
 
