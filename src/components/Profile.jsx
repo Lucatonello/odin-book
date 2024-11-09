@@ -97,11 +97,13 @@ function Profile() {
     }, [id, type])
 
     useEffect(() => {
+        //check if the user already follows/connected with the visited profile
         const checkFollow = async () => {
             const response = await memberQueries.checkFollow(userId, id, userType, type);
             const data = await response.json();
             setIsFollowing(data.isFollowing);
-            console.log('follow status: ', data.isFollowing);
+            setIsConnected(data.isConnected);
+            console.log('follow and connect status: ', data);
         }
         checkFollow();
     }, [userId, id, userType, type]);
@@ -182,9 +184,9 @@ function Profile() {
                                 {!isFollowing ? (
                                     <button className={styles.follow} onClick={() => handleFollow()}>Follow</button>
                                 ) : <button style={{ marginLeft: '20px', marginRight: '10px' }} className={styles.connect} onClick={() => handleUnfollow()}>Unfollow</button>}
-                                {!isConnected && (
+                                {!isConnected ? (
                                     <button onClick={() => handleConnect()} className={styles.connect}>Connect</button>
-                                )}
+                                ) : <button className={styles.follow} style={{ marginLeft: '0'}}>Message</button>}
                             </div>
                         )}
                         {isAdmin && userId == id && userType == type && (

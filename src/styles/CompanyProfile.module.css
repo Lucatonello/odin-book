@@ -157,3 +157,29 @@ li {
   margin: 3px 10px 0px 0px;
   font-size: 12px;
 }
+.unfollow {
+  padding: 0px 16px;
+  border-radius: 1.6rem;
+  height: 37.98px;
+  background-color: rgba(255, 255, 255, 0);
+  color: #0A66C2;
+  border: 2px solid #0A66C2;
+  margin-top: 10px;
+}
+.unfollow:hover {
+  background-color: #0a66c234;
+  cursor: pointer;
+}
+.follow {
+  color: white;
+  margin: 10px 15px 0px 20px;
+  background-color: #0A66C2;
+  border: none;
+  border-radius: 1.6rem;
+  padding: 8px 18px;
+  font-size: 16px;
+}
+.follow:hover {
+  background-color: #084888;
+  cursor: pointer;
+}

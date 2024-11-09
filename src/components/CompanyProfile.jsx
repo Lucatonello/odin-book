@@ -17,6 +17,7 @@ function CompanyProfile() {
     const [memberActivity, setMemberActivity] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
     const [jobOpenings, setJobOpenings] = useState([]);
+    const [isFollowing, setIsFollowing] = useState(null);
 
     const [showEditIntro, setShowEditIntro] = useState(false);
     const [showEditAbout, setShowEditAbout] = useState(false);
@@ -65,9 +66,28 @@ function CompanyProfile() {
         getCompanyJobOpenings();
     }, [id]);
 
+    useEffect(() => {
+        //check if the user already follows the visited profile
+        const checkFollow = async () => {
+            const response = await memberQueries.checkFollow(userId, id, userType, type);
+            const data = await response.json();
+            setIsFollowing(data.isFollowing);
+            console.log('follow status: ', data);
+        }
+        checkFollow();
+    }, [userId, id, userType, type]);
+
     const handleStatusChange = async (status, id) => {
         await memberQueries.changeJobStatus(status, id)
     }
+    const handleFollow = async () => {
+        await memberQueries.follow(userId, id, userType, type);
+        setIsFollowing(true);
+    };
+    const handleUnfollow = async () => {
+        await memberQueries.unfollow(userId, id, userType, type);
+        setIsFollowing(false);
+    };
     
     return (
         <>
@@ -109,6 +129,13 @@ function CompanyProfile() {
                         <p className={styles.connections} style={{ marginLeft: '20px'}}>
                             {memberData.followers_count} followers
                         </p>
+                        {!isAdmin && (
+                            <div style={{ display: 'flex' }}>
+                                {!isFollowing ? (
+                                    <button className={styles.follow} onClick={() => handleFollow()}>Follow</button>
+                                ) : <button style={{ marginLeft: '20px', marginRight: '10px' }} className={styles.unfollow} onClick={() => handleUnfollow()}>Unfollow</button>}
+                            </div>
+                        )}
                     </div>
                         {isAdmin && userId == id && userType == type && (
                             <svg onClick={() => setShowEditIntro(true)} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
