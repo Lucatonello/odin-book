@@ -1,4 +1,5 @@
 import linkedInIcon from '../images/linkedin.png';
+import defaultpfp from '../images/user.png'
 import styles from '../styles/Navbar.module.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -73,7 +74,7 @@ function Navbar(tab) {
                 {/* User Profile */}
                 <div className={styles.navItem}>
                     <img 
-                        src={linkedInIcon} 
+                        src={defaultpfp} 
                         alt="Profile Icon" 
                         className={styles.icon}
                         onClick={() => navigate(`/profile/${type}/${id}`)} 

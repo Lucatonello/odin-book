@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import memberQueries from '../queries/memberQueries';
 import linkedInLogo from '../images/linkedin.png'
 import defaultBanner from '../images/default-banner.png';
@@ -122,8 +122,13 @@ function Profile() {
         setIsFollowing(false);
     };
     const handleConnect = async () => {
-        await memberQueries.connect(userId, id, userType, type);
+        const response = await memberQueries.connect(userId, id);
+        const result = await response.json();
         setIsConnected(true);
+
+        if (result.isDone) {
+            window.location.reload();
+        }
     };
 
     return (

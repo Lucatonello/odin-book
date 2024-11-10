@@ -241,6 +241,15 @@ const memberQueries = {
                 'Content-Type': 'application/json'
             }
         })
+    },
+    getAllUsers: async (userid) => {
+        return await fetch(`${API_URL}getAllUsers/${userid}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
     }
 }
 

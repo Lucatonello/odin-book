@@ -3,8 +3,9 @@
    border-radius: 10px;
    width: 824px;
    overflow-y: auto;
-   padding: 10px 6px;
+   padding: 10px;
    background-color: white;
+   border: 1px solid #deddd9;
 }
 .profilePic {
     height: 71.99px;
@@ -12,6 +13,13 @@
 }
 .connctionDetails {
     margin: 3px 0px 0px 10px;
+}
+.connctionName {
+    margin: 3px 0px 0px 10px;
+    cursor: pointer;
+}
+.connctionName:hover {
+    text-decoration: underline;
 }
 .messageButtonContainer {
     margin-left: auto;
@@ -59,3 +67,52 @@
 .dropdownItem:hover {
     background-color: #f0f0f0;
 }
+.sectionButton {
+    padding: 16px 24px;
+    color: #01754f;
+    height: 100%;
+}
+.sectionButton:hover, .sectionButtonActive:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #004d33;
+}
+.sectionButtonActive {
+    border-bottom: 1px solid #01754f;
+    padding: 16px 24px;
+    color: #01754f;
+    height: 100%;
+}
+.peopleGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+.userBox {
+    border-radius: 10px;
+    border: 1px solid #deddd9;
+    padding: 12px;
+}
+.profilePicBox {
+    margin: 0 auto;
+    height: 104px;
+    width: 104px;
+}
+.boxSection {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0px;
+}
+.connect {
+    padding: 0px 16px;
+    border-radius: 1.6rem;
+    height: 37.98px;
+    background-color: rgba(255, 255, 255, 0);
+    color: #0A66C2;
+    border: 2px solid #0A66C2;
+    margin-top: 10px;
+  }
+  .connect:hover {
+    background-color: #0a66c234;
+    cursor: pointer;
+  }
+  

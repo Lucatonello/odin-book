@@ -54,9 +54,9 @@ function Network() {
     return (
         <>
             <Navbar />
-            <div className={styles.pageContainer} style={{ display: 'flex' }}>
-                <button>My network</button>
-                <button>Grow</button>
+            <div className={styles.pageContainer} style={{ display: 'flex', padding: '0px 0px 0px 10px' }}>
+                <a className={styles.sectionButtonActive}>My network</a>
+                <a className={styles.sectionButton} onClick={() => navigate('/network/grow')}>Grow</a>
             </div>
             <div className={styles.pageContainer}>
                 <p>Your connections ({connections.length})</p>
@@ -66,7 +66,7 @@ function Network() {
                             <div style={{ display: 'flex'}}>
                                 <img className={styles.profilePic} src={connection.profilepic || defaultpfp} alt="profile picture" />
                                 <div style={{ marginTop: '7px'}}>
-                                    <strong className={styles.connctionDetails}>{connection.username}</strong>
+                                    <strong className={styles.connctionName} onClick={() => navigate(`/profile/user/${connection.id}`)}>{connection.username}</strong>
                                     <p className={styles.connctionDetails}>{connection.summary}</p>
                                 </div>
                                 <div className={styles.messageButtonContainer}>
