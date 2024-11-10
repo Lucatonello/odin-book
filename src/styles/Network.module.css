@@ -6,12 +6,9 @@
    padding: 10px 6px;
    background-color: white;
 }
-.connectionsList {
-    
-}
 .profilePic {
-    height: 35px;
-    width: 35px;
+    height: 71.99px;
+    width: 71.99px;
 }
 .connctionDetails {
     margin: 3px 0px 0px 10px;
@@ -38,4 +35,27 @@
 .moreButton:hover {
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.1);
+}
+.dropdownMenu {
+    position: absolute;
+    margin-top: 100px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    width: 191px;
+    padding: 5px 0;
+    z-index: 1;
+    list-style: none;
+}
+
+.dropdownItem {
+    padding: 10px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+}
+
+.dropdownItem:hover {
+    background-color: #f0f0f0;
 }

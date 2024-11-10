@@ -232,6 +232,15 @@ const memberQueries = {
                 'Content-Type': 'application/json'
             }
         })
+    },
+    removeConnection: async (userid, connectionid) => {
+        return await fetch(`${API_URL}removeConnection/${userid}/${connectionid}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
     }
 }
 

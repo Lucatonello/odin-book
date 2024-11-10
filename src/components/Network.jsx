@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef  } from "react";
 import memberQueries from '../queries/memberQueries';
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -7,6 +7,9 @@ import defaultpfp from '../images/user.png'
 
 function Network() {
     const [connections, setConnections] = useState([]);
+
+    const [showDropdown, setShowDropdown] = useState(null);
+    const dropdownRef = useRef(null);
 
     const navigate = useNavigate();
 
@@ -17,6 +20,14 @@ function Network() {
         navigate('404');
     }
 
+    const handleRemoveConnection = async (connectionid) => {
+        const response = await memberQueries.removeConnection(userid, connectionid);
+        const result = await response.json();
+        
+        if (result.isDone) {
+           window.location.reload();  
+        }
+    }
 
     useEffect(() => {
         const getUserConnections = async () => {
@@ -27,6 +38,18 @@ function Network() {
         }
         getUserConnections();
     }, [userid]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <>
@@ -42,17 +65,28 @@ function Network() {
                         <li key={connection.id}>
                             <div style={{ display: 'flex'}}>
                                 <img className={styles.profilePic} src={connection.profilepic || defaultpfp} alt="profile picture" />
-                                <div>
+                                <div style={{ marginTop: '7px'}}>
                                     <strong className={styles.connctionDetails}>{connection.username}</strong>
                                     <p className={styles.connctionDetails}>{connection.summary}</p>
                                 </div>
                                 <div className={styles.messageButtonContainer}>
                                     <button className={styles.messageButton}>Message</button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" style={{ margin: '0px 10px' }} className={styles.moreButton}  height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                    <svg onClick={() => setShowDropdown(showDropdown === connection.id ? null : connection.id)}  xmlns="http://www.w3.org/2000/svg" style={{ margin: '0px 10px', padding: '5px' }} className={styles.moreButton}  height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                         <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/>
                                     </svg>
+                                    {showDropdown === connection.id && (
+                                         <ul ref={dropdownRef} className={styles.dropdownMenu}>
+                                         <li className={styles.dropdownItem}>
+                                         <svg style={{ margin: 'auto 5px auto 0px'}} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                                        </svg>
+                                            <p style={{ margin: 'auto 0'}} onClick={() => handleRemoveConnection(connection.id)}>Remove connection</p>
+                                        </li>
+                                     </ul>
+                                    )}
                                 </div>
                             </div>
+                            <hr style={{ width: '80%' }}/>
                         </li>
                    ))}
                 </ul>
