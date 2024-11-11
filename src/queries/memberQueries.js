@@ -259,6 +259,15 @@ const memberQueries = {
                 'Content-Type': 'application/json'
             }
         });
+    },
+    handleConnectionReq: async (reqid, status) => {
+        return await fetch(`${API_URL}/handleConnectionReq/${reqid}/${status}`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
     }
 }
 

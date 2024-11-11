@@ -1,0 +1,45 @@
+.pageContainer {
+    max-width: 804px; 
+    margin: auto; 
+    position: relative; 
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #deddd9;
+}
+.profilePic {
+    height: 47.99px;
+    width: 47.99px;
+}
+.buttonsContainer {
+    margin-left: auto;
+    align-items: center;
+    display: flex;
+}
+.accept {
+    color: white;
+    margin-right: 10px;
+    background-color: #0A66C2;
+    border: none;
+    border-radius: 1.6rem;
+    padding: 8px 18px;
+    font-size: 16px;
+}
+.decline {
+    color: #0A66C2;
+    background-color: white;
+    border: 1px solid #0A66C2;
+    border-radius: 1.6rem;
+    padding: 8px 18px;
+    font-size: 16px;
+}
+.accept:hover {
+    background-color: #084888;
+    cursor: pointer;
+  }
+  .decline:hover {
+    background-color: #0a66c234;
+    cursor: pointer;
+  }
+  

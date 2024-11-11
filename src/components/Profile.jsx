@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import memberQueries from '../queries/memberQueries';
-import linkedInLogo from '../images/linkedin.png'
 import defaultBanner from '../images/default-banner.png';
 import defaultpfp from '../images/user.png'
 import { useNavigate } from 'react-router-dom';
