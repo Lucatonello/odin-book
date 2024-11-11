@@ -250,6 +250,15 @@ const memberQueries = {
                 'Content-Type': 'application/json'
             }
         });
+    },
+    getRequests: async (userid) => {
+        return await fetch(`${API_URL}getRequests/${userid}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
     }
 }
 

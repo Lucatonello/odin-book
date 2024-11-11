@@ -115,4 +115,7 @@
     background-color: #0a66c234;
     cursor: pointer;
   }
-  
+.userName:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

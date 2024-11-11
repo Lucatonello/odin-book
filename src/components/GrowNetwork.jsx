@@ -45,13 +45,15 @@ function GrowNetwork() {
                                 <img className={styles.profilePicBox} src={defaultpfp} alt="Profile picture" />
                             </div>
                             <div className={styles.boxSection}>
-                                <strong >{user.username}</strong>
+                                <strong className={styles.userName} onClick={() => navigate(`/profile/user/${user.id}`)}>{user.username}</strong>
                             </div>
                             <div className={styles.boxSection} style={{ textAlign: 'center' }}>
                                 <p style={{ margin: '0', padding: '0px 15px', color: '#666666' }}>{user.summary}</p>
                             </div>
                             <div className={styles.boxSection}>
-                                <button className={styles.connect} onClick={() => handleConnect(user.id)}>Connect</button>
+                                <button className={styles.connect} onClick={() => user.status !== 'pending' && handleConnect(user.id)}>
+                                    {user.status == 'pending' ? 'Pending' :'Connect'}
+                                </button>
                             </div>
                         </div>
                      ))}

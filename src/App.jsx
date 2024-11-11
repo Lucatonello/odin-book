@@ -7,6 +7,7 @@ import Jobs from './components/Jobs';
 import ViewJob from './components/ViewJob';
 import Network from './components/Network';
 import GrowNetwork from './components/GrowNetwork';
+import Notifications from './components/Notifications';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/jobs/:id" element={<ViewJob />} />
       <Route path="/network" element={<Network />} />
       <Route path="/network/grow" element={<GrowNetwork />} />
+      <Route path="/notifications" element={<Notifications />} />
     </Routes>
   )
 }

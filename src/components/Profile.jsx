@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import memberQueries from '../queries/memberQueries';
 import linkedInLogo from '../images/linkedin.png'
 import defaultBanner from '../images/default-banner.png';
+import defaultpfp from '../images/user.png'
+import { useNavigate } from 'react-router-dom';
 import companyLogo from '../images/default-company-logo.png';
 import schoolLogo from '../images/default-school-logo.png';
 import Navbar from './Navbar';
@@ -44,6 +46,8 @@ function Profile() {
     const { id } = useParams();
     const { type } = useParams();
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (userId == id && userType == type) {
             setIsAdmin(true);
@@ -56,7 +60,7 @@ function Profile() {
                 const response = await memberQueries.getUserData(type, id);
                 const data = await response.json();
                 setMemberData(data);
-                console.log(data)
+                console.log('memberData:', data)
             } 
         } 
         getMemberData();
@@ -151,7 +155,7 @@ function Profile() {
                         <div className={styles.bannerContainer}>
                             <img src={defaultBanner} className={styles.bannerImage} alt="banner" />
                             <img 
-                                src={linkedInLogo} 
+                                src={defaultpfp} 
                                 className={styles.profilePicture} 
                                 alt="profile picture" 
                             />
@@ -177,11 +181,11 @@ function Profile() {
                         </a>
                         )}
                         <div style={{ display: 'flex' }}>
-                            <p className={styles.connections} style={{ marginLeft: '20px'}}>
+                            <p className={styles.followers} style={{ marginLeft: '20px'}}>
                                 {memberData.followers_count} followers
                             </p>
-                            <p className={styles.connections}>
-                                {memberData.connections_count} connections 
+                            <p className={styles.connections} onClick={() => isAdmin && navigate('/network')}>
+                                {memberData.connections_count} {memberData.connections_count == 1 ? 'connection' : 'connections'} 
                             </p>
                         </div>
                         {!isAdmin && (
