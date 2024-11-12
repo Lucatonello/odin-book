@@ -37,6 +37,15 @@ const postsQueries = {
             },
             body: JSON.stringify({ newPost, id, type })
         });
+    },
+    getMemberNotifications: async (userid, type) => {
+        return await fetch(`${API_URL}getMemberNotifications/${userid}/${type}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-type': 'application/json',
+            }
+        })
     }
 }
 

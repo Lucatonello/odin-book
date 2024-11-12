@@ -38,6 +38,9 @@ function GrowNetwork() {
             </div>
             <div className={styles.pageContainer}>
                 <p style={{ margin: '0px 0px 10px 0px' }}>Expand your network</p>
+                {users.length === 0 && (
+                        <h2 style={{ color: '#666666' }}>There are no more users for you to connect with</h2>
+                    )}
                 <div className={styles.peopleGrid}>
                      {users.map(user => (
                         <div className={styles.userBox} key={user.id}>

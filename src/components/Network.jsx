@@ -61,6 +61,12 @@ function Network() {
             <div className={styles.pageContainer}>
                 <p>Your connections ({connections.length})</p>
                 <ul className={styles.connectionsList}>
+                    {connections.length === 0 && (
+                        <div>
+                            <h2 style={{ color: '#666666' }}>Looks like you dont have any connections yet</h2>
+                            <button type="button" onClick={() => navigate('/network/grow')} className={styles.connect}>Grow your network</button>
+                        </div>
+                    )}
                    {connections.map(connection => (
                         <li key={connection.id}>
                             <div style={{ display: 'flex'}}>
