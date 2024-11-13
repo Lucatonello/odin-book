@@ -25,7 +25,7 @@ function Jobs() {
 
     return (
         <>
-            <Navbar />
+            <Navbar tab={'jobs'}/>
             <div className={styles.pageContainer}>
                 <div className={styles.jobListContainer}>
                     <ul>

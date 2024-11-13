@@ -31,7 +31,7 @@ function GrowNetwork() {
 
     return (
         <>
-            <Navbar />
+            <Navbar  tab={'network'} />
             <div className={styles.pageContainer} onClick={() => navigate('/network')} style={{ display: 'flex', padding: '0px 0px 0px 10px' }}>
                 <a className={styles.sectionButton}>My network</a>
                 <a className={styles.sectionButtonActive}>Grow</a>

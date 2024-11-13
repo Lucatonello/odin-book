@@ -42,4 +42,7 @@
     background-color: #0a66c234;
     cursor: pointer;
   }
-  
+.memberName:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

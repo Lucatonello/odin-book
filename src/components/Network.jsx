@@ -53,7 +53,7 @@ function Network() {
 
     return (
         <>
-            <Navbar />
+            <Navbar tab={'network'} />
             <div className={styles.pageContainer} style={{ display: 'flex', padding: '0px 0px 0px 10px' }}>
                 <a className={styles.sectionButtonActive}>My network</a>
                 <a className={styles.sectionButton} onClick={() => navigate('/network/grow')}>Grow</a>

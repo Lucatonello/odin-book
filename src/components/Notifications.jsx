@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import memberQueries from '../queries/memberQueries'
+import { useNavigate } from "react-router-dom";
 import postsQueries from "../queries/postsQueries";
 import defaultpfp from '../images/user.png'
 import Navbar from "./Navbar";
@@ -12,6 +13,8 @@ function Notifications() {
 
     const userid = localStorage.getItem('authorid');
     const type = localStorage.getItem('type');
+
+    const navigate = useNavigate();
 
     //get connection requests
     useEffect(() => {
@@ -46,10 +49,14 @@ function Notifications() {
 
     return (
         <>
-            <Navbar />
+            <Navbar tab={'notifications'} />
+
+            {/* Title */}
             <div className={styles.pageContainer}>
                 <h1 style={{ margin: '5px'}}>Notifications</h1>
             </div>
+
+            {/* Connection requests */}
             {connectionReqs.length > 0 && (
                 <div className={styles.pageContainer}>
                     <h1 style={{ margin: '5px', color: '#666666' }}>Connection requests</h1>
@@ -76,18 +83,22 @@ function Notifications() {
                     </ul>
                 </div>
             )}
+
+            {/* New followers */}
             <div className={styles.pageContainer}>
                 <h1 style={{ margin: '5px', color: '#666666' }}>New followers</h1>
                 <ul>
-                    {notifications.follows?.map(follower => (
-                        <li key={follower.follower_id}>
+                    {notifications.follows?.map((follower, index) => (
+                        <li key={index}>
                             <div style={{ display: 'flex', marginBottom: '10px' }}>
                                 <div style={{ marginRight: '10px' }}>
                                     <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
                                 </div>
                                 <div>
-                                    <strong>{follower.follower_name }</strong>
-                                    {follower.follower_summary.length !== 0 && <p style={{ margin: '3px 0px 0px 0px' }}>{follower.follower_summary}</p>}
+                                    <strong onClick={() => navigate(`/profile/${follower.follower_type}/${follower.follower_id}`)} className={styles.memberName}>
+                                        {follower.follower_name }
+                                    </strong>
+                                    {follower.follower_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{follower.follower_summary}</p>}
                                     <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New follower</p>
                                 </div>
                             </div>
@@ -95,6 +106,8 @@ function Notifications() {
                     ))}
                 </ul>
             </div>
+
+            {/* New likes */}
             <div className={styles.pageContainer}>
                 <h1 style={{ margin: '5px', color: '#666666' }}>New likes</h1>
                 <ul>
@@ -105,7 +118,7 @@ function Notifications() {
                                     <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
                                 </div>
                                 <div>
-                                    <strong>{like.liker_name }</strong>
+                                    <strong onClick={() => navigate(`/profile/${like.liker_type}/${like.liker_id}`)} className={styles.memberName}>{like.liker_name}</strong>
                                     {like.liker_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{like.liker_summary}</p>}
                                     <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New like</p>
                                 </div>
@@ -114,6 +127,8 @@ function Notifications() {
                     ))}
                 </ul>
             </div>
+
+            {/* New comments */}
             <div className={styles.pageContainer}>
                 <h1 style={{ margin: '5px', color: '#666666' }}>New comments</h1>
                 <ul>
@@ -124,7 +139,7 @@ function Notifications() {
                                <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
                            </div>
                            <div>
-                               <strong>{comment.commenter_name }</strong>
+                               <strong onClick={() => navigate(`/profile/${comment.commenter_type}/${comment.commenter_id}`)} className={styles.memberName}>{comment.commenter_name }</strong>
                                {comment.commenter_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{comment.commenter_summary}</p>}
                                <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New comment</p>
                            </div>
