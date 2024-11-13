@@ -45,7 +45,16 @@ const postsQueries = {
                 Authorization: `Bearer ${token}`,
                 'Content-type': 'application/json',
             }
-        })
+        });
+    },
+    getPostData: async (postid) => {
+        return await fetch(`${API_URL}getPostData/${postid}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-type': 'application/json',
+            }
+        });
     }
 }
 

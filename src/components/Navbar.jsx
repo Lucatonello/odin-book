@@ -29,7 +29,7 @@ function Navbar(tab) {
         </svg>
             <input type="text" placeholder="Search" className={styles.searchInput} />
         </div>
-    </div>
+        </div>
 
             {/* Navbar Icons */}
             <div className={styles.navItems}>

@@ -60,6 +60,7 @@ function Profile() {
                 const data = await response.json();
                 setMemberData(data);
                 console.log('memberData:', data)
+                console.log('followers count: ', data.followers_count);
             } 
         } 
         getMemberData();
