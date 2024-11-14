@@ -1,0 +1,28 @@
+.pageContainer {
+    max-width: 804px; 
+    margin: auto; 
+    position: relative; 
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 0;
+    border: 1px solid #deddd9;
+}
+.pageGrid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: calc(100vh - 53.66px);
+    overflow: hidden;
+}   
+.messageContainer {
+    display: flex;
+    border-bottom: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8; 
+    padding: 10px;
+    cursor: pointer;
+}
+.messageContainer:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
