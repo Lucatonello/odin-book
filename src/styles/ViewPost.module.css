@@ -8,3 +8,30 @@
     padding: 10px;
     border: 1px solid #deddd9;
 }
+.loadingMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh; 
+    font-size: 1.5rem;
+    color: #666;
+}
+.top, .bottom, .section {
+    display: flex;
+}
+
+.authorName:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.infoTop {
+    margin: 5px 0px 0px 10px;
+}
+.section {
+    padding: 5px;
+    cursor: pointer;
+}
+.section:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}

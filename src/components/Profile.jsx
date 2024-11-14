@@ -234,7 +234,7 @@ function Profile() {
                                 {memberActivity.posts !== 0 ? (
                                     <ul className={styles.activityUl}>
                                         {memberActivity.posts && memberActivity.posts.map(post => (
-                                        <li key={post.id} className={styles.post}>
+                                        <li onClick={() => navigate(`/post/${post.id}`)} key={post.id} className={styles.post}>
                                             <p>{post.text}</p>
                                         </li>
                                         ))}
@@ -247,7 +247,7 @@ function Profile() {
                             {memberActivity.comments !== 0 ? (
                                 <ul className={styles.activityUl}>
                                     {memberActivity.comments && memberActivity.comments.map(comment => (
-                                    <li key={comment.id}>
+                                    <li onClick={() => navigate(`/post/${comment.postid}`)} key={comment.id}>
                                         <p>{comment.text}</p>
                                     </li>
                                     ))}

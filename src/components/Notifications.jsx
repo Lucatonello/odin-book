@@ -112,13 +112,17 @@ function Notifications() {
                 <h1 style={{ margin: '5px', color: '#666666' }}>New likes</h1>
                 <ul>
                     {notifications.likes?.map(like => (
-                        <li key={like.id}>
+                        <li key={like.id} style={{ cursor: 'pointer' }} onClick={() => navigate(`/post/${like.postid}`)}>
                             <div style={{ display: 'flex', marginBottom: '10px' }}>
                                 <div style={{ marginRight: '10px' }}>
                                     <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
                                 </div>
                                 <div>
-                                    <strong onClick={() => navigate(`/profile/${like.liker_type}/${like.liker_id}`)} className={styles.memberName}>{like.liker_name}</strong>
+                                    <strong onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigate(`/profile/${like.liker_type}/${like.liker_id}`)}
+                                    } 
+                                    className={styles.memberName}>{like.liker_name}</strong>
                                     {like.liker_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{like.liker_summary}</p>}
                                     <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New like</p>
                                 </div>
@@ -133,13 +137,17 @@ function Notifications() {
                 <h1 style={{ margin: '5px', color: '#666666' }}>New comments</h1>
                 <ul>
                     {notifications.comments?.map(comment => (
-                       <li key={comment.id}>
+                       <li key={comment.id} onClick={() => navigate(`/post/${comment.postid}`)} style={{ cursor: 'pointer' }}>
                        <div style={{ display: 'flex', marginBottom: '10px' }}>
                            <div style={{ marginRight: '10px' }}>
                                <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
                            </div>
                            <div>
-                               <strong onClick={() => navigate(`/profile/${comment.commenter_type}/${comment.commenter_id}`)} className={styles.memberName}>{comment.commenter_name }</strong>
+                               <strong onClick={(e) => {
+                                    e.stopPropagation();
+                                    navigate(`/profile/${comment.commenter_type}/${comment.commenter_id}`
+                                )}} 
+                                className={styles.memberName}>{comment.commenter_name }</strong>
                                {comment.commenter_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{comment.commenter_summary}</p>}
                                <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New comment</p>
                            </div>

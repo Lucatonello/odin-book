@@ -123,6 +123,7 @@ li {
 }
 .post {
     margin-left: 20px;
+    cursor: pointer;
 }
 .logoContainer {
   display: flex;
