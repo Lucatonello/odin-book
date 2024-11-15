@@ -32,11 +32,11 @@ function Messaging() {
 
     return (
         <>
-            <Navbar tab={'messages'} />
+            <Navbar tab={'messaging'} />
             <div className={styles.pageContainer}>
                 <h2 style={{ fontSize: '16px', padding: '0px 4px 0px 16px'}}>Messaging</h2>
                 <div className={styles.pageGrid}>
-                    <div>
+                    <div style={{ overflowY: 'scroll' }}>
                         <ul>
                             {messages.map(message => (
                                 <li key={message.id}>
@@ -57,7 +57,7 @@ function Messaging() {
                             ))}
                         </ul>
                     </div>
-                    <div>
+                    <div style={{ padding: '10px' }}>
                         {chatId1 !== null && chatId2 !== null && contactUsername !== '' && <ViewChat chatId1={chatId1} chatId2={chatId2} contactUsername={contactUsername} />}
                     </div>
                 </div>

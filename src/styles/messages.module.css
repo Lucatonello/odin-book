@@ -1,10 +1,20 @@
+.ghegegeagiuagb {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between; /* Ensures proper spacing */
+    overflow: hidden;
+}
 .pageContainer {
     max-width: 804px; 
     margin: auto; 
     position: relative; 
+    overflow: hidden;
     margin-top: 15px;
     border-radius: 10px;
+    height: calc(100vh - 83px);
     background-color: white;
+    overflow: hidden;
     padding: 0;
     border: 1px solid #deddd9;
 }
@@ -15,6 +25,7 @@
     margin: 0 auto;
     height: calc(100vh - 53.66px);
     overflow: hidden;
+    
 }   
 .messageContainer {
     display: flex;
@@ -25,4 +36,46 @@
 }
 .messageContainer:hover {
     background-color: rgba(0, 0, 0, 0.1);
+}
+.chatSection {
+    flex-grow: 1; 
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+.textUsername {
+    margin: auto 10px;
+}
+.textMessage {
+    margin: 0px 0 20px 50px;
+}
+.newMessage {
+    background-color: #f5f3f0;
+    border-radius: 10px;
+    height: 100px;
+    padding: 12px;
+}
+.sendActive {
+    background-color: #0a66c2;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    padding: 2px 12px;
+    font-size: 14px;
+    margin-right: 13px;
+    cursor: pointer;
+}
+.sendUnactive {
+    background-color: #666666;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    padding: 2px 12px;
+    font-size: 14px;
+    margin-right: 13px;
+}
+.newMessageContainer {
+    position: fixed;
+    width: 500px;
+    bottom: 15px;
+    padding: 10px 
 }

@@ -7,7 +7,7 @@ const messagesQueries = {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
-                Authorization: 'application/json'
+                Authorization: `Bearer ${token}`
             }
         });
     },
@@ -16,8 +16,18 @@ const messagesQueries = {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
-                Authorization: 'application/json'
+                Authorization: `Bearer ${token}`
             }
+        });
+    },
+    sendMessage: async (newMessage, senderid, receiverid) => {
+        return await fetch(`${API_URL}sendMessage/${senderid}/${receiverid}`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ newMessage })
         });
     }
 }
