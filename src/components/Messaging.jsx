@@ -9,7 +9,9 @@ import styles from '../styles/messages.module.css';
 function Messaging() {
     const [messages, setMessages] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [chatId, setChatId] = useState(null);
+    const [chatId1, setChatId1] = useState(null);
+    const [chatId2, setChatId2] = useState(null);
+    const [contactUsername, setContactUsername] = useState('');
 
     const userid = localStorage.getItem('authorid');
 
@@ -38,7 +40,11 @@ function Messaging() {
                         <ul>
                             {messages.map(message => (
                                 <li key={message.id}>
-                                    <div className={styles.messageContainer} onClick={() => setChatId(`${message.senderid}, ${message.receiverid}`)}>
+                                    <div className={styles.messageContainer} onClick={() => {
+                                            setChatId1(message.first_sender_id);
+                                            setChatId2(message.first_receiver_id);
+                                            setContactUsername(message.contact_username);
+                                        }}>
                                         <div>
                                             <img src={defaultpfp} style={{ height: '55.99px', width: '55.99px' }} alt="Profile picture" />
                                         </div>
@@ -52,7 +58,7 @@ function Messaging() {
                         </ul>
                     </div>
                     <div>
-                        {chatId !== null && <ViewChat chatid={chatId} />}
+                        {chatId1 !== null && chatId2 !== null && contactUsername !== '' && <ViewChat chatId1={chatId1} chatId2={chatId2} contactUsername={contactUsername} />}
                     </div>
                 </div>
             </div>
