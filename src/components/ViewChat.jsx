@@ -4,21 +4,24 @@ import defaultpfp from '../images/user.png'
 
 import styles from '../styles/messages.module.css';
 
-function ViewChat({ chatId1, chatId2, contactUsername }) {
+function ViewChat({ chatId1, contactUsername }) {
     const [chat, setChat] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [newMessage, setNewMessage] = useState('');
 
+    const username = localStorage.getItem('username');
+    const userid = localStorage.getItem('authorid');
+
     useEffect(() => {
         const getChatDetails = async () => {
-            const response = await messagesQueries.getChatDetails(chatId1, chatId2);
+            const response = await messagesQueries.getChatDetails(chatId1);
             const data = await response.json();
             console.log('chat: ', data);
             setChat(data);
             setIsLoading(false);
         }
         getChatDetails();
-    }, [chatId1, chatId2]);
+    }, [chatId1]);
 
     if (isLoading) {
         return <p>Loading...</p>
@@ -32,7 +35,14 @@ function ViewChat({ chatId1, chatId2, contactUsername }) {
             const result = await response.json();
     
             if (result.isDone) {
-                setChat((prevChats) => [...prevChats, result.newMessage]);
+                const newMessageObj = {
+                    //temporary id until page refresh
+                    id: Date.now(),
+                    username: username,
+                    text: newMessage,
+                    senderid: userid,
+                }
+                setChat((prevChats) => [...prevChats, newMessageObj]);
                 setNewMessage('');
             }
         }
@@ -42,7 +52,7 @@ function ViewChat({ chatId1, chatId2, contactUsername }) {
         <div className={'ghegegeagiuagb'}>
             <p>{contactUsername}</p>
             <hr />
-            <div>
+            <div className={styles.chatSection}>
                 {chat.map(message => (
                     <div key={message.id}>
                         <div style={{ display: 'flex' }}>

@@ -79,3 +79,9 @@
     bottom: 15px;
     padding: 10px 
 }
+.chatSection {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 390px);
+}

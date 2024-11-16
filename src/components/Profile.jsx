@@ -16,6 +16,7 @@ import NewEducation from './edit&add-Components/NewEducation';
 import EditEducation from './edit&add-Components/EditEducation';
 import NewSkill from './edit&add-Components/NewSkill';
 import CompanyProfile from './CompanyProfile';
+import NewMessageForm from './NewMessageForm';
 
 import styles from '../styles/Profile.module.css'; 
 
@@ -39,6 +40,7 @@ function Profile() {
     const [showNewEducation, setShowNewEducation] = useState(false);
     const [showEditEducation, setShowEditEducation] = useState(false);
     const [showNewSkill, setShowNewSkill] = useState(false);
+    const [showNewMessage, setShowNewMessage] = useState(false);
 
     const userId = localStorage.getItem('authorid');
     const userType = localStorage.getItem('type');
@@ -148,6 +150,7 @@ function Profile() {
                     {showNewEducation && <NewEducation onHide={() => setShowNewEducation(false)} userId={userId} />}
                     {showEditEducation && <EditEducation onHide={() => setShowEditEducation(false)} userId={userId} educationDetails={educationDetails} />}
                     {showNewSkill && <NewSkill onHide={() => setShowNewSkill(false)} userId={userId} />}
+                    {showNewMessage && <NewMessageForm userDetails={{receiverid: memberData.id, username: memberData.username, summary: memberData.summary}} onHide={() => setShowNewMessage(false)} />}
                     <Navbar />
         
                     {/* Main header */}
@@ -195,7 +198,7 @@ function Profile() {
                                 ) : <button style={{ marginLeft: '20px', marginRight: '10px' }} className={styles.connect} onClick={() => handleUnfollow()}>Unfollow</button>}
                                 {!isConnected ? (
                                     <button onClick={() => handleConnect()} className={styles.connect}>Connect</button>
-                                ) : <button className={styles.follow} style={{ marginLeft: '0'}}>Message</button>}
+                                ) : <button onClick={() => setShowNewMessage(true)} className={styles.follow} style={{ marginLeft: '0'}}>Message</button>}
                             </div>
                         )}
                         {isAdmin && userId == id && userType == type && (

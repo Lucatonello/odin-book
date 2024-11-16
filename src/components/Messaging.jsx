@@ -58,7 +58,7 @@ function Messaging() {
                         </ul>
                     </div>
                     <div style={{ padding: '10px' }}>
-                        {chatId1 !== null && chatId2 !== null && contactUsername !== '' && <ViewChat chatId1={chatId1} chatId2={chatId2} contactUsername={contactUsername} />}
+                        {chatId1 !== null && contactUsername !== '' && <ViewChat chatId1={chatId1} contactUsername={contactUsername} />}
                     </div>
                 </div>
             </div>

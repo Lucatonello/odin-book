@@ -11,8 +11,8 @@ const messagesQueries = {
             }
         });
     },
-    getChatDetails: async (chatId1, chatId2) => {
-        return await fetch(`${API_URL}getChatDetails/${chatId1}/${chatId2}`, {
+    getChatDetails: async (chatId1) => {
+        return await fetch(`${API_URL}getChatDetails/${chatId1}`, {
             method: 'GET',
             headers: {
                 'Content-type': 'application/json',
