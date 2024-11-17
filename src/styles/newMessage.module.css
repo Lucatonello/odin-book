@@ -1,0 +1,53 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.container {
+    position: relative;
+    z-index: 1001;
+    width: 744px;
+    max-height: calc(100vh - 96px);
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); 
+    overflow-y: auto;
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+.close {
+    border-radius: 50%;
+    padding: 5px;
+}
+.close:hover {
+    background-color: rgba(0, 0, 0, 0.1)
+}
+.send {
+    color: white;
+    background-color: #0A66C2;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 16px;
+    margin: 7px;
+    font-size: 16px;
+}
+.messageInput {
+    width: calc(100% - 35px);
+    height: 200px;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    resize: none;
+    outline: none;
+}

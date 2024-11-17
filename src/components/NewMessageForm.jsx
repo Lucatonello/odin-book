@@ -11,7 +11,9 @@ function NewmEssageForm({ userDetails, onHide }) {
     const userid = localStorage.getItem('authorid');
     const navigate = useNavigate();
 
-    const handleSend = async () => {
+    const handleSend = async (e) => {
+        e.preventDefault();
+
         const response = await messagesQueries.sendMessage(newMessage, userid, userDetails.receiverid);
         const result = await response.json();
 
@@ -23,19 +25,26 @@ function NewmEssageForm({ userDetails, onHide }) {
     return (
         <div className={styles.overlay}>
             <div className={styles.container}>
-                <p>New messge</p>
+                <div className={styles.top}>
+                    <p style={{ margin: '0' }}>New messge</p>
+                    <svg className={styles.close} onClick={onHide} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                    </svg>
+                </div>
                 <hr />
                 <strong>{userDetails.username}</strong>
-                <p>{userDetails.summary}</p>
+                <p style={{ margin: '5px 0', color: '#666666' }}>{userDetails.summary}</p>
                 <form onSubmit={handleSend}>
                     <textarea
                         type='text'
                         value={newMessage}
+                        placeholder="Write a message..."
                         onChange={(e) => setNewMessage(e.target.value)}
+                        className={styles.messageInput}
                     />
                     <hr />
-                    <div>
-                        <button type="submit">Send</button>
+                    <div style={{ display: "flex", justifyContent: 'flex-end' }}>
+                        <button type="submit" className={styles.send}>Send</button>
                     </div>
                 </form>
             </div>

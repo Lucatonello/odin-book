@@ -4,7 +4,7 @@ import defaultpfp from '../images/user.png'
 
 import styles from '../styles/messages.module.css';
 
-function ViewChat({ chatId1, contactUsername }) {
+function ViewChat({ chatId1, chatId2, contactUsername }) {
     const [chat, setChat] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [newMessage, setNewMessage] = useState('');
@@ -14,14 +14,14 @@ function ViewChat({ chatId1, contactUsername }) {
 
     useEffect(() => {
         const getChatDetails = async () => {
-            const response = await messagesQueries.getChatDetails(chatId1);
+            const response = await messagesQueries.getChatDetails(chatId1, chatId2);
             const data = await response.json();
             console.log('chat: ', data);
             setChat(data);
             setIsLoading(false);
         }
         getChatDetails();
-    }, [chatId1]);
+    }, [chatId1, chatId2]);
 
     if (isLoading) {
         return <p>Loading...</p>
@@ -31,7 +31,8 @@ function ViewChat({ chatId1, contactUsername }) {
         e.preventDefault();
         
         if (newMessage !== '') {
-            const response = await messagesQueries.sendMessage(newMessage, chat[0].senderid, chat[0].receiverid);
+            const receiverid = userid == chat[0].receiverid ? chat[0].senderid : chat[0].receiverid;
+            const response = await messagesQueries.sendMessage(newMessage, userid, receiverid);
             const result = await response.json();
     
             if (result.isDone) {
