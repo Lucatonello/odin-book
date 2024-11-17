@@ -35,3 +35,6 @@
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
+.hasLiked {
+    color: #3890e8;
+}

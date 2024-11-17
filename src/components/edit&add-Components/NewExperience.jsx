@@ -37,7 +37,12 @@ function NewExperience({ onHide, userId }) {
             // eslint-disable-next-line no-unused-vars
             Object.entries(data).filter(([key, value]) => value !== '' && value !== null && value !== undefined)
         );
-        await memberQueries.newExperience(userId, filteredData);
+        const response = await memberQueries.newExperience(userId, filteredData);
+        const result = await response.json();
+
+        if (result.isDone) {
+            window.location.reload();
+        }
     }
 
     //separate functions to handle the event of dropdowns to ensure the state updates properly when the server is slow

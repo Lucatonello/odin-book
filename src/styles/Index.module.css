@@ -54,3 +54,6 @@ body, html {
     cursor: pointer;
     text-decoration: underline;
 }
+.hasLiked {
+    color: #3890e8;
+}

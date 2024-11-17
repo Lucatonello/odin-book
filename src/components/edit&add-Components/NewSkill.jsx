@@ -10,7 +10,12 @@ function NewSkill({ onHide, userId }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        await memberQueries.newSkill(userId, skill);
+        const response = await memberQueries.newSkill(userId, skill);
+        const result = await response.json();
+
+        if (result.isDone) {
+            window.location.reload();
+        }
     };
 
     return (

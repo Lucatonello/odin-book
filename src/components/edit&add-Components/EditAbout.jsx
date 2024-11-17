@@ -11,13 +11,20 @@ function EditAbout({ onHide, memberData }) {
     const type = localStorage.getItem('type');
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
         if (type === 'user') {
-            await memberQueries.updateUserAbout(userid, newAbout);
+            const response = await memberQueries.updateUserAbout(userid, newAbout);
+            const result = await response.json();
+            console.log(result);
+            if (result.isDone) window.location.reload();
         } else if (type === 'company') {
-            await memberQueries.updateCompanyAbout(userid, newAbout);
+            const response = await memberQueries.updateCompanyAbout(userid, newAbout);
+            const result = await response.json();
+            if (result.isDone) window.location.reload();
         } else {
             console.error('Type not valid');
+            return;
         }
     }
     return (

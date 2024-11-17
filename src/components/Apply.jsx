@@ -24,7 +24,12 @@ function Apply({ onHide, jobid }) {
         formData.append('jobid', jobid);
         formData.append('userid', userid);
 
-        await jobsQueries.applyToJob(formData);
+        const response = await jobsQueries.applyToJob(formData);
+        const result = await response.json();
+
+        if (result.isDone) {
+            window.location.reload();
+        }
 
     }
 

@@ -31,7 +31,12 @@ function EditEducation({ onHide, userId, educationDetails }) {
         const filteredData = Object.fromEntries(
             Object.entries(data).filter(([key, value]) => value !== '' && value !== null && value !== undefined)
         );
-        await memberQueries.editEducation(userId, educationDetails.id, filteredData);
+        const response = await memberQueries.editEducation(userId, educationDetails.id, filteredData);
+        const result = await response.json();
+
+        if (result.isDone) {
+            window.location.reload();
+        }
 
     };
     const handleDeleteExperience = async () => {

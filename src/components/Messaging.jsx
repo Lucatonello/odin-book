@@ -3,6 +3,7 @@ import messagesQueries from "../queries/messagesQueries.js";
 import Navbar from "./Navbar.jsx";
 import defaultpfp from '../images/user.png'
 import ViewChat from './ViewChat.jsx';
+import { useNavigate } from "react-router-dom";
 
 import styles from '../styles/messages.module.css';
 
@@ -12,8 +13,10 @@ function Messaging() {
     const [chatId1, setChatId1] = useState(null);
     const [chatId2, setChatId2] = useState(null);
     const [contactUsername, setContactUsername] = useState('');
+    const [activeChat, setActiveChat] = useState('');
 
     const userid = localStorage.getItem('authorid');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getMessages = async () => {
@@ -30,6 +33,26 @@ function Messaging() {
         return <p>Loading...</p>
     }
 
+    if (messages && messages.length === 0) {
+        return (
+            <>
+                <Navbar tab={"messaging"} />
+                <div className={styles.pageContainer} style={{ padding: '10px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <h1 style={{ marginBottom: '5px',  }}>Looks like you are flying solo!</h1>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <p style={{ marginTop: '5px' }}>Send your first message, connect with others, and start building your network!</p>
+                    </div>
+                    <div  style={{ display: 'flex', justifyContent: 'center' }}>
+                        <button onClick={() => navigate('/network/grow')} className={styles.grow}>Grow network</button>
+
+                    </div>
+                </div>
+            </>
+        )
+    }
+
     return (
         <>
             <Navbar tab={"messaging"} />
@@ -40,10 +63,11 @@ function Messaging() {
                         <ul>
                             {messages.map(message => (
                                 <li key={message.id}>
-                                    <div className={styles.messageContainer} onClick={() => {
+                                    <div className={message.contact_username == activeChat ? styles.messageContainerActive: styles.messageContainer} onClick={() => {
                                             setChatId1(message.first_sender_id);
                                             setChatId2(message.first_receiver_id);
                                             setContactUsername(message.contact_username);
+                                            setActiveChat(message.contact_username)
                                         }}>
                                         <div>
                                             <img src={defaultpfp} style={{ height: '55.99px', width: '55.99px' }} alt="Profile picture" />

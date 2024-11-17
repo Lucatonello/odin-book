@@ -21,7 +21,7 @@ function Index() {
     useEffect(() => {
         async function fetchPosts() {
             try {
-                const response = await postsQueries.getAllPosts();
+                const response = await postsQueries.getAllPosts(id);
                 const data = await response.json();
                 setPosts(data);
                 console.log('getAllPosts: ', data);
@@ -30,20 +30,29 @@ function Index() {
             }
         }
         fetchPosts();
-    }, []);
+    }, [id]);
 
     const handleAddLike = async (postid) => {
         try {
-            await postsQueries.addOneLike(id, type, postid);
-            setPosts((prevPosts) => 
-                prevPosts.map((post) => 
-                    post.id === posts.id ? { ...post, likes: post.likes + 1 } : post
-                )
-            );
+            const response = await postsQueries.addOneLike(id, type, postid);
+            const result = await response.json();
+    
+            if (result.isDone) {
+                const post = posts.find(post => post.id === postid);
+                if (post) {
+                    const updatedLikes = parseInt(post.total_likes) + 1; 
+                    post.total_likes = updatedLikes;  
+                    post.has_liked = true;
+    
+                    setPosts(prevPosts => 
+                        prevPosts.map(p => p.id === postid ? { ...p, total_likes: updatedLikes, has_liked: true } : p)
+                    );
+                }
+            }
         } catch (err) {
-            console.error(err);
+            console.error("Error adding like:", err);
         }
-    }
+    };
 
     return (
         <div>
@@ -77,10 +86,15 @@ function Index() {
                         <p style={{ fontSize: '13px' }}>👍{post.total_likes}</p>
                         <hr />
                         <div className={styles.bottom}>
-                            <div className={styles.section} onClick={() => handleAddLike(post.id)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                            <div className={styles.section} onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleAddLike(post.id)}
+                                }>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill={post.has_liked ? '#3890e8' : '#5f6368'} height="24px" viewBox="0 -960 960 960" width="24px">
                                     <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/>
-                                </svg> <p style={{ margin: '0px 10px 0px 5px', alignSelf: 'flex-end' }}>Like</p>
+                                </svg> <p className={post.has_liked ? styles.hasLiked: null} style={{ margin: '0px 10px 0px 5px', alignSelf: 'flex-end' }}>
+                                            Like
+                                        </p>
                             </div>
                             <div onClick={(e) => {
                                     e.stopPropagation();

@@ -7,7 +7,7 @@ import ViewJob from './ViewJob';
 
 function Jobs() {
     const [jobs, setJobs] = useState([]);
-    const [selectedJob, setSelectedJob] = useState(null);
+    const [selectedJob, setSelectedJob] = useState(1);
 
     useEffect(() => {
         const getJobsData = async () => {

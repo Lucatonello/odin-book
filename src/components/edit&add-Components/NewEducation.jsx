@@ -31,7 +31,12 @@ function NewEducation({ onHide, userId }) {
         const filteredData = Object.fromEntries(
             Object.entries(data).filter(([key, value]) => value !== '' && value !== null && value !== undefined)
         );
-        await memberQueries.newEducation(userId, filteredData);
+        const response = await memberQueries.newEducation(userId, filteredData);
+        const result = await response.json();
+
+        if (result.isDone) {
+            window.location.reload();
+        }
     }
      //separate functions to handle the event of dropdowns to ensure the state updates properly when the server is slow
     const handleStartMonthChange = (e) => {

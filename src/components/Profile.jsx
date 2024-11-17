@@ -115,7 +115,12 @@ function Profile() {
     }, [userId, id, userType, type]);
 
     const handleDeleteSkill = async (skillid) => {
-        await memberQueries.deleteSkill(skillid);
+        const response = await memberQueries.deleteSkill(skillid);
+        const result = await response.json();
+        
+        if (result.isDone) {
+            window.location.reload();
+        }
     };
 
     const handleFollow = async () => {

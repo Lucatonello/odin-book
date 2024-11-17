@@ -38,7 +38,12 @@ function EditExperience({ onHide, userId, experienceDetails }) {
             // eslint-disable-next-line no-unused-vars
             Object.entries(data).filter(([key, value]) => value !== '' && value !== null && value !== undefined)
         );
-        await memberQueries.editExperience(userId, experienceDetails.id, filteredData);
+        const response = await memberQueries.editExperience(userId, experienceDetails.id, filteredData);
+        const result = await response.json();
+
+        if (result.isDone) {
+            window.location.reload();
+        }
     }
 
     const handleDeleteExperience = async () => {

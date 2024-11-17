@@ -19,14 +19,14 @@ function ViewPost() {
 
     useEffect(() => {
         const getPostData = async () => {
-            const response = await postsQueries.getPostData(id);
+            const response = await postsQueries.getPostData(id, userid);
             const data = await response.json();
             console.log('post data', data);
             setPostData(data[0]);
             setIsLoading(false);
         }
         getPostData();
-    }, [id]);
+    }, [id, userid]);
 
     const handleAddLike = async (postid) => {
         try {
@@ -59,9 +59,9 @@ function ViewPost() {
                                 <hr />
                                 <div className={styles.bottom}>
                                     <div className={styles.section} onClick={() => handleAddLike(postData.id)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill={postData.has_liked ? '#3890e8' : '#5f6368'} height="24px" viewBox="0 -960 960 960" width="24px">
                                             <path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/>
-                                        </svg> <p style={{ margin: '0px 10px 0px 5px', alignSelf: 'flex-end' }}>Like</p>
+                                        </svg> <p className={postData.has_liked ? styles.hasLiked: null} style={{ margin: '0px 10px 0px 5px', alignSelf: 'flex-end' }}>Like</p>
                                     </div>
                                 </div>
                             <Comments comments={postData.comments} postid={postData.id}/>

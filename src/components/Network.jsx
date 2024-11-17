@@ -2,6 +2,7 @@ import { useState, useEffect, useRef  } from "react";
 import memberQueries from '../queries/memberQueries';
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import NewMessageForm from './NewMessageForm';
 import styles from '../styles/Network.module.css';
 import defaultpfp from '../images/user.png'
 
@@ -10,6 +11,9 @@ function Network() {
 
     const [showDropdown, setShowDropdown] = useState(null);
     const dropdownRef = useRef(null);
+
+    const [showMessageForm, setShowMessageForm] = useState(false);
+    const [userDetails, setUserDetails] = useState({});
 
     const navigate = useNavigate();
 
@@ -51,9 +55,20 @@ function Network() {
         };
     }, []);
 
+    const handleMessage = async (receiverid, username, summary) => {
+        const newUserDetails = {
+            receiverid,
+            username,
+            summary
+        };
+        setUserDetails(newUserDetails);
+        setShowMessageForm(true);
+    }
+
     return (
         <>
             <Navbar tab={'network'} />
+            {showMessageForm && <NewMessageForm userDetails={userDetails} onHide={() => setShowMessageForm(false)} />}
             <div className={styles.pageContainer} style={{ display: 'flex', padding: '0px 0px 0px 10px' }}>
                 <a className={styles.sectionButtonActive}>My network</a>
                 <a className={styles.sectionButton} onClick={() => navigate('/network/grow')}>Grow</a>
@@ -76,7 +91,7 @@ function Network() {
                                     <p className={styles.connctionDetails}>{connection.summary}</p>
                                 </div>
                                 <div className={styles.messageButtonContainer}>
-                                    <button className={styles.messageButton}>Message</button>
+                                    <button onClick={() => handleMessage(connection.id, connection.username, connection.summary)} className={styles.messageButton}>Message</button>
                                     <svg onClick={() => setShowDropdown(showDropdown === connection.id ? null : connection.id)}  xmlns="http://www.w3.org/2000/svg" style={{ margin: '0px 10px', padding: '5px' }} className={styles.moreButton}  height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                         <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"/>
                                     </svg>

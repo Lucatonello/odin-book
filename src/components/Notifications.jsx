@@ -47,6 +47,21 @@ function Notifications() {
         }
     }
 
+    if (
+        (connectionReqs && connectionReqs.length === 0) &&
+        (notifications && notifications.follows && notifications.follows.length === 0) &&
+        (notifications.likes && notifications.likes.length === 0) &&
+        (notifications.comments && notifications.comments.length === 0)
+    ) {
+        return (
+            <>
+                <Navbar tab={'notifications'} />
+                <div className={styles.pageContainer}>
+                    <p style={{ color: '#666666' }}>You have no new notifications.</p>
+                </div>
+            </>
+        )
+    }
     return (
         <>
             <Navbar tab={'notifications'} />
@@ -85,77 +100,91 @@ function Notifications() {
             )}
 
             {/* New followers */}
-            <div className={styles.pageContainer}>
-                <h1 style={{ margin: '5px', color: '#666666' }}>New followers</h1>
-                <ul>
-                    {notifications.follows?.map((follower, index) => (
-                        <li key={index}>
-                            <div style={{ display: 'flex', marginBottom: '10px' }}>
-                                <div style={{ marginRight: '10px' }}>
-                                    <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
+            {notifications.follows && notifications.follows.length > 0 && (
+                <div className={styles.pageContainer}>
+                    <h1 style={{ margin: '5px', color: '#666666' }}>New followers</h1>
+                    <ul>
+                        {notifications.follows.map((follower, index) => (
+                            <li key={index}>
+                                <div style={{ display: 'flex', marginBottom: '10px' }}>
+                                    <div style={{ marginRight: '10px' }}>
+                                        <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
+                                    </div>
+                                    <div>
+                                        <strong onClick={() => navigate(`/profile/${follower.follower_type}/${follower.follower_id}`)} 
+                                                className={styles.memberName}>
+                                            {follower.follower_name}
+                                        </strong>
+                                        {follower.follower_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{follower.follower_summary}</p>}
+                                        <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New follower</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <strong onClick={() => navigate(`/profile/${follower.follower_type}/${follower.follower_id}`)} className={styles.memberName}>
-                                        {follower.follower_name }
-                                    </strong>
-                                    {follower.follower_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{follower.follower_summary}</p>}
-                                    <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New follower</p>
-                                </div>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
 
             {/* New likes */}
-            <div className={styles.pageContainer}>
-                <h1 style={{ margin: '5px', color: '#666666' }}>New likes</h1>
-                <ul>
-                    {notifications.likes?.map(like => (
-                        <li key={like.id} style={{ cursor: 'pointer' }} onClick={() => navigate(`/post/${like.postid}`)}>
-                            <div style={{ display: 'flex', marginBottom: '10px' }}>
-                                <div style={{ marginRight: '10px' }}>
-                                    <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
+            {notifications.likes && notifications.likes.length > 0 && (
+                <div className={styles.pageContainer}>
+                    <h1 style={{ margin: '5px', color: '#666666' }}>New likes</h1>
+                    <ul>
+                        {notifications.likes.map(like => (
+                            <li key={like.id} style={{ cursor: 'pointer' }} onClick={() => navigate(`/post/${like.postid}`)}>
+                                <div style={{ display: 'flex', marginBottom: '10px' }}>
+                                    <div style={{ marginRight: '10px' }}>
+                                        <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
+                                    </div>
+                                    <div>
+                                        <strong onClick={(e) => {
+                                                e.stopPropagation();
+                                                navigate(`/profile/${like.liker_type}/${like.liker_id}`);
+                                            }} 
+                                            className={styles.memberName}>
+                                            {like.liker_name}
+                                        </strong>
+                                        {like.liker_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{like.liker_summary}</p>}
+                                        <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New like</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <strong onClick={(e) => {
-                                        e.stopPropagation();
-                                        navigate(`/profile/${like.liker_type}/${like.liker_id}`)}
-                                    } 
-                                    className={styles.memberName}>{like.liker_name}</strong>
-                                    {like.liker_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{like.liker_summary}</p>}
-                                    <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New like</p>
-                                </div>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
 
             {/* New comments */}
-            <div className={styles.pageContainer}>
-                <h1 style={{ margin: '5px', color: '#666666' }}>New comments</h1>
-                <ul>
-                    {notifications.comments?.map(comment => (
-                       <li key={comment.id} onClick={() => navigate(`/post/${comment.postid}`)} style={{ cursor: 'pointer' }}>
-                       <div style={{ display: 'flex', marginBottom: '10px' }}>
-                           <div style={{ marginRight: '10px' }}>
-                               <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
-                           </div>
-                           <div>
-                               <strong onClick={(e) => {
-                                    e.stopPropagation();
-                                    navigate(`/profile/${comment.commenter_type}/${comment.commenter_id}`
-                                )}} 
-                                className={styles.memberName}>{comment.commenter_name }</strong>
-                               {comment.commenter_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{comment.commenter_summary}</p>}
-                               <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New comment</p>
-                           </div>
-                       </div>
-                   </li> 
-                    ))}
-                </ul>
-            </div>
+            {notifications.comments && notifications.comments.length > 0 && (
+                <div className={styles.pageContainer}>
+                    <h1 style={{ margin: '5px', color: '#666666' }}>New comments</h1>
+                    <ul>
+                        {notifications.comments.map(comment => (
+                            <li key={comment.id} onClick={() => navigate(`/post/${comment.postid}`)} style={{ cursor: 'pointer' }}>
+                                <div style={{ display: 'flex', marginBottom: '10px' }}>
+                                    <div style={{ marginRight: '10px' }}>
+                                        <img src={defaultpfp} className={styles.profilePic} alt="Profile picture" />
+                                    </div>
+                                    <div>
+                                        <strong onClick={(e) => {
+                                                e.stopPropagation();
+                                                navigate(`/profile/${comment.commenter_type}/${comment.commenter_id}`);
+                                            }} 
+                                            className={styles.memberName}>
+                                            {comment.commenter_name}
+                                        </strong>
+                                        {comment.commenter_summary !== null && <p style={{ margin: '3px 0px 0px 0px' }}>{comment.commenter_summary}</p>}
+                                        <p style={{ marginTop: '3px', marginBottom: '0', color: '#666666' }}>New comment</p>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
         </>
     )
 }   
