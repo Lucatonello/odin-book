@@ -298,6 +298,7 @@ function Profile() {
                                                 </p>
                                                 
                                                 <p className={styles.experienceP} style={{ color: '#555' }}>{exp.location}</p>
+                                                {exp.description && <p>- {exp.description}</p>}
                                             </div>
                                             {isAdmin && userId == id && userType == type && (
                                                 <div style={{ position: 'relative' }}>
@@ -352,6 +353,7 @@ function Profile() {
                                                     </p>
                                                     
                                                     <p className={styles.experienceP} style={{ color: '#555' }}>{ed.location}</p>
+                                                    {ed.description && <p>- {ed.description}</p>}
                                             </div>
                                             {isAdmin && userId == id && userType == type && (
                                             <div style={{ position: 'relative' }}>
