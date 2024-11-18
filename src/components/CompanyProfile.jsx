@@ -78,15 +78,20 @@ function CompanyProfile() {
     }, [userId, id, userType, type]);
 
     const handleStatusChange = async (status, id) => {
-        await memberQueries.changeJobStatus(status, id)
+        const response = await memberQueries.changeJobStatus(status, id);
+        const result = await result.json();
+        if (result.isDone) window.location.reload();
     }
     const handleFollow = async () => {
-        await memberQueries.follow(userId, id, userType, type);
-        setIsFollowing(true);
+        const response = await memberQueries.follow(userId, id, userType, type);
+        const result = await response.json();
+        if (result.isDone) window.location.reload();
+
     };
     const handleUnfollow = async () => {
-        await memberQueries.unfollow(userId, id, userType, type);
-        setIsFollowing(false);
+        const response = await memberQueries.unfollow(userId, id, userType, type);
+        const result = await response.json();
+        if (result.isDone) window.location.reload();
     };
     
     return (

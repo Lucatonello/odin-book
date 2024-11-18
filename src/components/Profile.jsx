@@ -124,18 +124,20 @@ function Profile() {
     };
 
     const handleFollow = async () => {
-        await memberQueries.follow(userId, id, userType, type);
-        setIsFollowing(true);
+        const response = await memberQueries.follow(userId, id, userType, type);
+        const result = await response.json();
+        if (result.isDone) window.location.reload();
     };
 
     const handleUnfollow = async () => {
-        await memberQueries.unfollow(userId, id, userType, type);
-        setIsFollowing(false);
+        const response = await memberQueries.unfollow(userId, id, userType, type);
+        const result = await response.json();
+        if (result.isDone) window.location.reload();
+
     };
     const handleConnect = async () => {
         const response = await memberQueries.connect(userId, id);
         const result = await response.json();
-        setIsConnected(true);
 
         if (result.isDone) {
             window.location.reload();

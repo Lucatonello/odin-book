@@ -4,6 +4,7 @@
     import defaultpfp from '../images/user.png';
     import { useParams } from 'react-router-dom';
     import jobsQueries from '../queries/jobsQueries';
+    import memberQueries from '../queries/memberQueries';
     import { useEffect, useState } from 'react';
     import Apply from './Apply';
     import Navbar from './Navbar';
@@ -13,6 +14,8 @@
         const [jobInfo, setJobInfo] = useState([]);
         const [jobApplicants, setJobApplicants] = useState([]);
         const [showApply, setShowApply] = useState(false);
+
+        const [skillsMatch, setSkillsMatch] = useState(null);
 
         const { id: paramJobId } = useParams();  
         const type = localStorage.getItem('type');
@@ -53,6 +56,31 @@
                 } else return
             }
         }, [jobId, jobInfo, jobInfo.length, type, memberid,]);
+
+        useEffect(() => {
+            const getUserSkills = async () => {
+                setSkillsMatch(0);
+
+                const response = await memberQueries.getUserSkills(userid);
+                const userSkills = await response.json();
+
+                console.log(userSkills);
+
+                if (jobInfo.skills) {
+                    const requiredSkills = jobInfo.skills.split(', ');
+                    
+                    //compare ammount of skills matching
+                    for (let i = 0; i < requiredSkills.length; i++) {
+                        for (let j = 0; j < userSkills.length; j++) {
+                            if (requiredSkills[i].toLowerCase() == userSkills[j].skill.toLowerCase()) {
+                                setSkillsMatch((prevSkillsMatch) => prevSkillsMatch + 1);
+                            }
+                        }
+                    }
+                }
+            }
+            getUserSkills();
+        }, [userid, jobInfo]);
 
         let formattedDescription = [];
         //format new lines in description
@@ -98,10 +126,15 @@
                             {jobInfo.salary && <p className={styles.typeBox}>${jobInfo.salary} /yr</p>}
                         </div>
                         <div className={styles.type}>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
-                                <path d="M222-200 80-342l56-56 85 85 170-170 56 57-225 226Zm0-320L80-662l56-56 85 85 170-170 56 57-225 226Zm298 240v-80h360v80H520Zm0-320v-80h360v80H520Z" />
-                            </svg>
-                            <p className={styles.typeText}>2 of 3 skills match your profile - you may be a good fit</p> {/* Show actual skills match later */}
+                            
+                            {jobInfo.skills && (
+                                <>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                                        <path d="M222-200 80-342l56-56 85 85 170-170 56 57-225 226Zm0-320L80-662l56-56 85 85 170-170 56 57-225 226Zm298 240v-80h360v80H520Zm0-320v-80h360v80H520Z" />
+                                    </svg>
+                                    <p className={styles.typeText}>{skillsMatch} of {jobInfo.skills && jobInfo.skills.split(', ').length} skills match your profile</p>
+                                </>
+                            )} 
                         </div>
                     </div>
                     {type == 'user' && (

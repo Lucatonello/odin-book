@@ -12,7 +12,8 @@ function NewJobPost({ onHide, companyid }) {
     const [salary, setSalary] = useState(null);
     const [location, setLocation] = useState('');
     const [isPublic, setIsPublic] = useState('');
-    const [description, setDescription] = useState(true);
+    const [description, setDescription] = useState('');
+    const [skills, setSkills] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,12 +26,18 @@ function NewJobPost({ onHide, companyid }) {
             salary,
             location,
             isPublic,
-            description
+            description,
+            skills
         }
         const filteredData = Object.fromEntries(
             Object.entries(data).filter(([key, value]) => value.length > 0)
         );
-        await jobsQueries.newJobPost(companyid, filteredData);
+        const response = await jobsQueries.newJobPost(companyid, filteredData);
+        const result = await response.json();
+
+        if (result.isDone) {
+            window.location.reload();
+        }
     };
 
     return (
@@ -108,6 +115,14 @@ function NewJobPost({ onHide, companyid }) {
                         value={description}
                         className={styles.input}
                         onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <legend>Skills (comma-separated)</legend>
+                    <input 
+                        type="text"
+                        className={styles.input}
+                        value={skills}
+                        placeholder="Ex: Typescript, Node.js, CSS"
+                        onChange={(e) => setSkills(e.target.value)}
                     />
                     <hr />
                     <div className={styles.bottom}>
