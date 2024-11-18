@@ -5,7 +5,9 @@ const postsQueries = {
     getAllPosts: async (userid) => {
         return await fetch(`${API_URL}getAllPosts/${userid}`, {
             method: 'GET',
-            Authorization: `Bearer ${token}` 
+            headers: {
+                Authorization: `Bearer ${token}` 
+            }
         });
     },
     addOneLike: async (id, type, postid) => {
