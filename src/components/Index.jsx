@@ -30,7 +30,7 @@ function Index() {
             }
         }
         fetchPosts();
-    }, [id]);
+    }, [id, type]);
 
     const handleAddLike = async (postid) => {
         try {

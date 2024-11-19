@@ -1,9 +1,10 @@
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: flex-start; 
+    justify-content: space-between; 
     padding: 0px;
     background-color: #ffffff;
+    min-width: 100vw;
     border-bottom: 1px solid #ddd;
     height: 52.83px;
 }
@@ -91,4 +92,32 @@
     width: 24px;
     height: 24px;
     cursor: pointer;
+}
+@media (max-width: 730px) {
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: center; 
+        height: 105.66px;
+    }
+
+    .logoSearchContainer {
+        margin-left: 0;
+        justify-content: center;
+        margin-bottom: 8px;
+    }
+
+    .search {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .navItems {
+        width: 100%;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .navItem {
+        margin: 0;
+    }
 }
