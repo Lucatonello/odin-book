@@ -26,13 +26,14 @@ body {
 }
 
 .profilePicture {
-    position: absolute;
-    top: 110px;
-    left: 20px;
-    height: 121.33px;
-    width: 121.33px;
-    border-radius: 50%;
-    border: 3px solid white;
+  position: absolute;
+  top: calc(100% - 90px);
+  left: 20px;
+  height: 121.33px; 
+  width: 121.33px;
+  border-radius: 50%;
+  border: 3px solid white; 
+  object-fit: cover; 
 }
 
 .username {
@@ -163,4 +164,31 @@ li {
 .connect:hover {
   background-color: #0a66c234;
   cursor: pointer;
+}
+@media (max-width: 500px) {
+  .profileContainer {
+    width: 380px;
+  }
+  .profilePicture {
+    height: 100px;
+    width: 100px;
+    top: calc(100% - 70px);
+  }
+  .activityContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+}
+@media (max-width: 400px) {
+  .profileContainer {
+     width: 300px;
+  }
+  .profilePicture {
+    height: 60px;
+    width: 60px;
+    top: calc(100% - 40px);
+  }
+  
 }

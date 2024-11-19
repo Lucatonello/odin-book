@@ -1,3 +1,4 @@
+
 .ghegegeagiuagb {
     display: flex;
     flex-direction: column;
@@ -108,3 +109,19 @@
     background-color: #0a66c234;
     cursor: pointer;
   }
+/* @media (max-width: 530px) {
+    .pageGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 1fr;
+        max-width: 1200px;
+        margin: 0 auto;
+        height: calc(100vh - 53.66px);
+        overflow: hidden;
+    }  
+    .chatSection {
+        height: 250px;
+        overflow-y: auto; 
+        overflow-x: hidden;
+    }
+} */
