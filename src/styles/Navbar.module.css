@@ -1,10 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+}
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between; 
     padding: 0px;
     background-color: #ffffff;
-    min-width: 100vw;
+    min-width: 98vw;
     border-bottom: 1px solid #ddd;
     height: 52.83px;
 }
@@ -114,10 +118,11 @@
     .navItems {
         width: 100%;
         justify-content: center;
-        gap: 16px;
+        gap: 30px;
     }
 
     .navItem {
         margin: 0;
     }
+ 
 }
