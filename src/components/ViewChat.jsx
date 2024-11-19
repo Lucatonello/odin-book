@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import messagesQueries from '../queries/messagesQueries';
 import defaultpfp from '../images/user.png'
 
@@ -12,6 +12,8 @@ function ViewChat({ chatId1, chatId2, contactUsername }) {
     const username = localStorage.getItem('username');
     const userid = localStorage.getItem('authorid');
 
+    const chatSectionRef = useRef(null);
+
     useEffect(() => {
         const getChatDetails = async () => {
             const response = await messagesQueries.getChatDetails(chatId1, chatId2);
@@ -19,13 +21,20 @@ function ViewChat({ chatId1, chatId2, contactUsername }) {
             console.log('chat: ', data);
             setChat(data);
             setIsLoading(false);
+            scrollToBottom();
         }
         getChatDetails();
     }, [chatId1, chatId2]);
 
-    if (isLoading) {
-        return <p>Loading...</p>
-    }
+    useEffect(() => {
+        scrollToBottom();
+    }, [chat]);
+
+    const scrollToBottom = () => {
+        if (chatSectionRef.current) {
+            chatSectionRef.current.scrollTop = chatSectionRef.current.scrollHeight;
+        }
+    };
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -48,12 +57,16 @@ function ViewChat({ chatId1, chatId2, contactUsername }) {
             }
         }
     }
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
     
     return (
         <div className={'ghegegeagiuagb'}>
             <p>{contactUsername}</p>
             <hr />
-            <div className={styles.chatSection}>
+            <div className={styles.chatSection} ref={chatSectionRef}>
                 {chat.map(message => (
                     <div key={message.id}>
                         <div style={{ display: 'flex' }}>
