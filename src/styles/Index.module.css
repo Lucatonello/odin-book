@@ -63,6 +63,11 @@ body, html {
 }
 @media (max-width: 460px) {
     .post {
+        width: 320px;
+    } 
+}
+@media (max-width: 372px) {
+    .post {
         width: 270px;
     } 
 }

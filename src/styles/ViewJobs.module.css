@@ -89,3 +89,8 @@
     cursor: pointer;
     text-decoration: underline;
 }
+@media (max-width: 540px) {
+    .viewJobTab {
+        margin: 10px 0;
+    }
+}

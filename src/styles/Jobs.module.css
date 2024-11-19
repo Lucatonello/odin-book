@@ -49,3 +49,29 @@
     display: flex;
     padding: 10px 10px 0px 10px;
 }
+
+@media (max-width: 540px) {
+    .pageContainer {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        height: auto;
+    }
+    .jobListContainer {
+        margin: 10px 0; /* Remove margins for better spacing */
+        max-height: none; /* Let it grow naturally */
+        width: 100%; /* Take full width */
+        border-radius: 0; /* Remove rounded corners */
+        overflow-y: auto; /* Keep scrolling for long lists */
+    }
+
+    .viewJobTab {
+        margin-top: 10px; /* Add some spacing between sections */
+        width: 100%; /* Ensure it spans the full width */
+    }
+
+    .viewJobTab2 {
+        margin-top: 10px; /* Same as above for consistency */
+        width: 100%;
+    }
+}

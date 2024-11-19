@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import jobsQueries from '../queries/jobsQueries';
 import Navbar from './Navbar';
 import styles from '../styles/Jobs.module.css';
@@ -8,6 +8,8 @@ import ViewJob from './ViewJob';
 function Jobs() {
     const [jobs, setJobs] = useState([]);
     const [selectedJob, setSelectedJob] = useState(1);
+    const detailsRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const getJobsData = async () => {
@@ -22,6 +24,23 @@ function Jobs() {
         }
         getJobsData();
     }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 540);
+        };
+        handleResize(); 
+
+        window.addEventListener('resize', handleResize); 
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        if (selectedJob && detailsRef.current && isMobile) {
+            detailsRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+    }, [selectedJob, isMobile]);
+
 
     return (
         <>
@@ -48,7 +67,11 @@ function Jobs() {
                         ))}
                     </ul>
                 </div>
-                    {selectedJob && <ViewJob jobId={Number(selectedJob)} />}
+                    {selectedJob && (
+                        <div ref={detailsRef}>
+                            <ViewJob jobId={selectedJob} />
+                        </div>
+                    )}
             </div>
         </>
     )
