@@ -139,7 +139,7 @@
                     </div>
                     {type == 'user' && (
                         <div className={styles.applyContainer}>
-                            {type === 'user' && jobInfo.has_applied ? (
+                            {type === 'user' && !jobInfo.has_applied ? (
                                 <button className={styles.apply} onClick={() => setShowApply(true)}>Apply</button>
                             ) : (
                                 <>
