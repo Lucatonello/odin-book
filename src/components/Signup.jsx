@@ -20,7 +20,7 @@ function Signup() {
     //for companies
     const [companyName, setCompanyName] = useState('');
     const [companyPassword, setCompanyPassword] = useState('');
-    const [companySummary, setCompanySummary] = useState('Hello World, this is my summary!');
+
     // const [companyLogo, setCompanyLogo] = useState(null);
     const [companyArea, setCompanyArea] = useState('');
     const [companyLocation, setCompanyLoaction] = useState('');
@@ -47,7 +47,6 @@ function Signup() {
             // formData.append('logo', companyLogo);
             formData.append('area', companyArea);
             formData.append('location', companyLocation);
-            formData.append('summary', companySummary);
             formData.append('website', companyWebsite);
         } else {
             throw new Error('Type not recognized');
@@ -182,16 +181,6 @@ function Signup() {
                         name="companyPassword"
                         value={companyPassword}
                         onChange={(e) => setCompanyPassword(e.target.value)}
-                        className="input"
-                        onFocus={(e) => e.target.style.borderColor = '#f5a462'}
-                        onBlur={(e) => e.target.style.borderColor = '#ddd'}
-                    />
-                    <label htmlFor="companySummary" className="label">Company Summary</label>
-                    <input
-                        type="text" 
-                        name="companySummary"
-                        value={companySummary}
-                        onChange={(e) => setCompanySummary(e.target.value)}
                         className="input"
                         onFocus={(e) => e.target.style.borderColor = '#f5a462'}
                         onBlur={(e) => e.target.style.borderColor = '#ddd'}

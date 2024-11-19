@@ -10,6 +10,7 @@ import GrowNetwork from './components/GrowNetwork';
 import Notifications from './components/Notifications';
 import ViewPost from './components/ViewPost';
 import Messaging from './components/Messaging';
+import NotFound from './components/404';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
       <Route path="/notifications" element={<Notifications />} />
       <Route path="/post/:id" element={<ViewPost />} />
       <Route path="/messaging" element={<Messaging />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

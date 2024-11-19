@@ -2,8 +2,8 @@ const API_URL = 'http://localhost:10000/posts/';
 const token = localStorage.getItem('token');
 
 const postsQueries = {
-    getAllPosts: async (userid) => {
-        return await fetch(`${API_URL}getAllPosts/${userid}`, {
+    getAllPosts: async (userid, type) => {
+        return await fetch(`${API_URL}getAllPosts/${userid}/${type}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}` 
@@ -49,8 +49,8 @@ const postsQueries = {
             }
         });
     },
-    getPostData: async (postid, userid) => {
-        return await fetch(`${API_URL}getPostData/${postid}/${userid}`, {
+    getPostData: async (postid, userid, type) => {
+        return await fetch(`${API_URL}getPostData/${postid}/${userid}/${type}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}`,

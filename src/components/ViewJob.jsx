@@ -127,7 +127,7 @@
                         </div>
                         <div className={styles.type}>
                             
-                            {jobInfo.skills && (
+                            {jobInfo.skills && type && type !== 'company' && (
                                 <>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                         <path d="M222-200 80-342l56-56 85 85 170-170 56 57-225 226Zm0-320L80-662l56-56 85 85 170-170 56 57-225 226Zm298 240v-80h360v80H520Zm0-320v-80h360v80H520Z" />
@@ -139,7 +139,7 @@
                     </div>
                     {type == 'user' && (
                         <div className={styles.applyContainer}>
-                            {!jobInfo.has_applied ? (
+                            {type === 'user' && jobInfo.has_applied ? (
                                 <button className={styles.apply} onClick={() => setShowApply(true)}>Apply</button>
                             ) : (
                                 <>

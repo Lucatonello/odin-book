@@ -21,7 +21,7 @@ function Index() {
     useEffect(() => {
         async function fetchPosts() {
             try {
-                const response = await postsQueries.getAllPosts(id);
+                const response = await postsQueries.getAllPosts(id, type);
                 const data = await response.json();
                 setPosts(data);
                 console.log('getAllPosts: ', data);

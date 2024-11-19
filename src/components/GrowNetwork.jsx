@@ -10,6 +10,7 @@ function GrowNetwork() {
 
     const navigate = useNavigate();
     const userid = localStorage.getItem('authorid');
+    const type = localStorage.getItem('type');
 
     useEffect(() => {
         const getAllUsers = async () => {
@@ -27,6 +28,10 @@ function GrowNetwork() {
         if (resut.isDone) {
             window.location.reload();
         }
+    }
+
+    if (type !== 'user') {
+        navigate('/404')
     }
 
     return (

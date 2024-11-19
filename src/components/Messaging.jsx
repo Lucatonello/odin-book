@@ -16,6 +16,7 @@ function Messaging() {
     const [activeChat, setActiveChat] = useState('');
 
     const userid = localStorage.getItem('authorid');
+    const type = localStorage.getItem('type');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,6 +32,10 @@ function Messaging() {
 
     if (isLoading) {
         return <p>Loading...</p>
+    }
+
+    if (type !== 'user') {
+        navigate('/404');
     }
 
     if (messages && messages.length === 0) {

@@ -19,18 +19,20 @@ function ViewPost() {
 
     useEffect(() => {
         const getPostData = async () => {
-            const response = await postsQueries.getPostData(id, userid);
+            const response = await postsQueries.getPostData(id, userid, type);
             const data = await response.json();
             console.log('post data', data);
             setPostData(data[0]);
             setIsLoading(false);
         }
         getPostData();
-    }, [id, userid]);
+    }, [id, userid, type]);
 
     const handleAddLike = async (postid) => {
         try {
-            await postsQueries.addOneLike(userid, type, postid);
+            const response = await postsQueries.addOneLike(userid, type, postid);
+            const result = await response.json();
+            if (result.isDone) window.location.reload();
         } catch (err) {
             console.error(err);
         }

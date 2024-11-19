@@ -11,7 +11,6 @@ function NewJobPost({ onHide, companyid }) {
     const [expLevel, setExpLevel] = useState('');
     const [salary, setSalary] = useState(null);
     const [location, setLocation] = useState('');
-    const [isPublic, setIsPublic] = useState('');
     const [description, setDescription] = useState('');
     const [skills, setSkills] = useState('');
 
@@ -25,12 +24,11 @@ function NewJobPost({ onHide, companyid }) {
             expLevel,
             salary,
             location,
-            isPublic,
             description,
             skills
         }
         const filteredData = Object.fromEntries(
-            Object.entries(data).filter(([key, value]) => value.length > 0)
+            Object.entries(data).filter(([key, value]) => value?.length > 0)
         );
         const response = await jobsQueries.newJobPost(companyid, filteredData);
         const result = await response.json();
@@ -38,6 +36,15 @@ function NewJobPost({ onHide, companyid }) {
         if (result.isDone) {
             window.location.reload();
         }
+    };
+
+    const handleTypeChange = (e) => {
+        const newType = e.target.value;
+        setJobType(newType);
+    };
+    const handleExpLevelChange = (e) => {
+        const newLevel = e.target.value;
+        setExpLevel(newLevel);
     };
 
     return (
@@ -68,27 +75,39 @@ function NewJobPost({ onHide, companyid }) {
                     />
                     
                     <legend>Job Type</legend>
-                    <input 
-                        type="text"
-                        value={jobType}
-                        className={styles.input}
-                        onChange={(e) => setJobType(e.target.value)}
-                    />
+                    <div style={{ display: 'flex' }}>
+                        <select className={styles.input} style={{ width: '45.5%', marginRight: '10px' }} value={jobType} onChange={handleTypeChange}>
+                            <option value=" " disabled>Please select</option>
+                            <option value="Full-time">Full-time</option>
+                            <option value="Part-time">Part-time</option>
+                            <option value="Freelance">Freelance</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Apprenticeship">Apprenticeship</option>
+                            <option value="Seasonal">Seasonal</option>
+                        </select>
+                    </div>
                     
                     <legend>Experience Level</legend>
-                    <input 
-                        type="text"
-                        value={expLevel}
-                        className={styles.input}
-                        onChange={(e) => setExpLevel(e.target.value)}
-                    />
+                    <div style={{ display: 'flex' }}>
+                        <select className={styles.input} style={{ width: '45.5%', marginRight: '10px' }} value={expLevel} onChange={handleExpLevelChange}>
+                            <option value=" " disabled>Please select</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Entry-level">Entry-level</option>
+                            <option value="Mid-level">Mid-level</option>
+                            <option value="Senior">Senior</option>
+                            <option value="Lead">Lead</option>
+                            <option value="Director">Director</option>
+                            <option value="Executive">Executive</option>
+                        </select>
+                    </div>
                     
                     <legend>Salary</legend>
                     <input 
                         type="number"
                         value={salary || ''}
                         className={styles.input}
-                        onChange={(e) => setSalary(Number(e.target.value))}
+                        onChange={(e) => setSalary(e.target.value)}
                     />
                     
                     <legend>Location</legend>
@@ -98,17 +117,6 @@ function NewJobPost({ onHide, companyid }) {
                         className={styles.input}
                         onChange={(e) => setLocation(e.target.value)}
                     />
-                    <div style={{ display: 'flex', marginBottom: '24px' }}>
-                        <legend>Public *</legend>
-                        <select 
-                            value={isPublic ? true : false} 
-                            onChange={(e) => setIsPublic(e.target.value === true)}
-                            className={styles.select}
-                        >
-                            <option value={true}>Yes</option>
-                            <option value={false}>No</option>
-                        </select>
-                    </div>
                     
                     <legend>Description</legend>
                     <textarea 

@@ -72,7 +72,7 @@ function Notifications() {
             </div>
 
             {/* Connection requests */}
-            {connectionReqs.length > 0 && (
+            {connectionReqs.length > 0 && type === 'user' && (
                 <div className={styles.pageContainer}>
                     <h1 style={{ margin: '5px', color: '#666666' }}>Connection requests</h1>
                     <ul>

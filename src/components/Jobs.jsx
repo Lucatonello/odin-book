@@ -30,17 +30,19 @@ function Jobs() {
                 <div className={styles.jobListContainer}>
                     <ul>
                         {jobs.map(job => (
-                            <li key={job.id} style={{ display: 'flex', padding: '10px 10px 0px 10px' }}>
-                                <img src={defaultCompanyLogo} alt="company logo" className={styles.companyLogo} />
-                                <div className={styles.jobInfoContainer}>
-                                    <a onClick={() => setSelectedJob(job.id)} className={styles.jobTitle}>{job.title}</a>
-                                    <p className={styles.infoText}>{job.name}</p>
-                                    {job.location !== null ? (
-                                        <div style={{ display: 'flex' }}>
-                                            <p className={styles.infoText} style={{ color: '#666666', marginRight: '5px' }}>{job.location}</p>
-                                            {job.jobtype !== null && <p className={styles.infoText} style={{ color: '#666666' }}>({job.jobtype})</p>}
-                                        </div>
-                                    ) : job.jobtype && <p className={styles.infoText}>{job.jobtype}</p>}
+                            <li key={job.id}>
+                                <div className={selectedJob == job.id ? styles.jobContainerActive : styles.jobContainer }>
+                                    <img src={defaultCompanyLogo} alt="company logo" className={styles.companyLogo} />
+                                    <div className={styles.jobInfoContainer}>
+                                        <a onClick={() => setSelectedJob(job.id)} className={styles.jobTitle}>{job.title}</a>
+                                        <p className={styles.infoText}>{job.name}</p>
+                                        {job.location !== null ? (
+                                            <div style={{ display: 'flex' }}>
+                                                <p className={styles.infoText} style={{ color: '#666666', marginRight: '5px' }}>{job.location}</p>
+                                                {job.jobtype !== null && <p className={styles.infoText} style={{ color: '#666666' }}>({job.jobtype})</p>}
+                                            </div>
+                                        ) : job.jobtype && <p className={styles.infoText}>{job.jobtype}</p>}
+                                    </div>
                                 </div>
                             </li>
                         ))}

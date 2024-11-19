@@ -31,9 +31,10 @@ function Comments({ comments, postid }) {
                         placeholder='Add comment...'
                         value={newComment}
                         className={styles.newComment}
+                        onClick={(e) => e.stopPropagation()}
                         onChange={(e) => setNewComment(e.target.value)}
                     />
-                    {newComment.length !== 0 && <button className={styles.save} type='submit'>Comment</button>}
+                    {newComment.length !== 0 && <button className={styles.save}  type='submit'>Comment</button>}
                 </div>
                 
             </form>

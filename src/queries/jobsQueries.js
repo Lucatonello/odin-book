@@ -20,6 +20,7 @@ const jobsQueries = {
         });
     },
     newJobPost: async (companyid, filteredData) => {
+        console.log(filteredData);
         return await fetch(`${API_URL}newJobPost/${companyid}`, {
             method: 'POST',
             headers: {
