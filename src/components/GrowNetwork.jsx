@@ -22,11 +22,15 @@ function GrowNetwork() {
         getAllUsers();
     }, [userid]);
 
-    const handleConnect = async (id) => {
-        const response = await memberQueries.connect(userid, id);
+    const handleConnect = async (contactid) => {
+        const response = await memberQueries.connect(userid, contactid);
         const resut = await response.json();
         if (resut.isDone) {
-            window.location.reload();
+            setUsers((prevUsers) => 
+                prevUsers.map((user) => 
+                    user.id === contactid ? {...user, status: 'pending' } : user
+                )
+            );
         }
     }
 

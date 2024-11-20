@@ -199,6 +199,11 @@ li {
     justify-content: space-between;
     gap: 20px;
   }
+  .jobListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 }
 @media (max-width: 400px) {
   .profileContainer {
@@ -209,5 +214,4 @@ li {
     width: 60px;
     top: calc(100% - 40px);
   }
-  
 }

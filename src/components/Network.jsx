@@ -29,7 +29,11 @@ function Network() {
         const result = await response.json();
         
         if (result.isDone) {
-           window.location.reload();  
+           setConnections((prevConnections) =>
+            prevConnections.filter((conn) => 
+                conn.id !== connectionid
+            )
+        )  
         }
     }
 

@@ -1,4 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import Index from './components/Index';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -13,6 +15,15 @@ import Messaging from './components/Messaging';
 import NotFound from './components/404';
 
 function App() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+      if (!token) {
+        navigate('/login');
+      }
+  }, [navigate, token])
+
 
   return (
     <Routes>

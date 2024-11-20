@@ -118,7 +118,7 @@ body {
     .navItems {
         width: 100%;
         justify-content: center;
-        gap: 30px;
+        gap: 20px;
     }
 
     .navItem {

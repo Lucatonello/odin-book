@@ -23,7 +23,6 @@ function CompanyProfile() {
     const [showEditAbout, setShowEditAbout] = useState(false);
     const [showNewPost, setShowNewPost] = useState(false)
     const [showNewJobPost, setShowNewJobPost] = useState(false);
-    const [showNewAbout, setShowNewAbout] = useState(false);
 
     const userId = localStorage.getItem('authorid');
     const userType = localStorage.getItem('type');
@@ -78,10 +77,20 @@ function CompanyProfile() {
         checkFollow();
     }, [userId, id, userType, type]);
 
-    const handleStatusChange = async (status, id) => {
-        const response = await memberQueries.changeJobStatus(status, id);
+    const handleStatusChange = async (currentStatus, jobId) => {
+        const newStatus = !currentStatus;
+        const response = await memberQueries.changeJobStatus(newStatus, jobId);
         const result = await response.json();
-        if (result.isDone) window.location.reload();
+
+        if (result.isDone) {
+            setJobOpenings((prevJobs) =>
+                prevJobs.map((job) =>
+                    job.id === jobId ? { ...job, public: newStatus } : job
+                )
+            );
+        } else {
+            console.error('Failed to update job status:', result.error);
+        }
     }
     const handleFollow = async () => {
         const response = await memberQueries.follow(userId, id, userType, type);
@@ -228,11 +237,16 @@ function CompanyProfile() {
                                             <strong onClick={() => navigate(`/jobs/${job.id}`)} className={styles.jobTitle}>{job.title}</strong>
                                             <p className={styles.jobDetails}>{job.applicant_count} Applicants</p>
 
-                                            <div style={{ display: 'flex' }}>
+                                            <div >
                                                 <p className={styles.jobDetails}>{job.location}</p>
                                                 {isAdmin && userId == id && userType == type && (
                                                     <>
-                                                        <button onClick={(e) => handleStatusChange(job.public, job.id)} className={job.public == true ? styles.public : styles.private}>{job.public == true ? 'Unpublish' : 'Publish'}</button>
+                                                        <button 
+                                                            onClick={(e) => handleStatusChange(job.public, job.id)} 
+                                                            className={job.public == true ? styles.public : styles.private}
+                                                            style={{ marginTop: '10px' }}>
+                                                            {job.public == true ? 'Unpublish' : 'Publish'}
+                                                        </button>
                                                     </>                                            
                                                 )}
                                             </div>

@@ -43,7 +43,13 @@ function Notifications() {
         const result = await response.json();
 
         if (result.isDone) {
-            window.location.reload();
+            setConnectionReqs((prevConnectionReqs) => 
+                prevConnectionReqs.map((conReq) => 
+                    conReq.id === reqid ? { ...conReq, status } : conReq
+                )
+                .filter((conReq) => conReq.status !== 'accepted')
+                .filter((conReq) => conReq.status !== 'declined')
+            );
         }
     }
 
