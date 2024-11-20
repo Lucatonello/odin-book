@@ -25,6 +25,10 @@ function Index() {
                 const data = await response.json();
                 setPosts(data);
                 console.log('getAllPosts: ', data);
+
+                if(!response.ok) {
+                    console.log('there was an error fetching the posts: ', response);
+                }
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
@@ -78,7 +82,7 @@ function Index() {
                                     } 
                                 className={styles.authorName} style={{ marginLeft: '10px' }}>{post.author_name}</strong>
                                 <p className={styles.infoTop} style={{ color: '#666666' }}>{post.author_summary}</p>
-                                <p style={{ margin: '5px 0px 0px 10px' }}>{post.post_date ? post.date : '10/21/24'}</p>
+                                <p style={{ margin: '5px 0px 0px 10px' }}>{post.post_date}</p>
                             </div>
                         </div>
 

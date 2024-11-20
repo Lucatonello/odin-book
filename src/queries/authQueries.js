@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:10000/users/';
+const API_URL = 'https://odin-book-backend-production-9572.up.railway.app/users/';
 
 const authQueries = {
     loginUser: async(username, password, type) => {

@@ -68,6 +68,8 @@ function CompanyProfile() {
 
     useEffect(() => {
         //check if the user already follows the visited profile
+        console.log(localStorage);
+
         const checkFollow = async () => {
             const response = await memberQueries.checkFollow(userId, id, userType, type);
             const data = await response.json();

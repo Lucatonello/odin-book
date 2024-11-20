@@ -13,10 +13,17 @@ function Comments({ comments, postid }) {
 
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         try {
-            await postsQueries.addComment(newComment, id, postid, type);
-            setNewComment("");
+            const response = await postsQueries.addComment(newComment, id, postid, type);
+            const result = await response.json();
+
+            if (result.isDone) {
+                setNewComment("");
+                window.location.reload();
+            }
         } catch (err) {
             console.error(err);
         }

@@ -11,6 +11,7 @@ function Jobs() {
     const detailsRef = useRef(null);
     const [isMobile, setIsMobile] = useState(false);
 
+
     useEffect(() => {
         const getJobsData = async () => {
             try {

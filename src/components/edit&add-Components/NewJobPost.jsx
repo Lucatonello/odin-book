@@ -102,7 +102,7 @@ function NewJobPost({ onHide, companyid }) {
                         </select>
                     </div>
                     
-                    <legend>Salary</legend>
+                    <legend>Annual Salary</legend>
                     <input 
                         type="number"
                         value={salary || ''}

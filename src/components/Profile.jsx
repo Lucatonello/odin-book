@@ -50,6 +50,7 @@ function Profile() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log(localStorage);
         if (userId == id && userType == type) {
             setIsAdmin(true);
         } else return
@@ -203,7 +204,7 @@ function Profile() {
                                 {!isFollowing ? (
                                     <button className={styles.follow} onClick={() => handleFollow()}>Follow</button>
                                 ) : <button style={{ marginLeft: '20px', marginRight: '10px' }} className={styles.connect} onClick={() => handleUnfollow()}>Unfollow</button>}
-                                {type !== 'company' && !isConnected ? (
+                                {userType !== 'company' && !isConnected ? (
                                     <button onClick={() => handleConnect()} className={styles.connect}>Connect</button>
                                 ) : isAdmin && userId == id && userType == type && <button onClick={() => setShowNewMessage(true)} className={styles.follow} style={{ marginLeft: '0'}}>Message</button>}
                             </div>

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:10000/messages/';
+const API_URL = 'https://odin-book-backend-production-9572.up.railway.app/messages/';
 const token = localStorage.getItem('token');
 
 const messagesQueries = {

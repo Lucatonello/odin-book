@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Index from './components/Index';
@@ -16,13 +16,14 @@ import NotFound from './components/404';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-      if (!token) {
+      if (!token && location.pathname !== '/login' && location.pathname !== '/signup') {
         navigate('/login');
       }
-  }, [navigate, token])
+  }, [navigate, token, location.pathname])
 
 
   return (

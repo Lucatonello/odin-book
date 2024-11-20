@@ -9,10 +9,17 @@ function NewPost ({ onHide }) {
     const id = localStorage.getItem('authorid')
     const type = localStorage.getItem('type')
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            await postsQueries.newPost(newPost, id, type);
-            setNewPost("");
+            console.log('before making the request: ', newPost, id, type);
+            const response = await postsQueries.newPost(newPost, id, type);
+            const result = await response.json();
+
+            if (result.isDone) {
+                setNewPost("");
+                window.location.reload();
+            }
         } catch (err) {
             console.error(err);
         }

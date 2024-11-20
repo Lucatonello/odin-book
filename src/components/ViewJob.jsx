@@ -25,7 +25,7 @@
         const jobId = propJobId || paramJobId;
         const userid = localStorage.getItem('authorid');
         const navigate = useNavigate();
-                
+   
         useEffect(() => {
             const getJobInfo = async () => {
                 const response = await jobsQueries.getJobInfo(jobId, userid);
@@ -44,7 +44,18 @@
         }, [jobId, userid]);
 
         useEffect(() => {
-            if (jobInfo) {
+            if (jobInfo == undefined) {
+                const returnError = () => {
+                    return (
+                        <div>
+                            <h1>Oops, it looks like the job market is taking a coffee break. </h1>
+                            <p>Check back later—your dream job might just be brewing!</p>
+                            <button onClick={() => navigate('/')} className={styles.connect}>Go to your feed</button>
+                        </div>
+                    )
+                }
+                returnError();
+            } else if (jobInfo) {
                 if (type == 'company' && jobInfo.companyid == memberid) {
                     const getJobApplicants = async () => {
                         const response = await jobsQueries.getJobApplicants(jobId);
@@ -55,7 +66,7 @@
                     getJobApplicants();
                 } else return
             }
-        }, [jobId, jobInfo, jobInfo.length, type, memberid,]);
+        }, [jobId, jobInfo, type, memberid, navigate]);
 
         useEffect(() => {
             const getUserSkills = async () => {
@@ -79,8 +90,8 @@
                     }
                 }
             }
-            getUserSkills();
-        }, [userid, jobInfo]);
+            type === 'user' && getUserSkills();
+        }, [userid, jobInfo, type]);
 
         let formattedDescription = [];
         //format new lines in description

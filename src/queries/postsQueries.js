@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:10000/posts/';
+const API_URL = 'https://odin-book-backend-production-9572.up.railway.app/posts/';
 const token = localStorage.getItem('token');
 
 const postsQueries = {
@@ -31,6 +31,8 @@ const postsQueries = {
         });
     },
     newPost: async (newPost, id, type) => {
+        console.log('after making the request: ', newPost, id, type);
+        console.log(`making a request to: ${API_URL}newPost`);
         return await fetch(`${API_URL}newPost`, {
             method: 'POST',
             headers: {

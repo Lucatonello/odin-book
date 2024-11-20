@@ -89,6 +89,15 @@
     cursor: pointer;
     text-decoration: underline;
 }
+.connect {
+    padding: 0px 16px;
+    border-radius: 1.6rem;
+    height: 37.98px;
+    background-color: rgba(255, 255, 255, 0);
+    color: #0A66C2;
+    border: 2px solid #0A66C2;
+    margin-top: 10px;
+}
 @media (max-width: 540px) {
     .viewJobTab {
         margin: 10px 0;
