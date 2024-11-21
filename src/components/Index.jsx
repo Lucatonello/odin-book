@@ -4,6 +4,7 @@ import Comments from './Comments';
 import NewPost from './edit&add-Components/NewPost';
 import Navbar from './Navbar';
 import defaultpfp from '../images/user.png';
+import companyLogo from '../images/default-company-logo.png';
 import styles from '../styles/Index.module.css';
 import { useNavigate } from "react-router-dom";
 
@@ -93,7 +94,7 @@ function Index() {
                 {posts.map(post => (
                     <li className={styles.post} onClick={() => navigate(`/post/${post.id}`)} key={post.id}>
                         <div className={styles.top}>
-                            <img src={defaultpfp} alt="profile picture" style={{ height: '47.99px', width: '47.99px' }} />
+                            <img src={post.type === 'user' ? defaultpfp : companyLogo} alt="profile picture" style={{ height: '47.99px', width: '47.99px' }} />
                             <div>
                                 <strong onClick={(e) => {
                                         e.stopPropagation();
