@@ -147,9 +147,7 @@ function Login() {
                             onBlur={(e) => e.target.style.borderColor = '#ddd'}
                         />
                         <button type="submit" className="button">Log in</button>
-                        <form onSubmit={handleDemoAccountUser}>
-                            <button type="submit" className="button">Login with demo account</button>
-                        </form>
+                        <button type="button" onClick={handleDemoAccountUser} className="button">Login with demo account</button>
                     </div>
                 ) : (
                     //if its a company
@@ -175,9 +173,7 @@ function Login() {
                             onBlur={(e) => e.target.style.borderColor = '#ddd'}
                         />
                         <button type="submit" className="button">Log in</button>
-                        <form onSubmit={handleDemoAccountCompany}>
-                            <button type="submit" className="button">Login with demo account</button>
-                        </form>
+                        <button type="button" onClick={() => handleDemoAccountCompany} className="button">Login with demo account</button>
                     </div>
                 )}
                 
