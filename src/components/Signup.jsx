@@ -75,7 +75,7 @@ function Signup() {
         <div className="container">
         <form onSubmit={handleSubmit} className="form">
             <legend className="legend">Signup</legend>
-            <select value={type} onChange={handleTypeChange} >
+            <select value={type} onChange={handleTypeChange} style={{ padding: '4px', borderRadius: '5px', border: '0.5px solid #dedede' }}>
                 <option value={'user'}>User</option>
                 <option value={'company'}>Company</option>
             </select>
