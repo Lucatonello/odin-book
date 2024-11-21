@@ -17,8 +17,8 @@ function Login() {
     const [type, setType] = useState('user');
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         try {
             if (type === 'user') {
@@ -56,6 +56,50 @@ function Login() {
         }
     };
 
+    const handleDemoAccountUser = async (e) => {
+        e.preventDefault();
+
+        try {
+            localStorage.setItem('type', 'user');
+            const response = await authQueries.loginUser('Luca Tonello', '123', 'user');
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('authorid', data.userid)
+                navigate('/');
+            } else {
+                console.error('Login failed:', data);
+                setErr(data || 'Login failed');
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const handleDemoAccountCompany = async (e) => {
+        e.preventDefault();
+
+        try {
+            localStorage.setItem('type', 'company')
+            const response = await authQueries.loginCompany('Tech solutions inc.', '123', 'company');
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('authorid', data.userid);
+                navigate('/');
+            } else {
+                console.error('Login failed:', data);
+                setErr(data || 'Login failed');
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     const handleTypeChange = (e) => {
         const result = e.target.value;
         setType(result);
@@ -66,7 +110,16 @@ function Login() {
             <form onSubmit={handleSubmit} className="form">
                 <legend className="legend">Login</legend>
 
-                <select value={type} onChange={handleTypeChange}>
+                <select 
+                    value={type} 
+                    onChange={handleTypeChange}
+                    style={{
+                        padding: '8px 12px',
+                        borderRadius: '4px',
+                        border: '1px solid #ccc',
+                        backgroundColor: '#f9f9f9',
+                    }}
+                >
                     <option value={'user'}>User</option>
                     <option value={'company'}>Company</option>
                 </select>
@@ -94,6 +147,9 @@ function Login() {
                             onBlur={(e) => e.target.style.borderColor = '#ddd'}
                         />
                         <button type="submit" className="button">Log in</button>
+                        <form onSubmit={handleDemoAccountUser}>
+                            <button type="submit" className="button">Login with demo account</button>
+                        </form>
                     </div>
                 ) : (
                     //if its a company
@@ -119,6 +175,9 @@ function Login() {
                             onBlur={(e) => e.target.style.borderColor = '#ddd'}
                         />
                         <button type="submit" className="button">Log in</button>
+                        <form onSubmit={handleDemoAccountCompany}>
+                            <button type="submit" className="button">Login with demo account</button>
+                        </form>
                     </div>
                 )}
                 

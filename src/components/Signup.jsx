@@ -21,7 +21,6 @@ function Signup() {
     const [companyName, setCompanyName] = useState('');
     const [companyPassword, setCompanyPassword] = useState('');
 
-    // const [companyLogo, setCompanyLogo] = useState(null);
     const [companyArea, setCompanyArea] = useState('');
     const [companyLocation, setCompanyLoaction] = useState('');
     const [companyWebsite, setCompanyWebsite] = useState('');
@@ -40,11 +39,9 @@ function Signup() {
             formData.append('summary', summary);
             formData.append('location', location);
             formData.append('website', website);
-            // formData.append('pfp', pfp);
         } else if (type === 'company') {
             formData.append('name', companyName);
             formData.append('password', companyPassword);
-            // formData.append('logo', companyLogo);
             formData.append('area', companyArea);
             formData.append('location', companyLocation);
             formData.append('website', companyWebsite);
@@ -68,18 +65,6 @@ function Signup() {
             setErr(err.message);
         }
     }
-
-    // const handleFileChange = (e) => {
-    //     const file = e.target.files[0];
-
-    //     if (type === 'user') {
-    //         setPfp(file);
-    //     } else if (type === 'company') {
-    //         setCompanyLogo(file);
-    //     } else {
-    //         throw new Error('Type not recognized')
-    //     }
-    // };
 
     const handleTypeChange = (e) => {
         const result = e.target.value
@@ -146,19 +131,7 @@ function Signup() {
                         className="input"
                         onChange={(e) => setLocation(e.target.value)}
                     />
-                    <div className="file-upload-container">
-                        <label htmlFor="fileUpload" className="file-upload-btn">
-                            Upload Profile Picture
-                        </label>
-                        {/* <input
-                            type="file"
-                            name="pfp"
-                            id="fileUpload"
-                            onChange={handleFileChange}
-                            accept=".png, .jpg, .jpeg"
-                        /> */}
-                        </div>
-                        <button type="submit" className="button">Sign up</button>
+                    <button type="submit" className="button">Sign up</button>
 
                 </div>
             ) : (
