@@ -104,7 +104,18 @@
         }
 
         if (!jobInfo || Object.keys(jobInfo).length === 0) {
-            return <div>Loading job information...</div>;
+            return (
+                <p style={{
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    height: '100vh', 
+                    fontSize: '2rem', 
+                    margin: 0
+                }}>
+                Loading...
+                </p>
+            )
         }
         return (
             <>

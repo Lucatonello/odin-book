@@ -31,6 +31,7 @@ function Profile() {
     const [educationDetails, setEducationDetails] = useState(null);
     const [isFollowing, setIsFollowing] = useState(null);
     const [isConnected, setIsConnected] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [showNewPost, setShowNewPost] = useState(false);
     const [showEditIntro, setShowEditIntro] = useState(false);
@@ -64,6 +65,7 @@ function Profile() {
                 setMemberData(data);
                 console.log('memberData:', data)
                 console.log('followers count: ', data.followers_count);
+                setIsLoading(false);
             } 
         } 
         getMemberData();
@@ -145,6 +147,20 @@ function Profile() {
         }
     };
 
+    if (isLoading) {
+        return (
+            <p style={{
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                height: '100vh', 
+                fontSize: '2rem', 
+                margin: 0
+            }}>
+            Loading...
+            </p>
+        )
+    }
     return (
         <>
             {type == 'user' ? (

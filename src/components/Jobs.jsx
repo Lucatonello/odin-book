@@ -7,7 +7,7 @@ import ViewJob from './ViewJob';
 
 function Jobs() {
     const [jobs, setJobs] = useState([]);
-    const [selectedJob, setSelectedJob] = useState(1);
+    const [selectedJob, setSelectedJob] = useState(6);
     const detailsRef = useRef(null);
     const [isMobile, setIsMobile] = useState(false);
 

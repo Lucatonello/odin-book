@@ -10,6 +10,7 @@ import styles from "../styles/Notifications.module.css";
 function Notifications() {
     const [connectionReqs, setConnectionReqs] = useState([]);
     const [notifications, setNotifications] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const userid = localStorage.getItem('authorid');
     const type = localStorage.getItem('type');
@@ -23,6 +24,7 @@ function Notifications() {
             const data = await response.json();
             console.log('reqests: ', data);
             setConnectionReqs(data);
+            setIsLoading(false)
         }
         getRequests();
     }, [userid]);
@@ -34,6 +36,7 @@ function Notifications() {
             const data = await response.json();
             console.log('notifications: ', data);
             setNotifications(data);
+            setIsLoading(false);
         }
         getMemberNotifications();
     }, [userid, type]);
@@ -66,6 +69,21 @@ function Notifications() {
                     <p style={{ color: '#666666' }}>You have no new notifications.</p>
                 </div>
             </>
+        )
+    }
+
+    if (isLoading) {
+        return (
+            <p style={{
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                height: '100vh', 
+                fontSize: '2rem', 
+                margin: 0
+            }}>
+            Loading...
+            </p>
         )
     }
     return (

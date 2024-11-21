@@ -12,6 +12,7 @@ function Index() {
 
     const [showComments, setShowComments] = useState(null);
     const [showNewPost, setShowNewPost] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const id = localStorage.getItem('authorid'); 
     const type = localStorage.getItem('type');
@@ -24,6 +25,7 @@ function Index() {
                 const response = await postsQueries.getAllPosts(id, type);
                 const data = await response.json();
                 setPosts(data);
+                setIsLoading(false);
                 console.log('getAllPosts: ', data);
 
                 if(!response.ok) {
@@ -35,6 +37,23 @@ function Index() {
         }
         fetchPosts();
     }, [id, type]);
+
+    if (isLoading) {
+        return (
+            <>
+                <p style={{
+                    display: 'flex', 
+                    justifyContent: 'center', 
+                    alignItems: 'center', 
+                    height: '100vh', 
+                    fontSize: '2rem', 
+                    margin: 0
+                }}>
+                Loading...
+                </p>
+            </>
+        )
+    }
 
     const handleAddLike = async (postid) => {
         try {
@@ -82,7 +101,9 @@ function Index() {
                                     } 
                                 className={styles.authorName} style={{ marginLeft: '10px' }}>{post.author_name}</strong>
                                 <p className={styles.infoTop} style={{ color: '#666666' }}>{post.author_summary}</p>
-                                <p style={{ margin: '5px 0px 0px 10px' }}>{post.post_date}</p>
+                                <p style={{ margin: '5px 0px 0px 10px' }}>
+                                    {new Date(post.post_date).toLocaleString()}
+                                </p>
                             </div>
                         </div>
 

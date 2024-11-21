@@ -31,7 +31,18 @@ function Messaging() {
     }, [userid]);
 
     if (isLoading) {
-        return <p>Loading...</p>
+        return (
+            <p style={{
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                height: '100vh', 
+                fontSize: '2rem', 
+                margin: 0
+            }}>
+            Loading...
+            </p>
+        )
     }
 
     if (type !== 'user') {
