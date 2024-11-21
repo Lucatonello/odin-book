@@ -17,8 +17,8 @@ function Login() {
     const [type, setType] = useState('user');
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
         try {
             if (type === 'user') {
@@ -30,7 +30,17 @@ function Login() {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('username', data.username);
                     localStorage.setItem('authorid', data.userid)
-                    navigate('/');
+                    
+                    const token = localStorage.getItem('token');
+                    if (token) {
+                        navigate('/');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 100); 
+                    } else {
+                        console.error('Token not found after login.');
+                        setErr('Error: Token not found.');
+                    }
                 } else {
                     console.error('Login failed:', data);
                     setErr(data || 'Login failed');
@@ -44,7 +54,17 @@ function Login() {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('username', data.username);
                     localStorage.setItem('authorid', data.userid);
-                    navigate('/');
+
+                    const token = localStorage.getItem('token');
+                    if (token) {
+                        navigate('/');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 100); 
+                    } else {
+                        console.error('Token not found after login.');
+                        setErr('Error: Token not found.');
+                    }
                 } else {
                     console.error('Login failed:', data);
                     setErr(data || 'Login failed');
@@ -56,50 +76,69 @@ function Login() {
         }
     };
 
-    const handleDemoAccountUser = async (e) => {
-        e.preventDefault();
+    const handleUserDemo = async () => {
 
         try {
             localStorage.setItem('type', 'user');
-            const response = await authQueries.loginUser('Luca Tonello', '123', 'user');
-            const data = await response.json();
-
-            if (response.ok) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('username', data.username);
-                localStorage.setItem('authorid', data.userid)
-                navigate('/');
-            } else {
-                console.error('Login failed:', data);
-                setErr(data || 'Login failed');
-            }
+                const response = await authQueries.loginUser('Luca Tonello', '123', type);
+                const data = await response.json();
+    
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('username', data.username);
+                    localStorage.setItem('authorid', data.userid)
+                    
+                    const token = localStorage.getItem('token');
+                    if (token) {
+                        navigate('/');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 100); 
+                    } else {
+                        console.error('Token not found after login.');
+                        setErr('Error: Token not found.');
+                    }
+                } else {
+                    console.error('Login failed:', data);
+                    setErr(data || 'Login failed');
+                }
         } catch (err) {
             console.error(err);
+            setErr(err);
         }
     }
 
-    const handleDemoAccountCompany = async (e) => {
-        e.preventDefault();
+    const handleCompanyDemo = async () => {
 
         try {
-            localStorage.setItem('type', 'company')
-            const response = await authQueries.loginCompany('Tech solutions inc.', '123', 'company');
-            const data = await response.json();
-
-            if (response.ok) {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('username', data.username);
-                localStorage.setItem('authorid', data.userid);
-                navigate('/');
-            } else {
-                console.error('Login failed:', data);
-                setErr(data || 'Login failed');
-            }
+            localStorage.setItem('type', 'company');
+                const response = await authQueries.loginCompany('Tech solutions inc.', '123', type);
+                const data = await response.json();
+    
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('username', data.username);
+                    localStorage.setItem('authorid', data.userid)
+                    
+                    const token = localStorage.getItem('token');
+                    if (token) {
+                        navigate('/');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 100); 
+                    } else {
+                        console.error('Token not found after login.');
+                        setErr('Error: Token not found.');
+                    }
+                } else {
+                    console.error('Login failed:', data);
+                    setErr(data || 'Login failed');
+                }
         } catch (err) {
             console.error(err);
+            setErr(err);
         }
     }
-
     const handleTypeChange = (e) => {
         const result = e.target.value;
         setType(result);
@@ -110,16 +149,7 @@ function Login() {
             <form onSubmit={handleSubmit} className="form">
                 <legend className="legend">Login</legend>
 
-                <select 
-                    value={type} 
-                    onChange={handleTypeChange}
-                    style={{
-                        padding: '8px 12px',
-                        borderRadius: '4px',
-                        border: '1px solid #ccc',
-                        backgroundColor: '#f9f9f9',
-                    }}
-                >
+                <select value={type} onChange={handleTypeChange} style={{ padding: '4px', borderRadius: '5px', border: '0.5px solid #dedede' }}>
                     <option value={'user'}>User</option>
                     <option value={'company'}>Company</option>
                 </select>
@@ -147,7 +177,7 @@ function Login() {
                             onBlur={(e) => e.target.style.borderColor = '#ddd'}
                         />
                         <button type="submit" className="button">Log in</button>
-                        <button type="button" onClick={handleDemoAccountUser} className="button">Login with demo account</button>
+                        <button type="button" onClick={() => handleUserDemo()} className="button">Log into demo account</button>
                     </div>
                 ) : (
                     //if its a company
@@ -173,7 +203,7 @@ function Login() {
                             onBlur={(e) => e.target.style.borderColor = '#ddd'}
                         />
                         <button type="submit" className="button">Log in</button>
-                        <button type="button" onClick={() => handleDemoAccountCompany} className="button">Login with demo account</button>
+                        <button type="button" onClick={() => handleCompanyDemo()} className="button">Log into demo account</button>
                     </div>
                 )}
                 

@@ -2,6 +2,7 @@ const API_URL = 'https://odin-book-backend-production-9572.up.railway.app/users/
 
 const authQueries = {
     loginUser: async(username, password, type) => {
+        console.log('props query receives: ', username, password, type);
         return await fetch(`${API_URL}login`, {
             method: 'POST',
             headers: {
@@ -11,6 +12,7 @@ const authQueries = {
         });
     },
     loginCompany: async(companyName, companyPassword, type) => {
+        console.log('props query receives: ', companyName, companyPassword, type);
         return await fetch(`${API_URL}login`, {
             method: 'POST',
             headers: {
