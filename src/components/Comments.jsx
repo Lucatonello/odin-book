@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import postsQueries from '../queries/postsQueries';
 import defaultpfp from '../images/user.png';
 import styles from '../styles/Comments.module.css';
@@ -7,11 +7,17 @@ import { useNavigate } from 'react-router-dom';
 
 function Comments({ comments, postid }) {
     const [newComment, setNewComment] = useState('');
-    console.log('props In comments: ', comments);
-    const id = localStorage.getItem('authorid'); 
-    const type = localStorage.getItem('type');
+    const [updatedComments, setUpdatedComments] = useState(comments); 
 
+    const id = localStorage.getItem('authorid');
+    const type = localStorage.getItem('type');
+    const username = localStorage.getItem('username');
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        setUpdatedComments(comments);
+    }, [comments]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,12 +28,22 @@ function Comments({ comments, postid }) {
 
             if (result.isDone) {
                 setNewComment("");
-                window.location.reload();
+
+                setUpdatedComments([
+                    ...updatedComments,
+                    {
+                        text: newComment,
+                        authorName: username,
+                        authorid: id,
+                        type: type,
+                    },
+                ]);
             }
         } catch (err) {
             console.error(err);
         }
     }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -41,24 +57,32 @@ function Comments({ comments, postid }) {
                         onClick={(e) => e.stopPropagation()}
                         onChange={(e) => setNewComment(e.target.value)}
                     />
-                    {newComment.length !== 0 && <button className={styles.save}  type='submit'>Comment</button>}
+                    {newComment.length !== 0 && <button 
+                                                    className={styles.save} 
+                                                    type='submit'
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
+                                                    Comment    
+                                                </button>}
                 </div>
-                
             </form>
+
             {postid !== null ? (
                 <ul>
-                    {comments.map((comment, index) => (
+                    {updatedComments.map((comment, index) => (
                         <li key={index}>
                             <div className={styles.commentTop}>
                                 <img src={defaultpfp} alt="profile pic" style={{ height: '47.99px', width: '47.99px' }} />
-                                <div className={comment.type == 'company' ? styles.companyCommentTop : ''}>
-                                    <strong onClick={() => navigate(`/profile/${comment.type}/${comment.authorid}`)} className={styles.infoTop}>{comment.authorName}</strong>
-                                    {comment.summary !== '' && <p style={{ color: '#666666', margin: '5px 0px 0px 10px' }}>{comment.authorSummary}</p>}
+                                <div className={comment.type === 'company' ? styles.companyCommentTop : ''}>
+                                    <strong onClick={() => navigate(`/profile/${comment.type}/${comment.authorid}`)} className={styles.infoTop}>
+                                        {comment.authorName}
+                                    </strong>
+                                    {comment.summary && <p style={{ color: '#666666', margin: '5px 0px 0px 10px' }}>{comment.authorSummary}</p>}
                                 </div>
                             </div>
                             <p style={{ margin: '0px 0px 25px 60px' }}>{comment.text}</p>
                         </li>
-                    ))} 
+                    ))}
                 </ul>
             ) : ''}
         </div>
@@ -69,6 +93,10 @@ Comments.propTypes = {
     comments: PropTypes.arrayOf(
         PropTypes.shape({
             text: PropTypes.string.isRequired,
+            authorName: PropTypes.string.isRequired,
+            authorSummary: PropTypes.string.isRequired,
+            authorid: PropTypes.number.isRequired,
+            type: PropTypes.string.isRequired,
         })
     ).isRequired,
     postid: PropTypes.number.isRequired,
