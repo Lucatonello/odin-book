@@ -5,6 +5,7 @@ import Index from './components/Index';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Profile from './components/Profile';
+import CompanyProfile from './components/CompanyProfile';
 import Jobs from './components/Jobs';
 import ViewJob from './components/ViewJob';
 import Network from './components/Network';
@@ -31,7 +32,8 @@ function App() {
       <Route path="/" element={<Index />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/profile/:type/:id" element={<Profile />} />
+      <Route path="/profile/user/:id" element={<Profile />} />
+      <Route path="/profile/company/:id" element={<CompanyProfile />} />
       <Route path="/jobs" element={<Jobs />} />
       <Route path="/jobs/:id" element={<ViewJob />} />
       <Route path="/network" element={<Network />} />

@@ -18,6 +18,7 @@ function CompanyProfile() {
     const [isAdmin, setIsAdmin] = useState(false);
     const [jobOpenings, setJobOpenings] = useState([]);
     const [isFollowing, setIsFollowing] = useState(null);
+    const [isLoading, setIsLoading] = useState(true)
 
     const [showEditIntro, setShowEditIntro] = useState(false);
     const [showEditAbout, setShowEditAbout] = useState(false);
@@ -27,34 +28,42 @@ function CompanyProfile() {
     const userId = localStorage.getItem('authorid');
     const userType = localStorage.getItem('type');
     const { id } = useParams();
-    const { type } = useParams();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (userId == id && userType == type) {
+        if (userId == id && userType == 'company') {
             setIsAdmin(true);
         } else return
-    }, [id, userId, userType, type]);
+    }, [id, userId, userType]);
 
     useEffect(() => {
         const getCompanyData = async () => {
-            const response = await memberQueries.getCompanyData(type, id);
+            const response = await memberQueries.getCompanyData('company', id);
             const data = await response.json();
             setMemberData(data);
             console.log('company data: ', data);
+            setIsLoading(false)
+
+            if (!response.ok) {
+                console.log('companydata had an error');
+            }
         }
         getCompanyData();
-    }, [id, type])
+    }, [id])
 
     useEffect(() => {
         const getMemberActivity = async () => {
-            const response = await memberQueries.getMemberActivity(type, id);
+            const response = await memberQueries.getMemberActivity('company', id);
             const data = await response.json();
             setMemberActivity(data);
+
+            if (!response.ok) {
+                console.log('memberActivity had an error');
+            }
         }
         getMemberActivity();
-    }, [id, type]);
+    }, [id]);
 
     useEffect(() => {
         const getCompanyJobOpenings = async () => {
@@ -62,22 +71,25 @@ function CompanyProfile() {
             const data = await response.json();
             setJobOpenings(data);
             console.log('jobs: ', data);
+
+            if (!response.ok) {
+                console.log('job openings had an error');
+            }
         }
         getCompanyJobOpenings();
     }, [id]);
 
     useEffect(() => {
         //check if the user already follows the visited profile
-        console.log(localStorage);
 
         const checkFollow = async () => {
-            const response = await memberQueries.checkFollow(userId, id, userType, type);
+            const response = await memberQueries.checkFollow(userId, id, userType, 'company');
             const data = await response.json();
             setIsFollowing(data.isFollowing);
             console.log('follow status: ', data);
         }
         checkFollow();
-    }, [userId, id, userType, type]);
+    }, [userId, id, userType]);
 
     const handleStatusChange = async (currentStatus, jobId) => {
         const newStatus = !currentStatus;
@@ -95,16 +107,31 @@ function CompanyProfile() {
         }
     }
     const handleFollow = async () => {
-        const response = await memberQueries.follow(userId, id, userType, type);
+        const response = await memberQueries.follow(userId, id, userType, 'company');
         const result = await response.json();
         if (result.isDone) window.location.reload();
 
     };
     const handleUnfollow = async () => {
-        const response = await memberQueries.unfollow(userId, id, userType, type);
+        const response = await memberQueries.unfollow(userId, id, userType, 'company');
         const result = await response.json();
         if (result.isDone) window.location.reload();
     };
+
+    if (isLoading) {
+        return (
+            <p style={{
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                height: '100vh', 
+                fontSize: '2rem', 
+                margin: 0
+            }}>
+            Loading...
+            </p>
+        )
+    }
     
     return (
         <>
@@ -148,13 +175,13 @@ function CompanyProfile() {
                         </p>
                         {!isAdmin && (
                             <div style={{ display: 'flex' }}>
-                                {!isFollowing ? (
+                                {!isAdmin && !isFollowing ? (
                                     <button className={styles.follow} onClick={() => handleFollow()}>Follow</button>
                                 ) : <button style={{ marginLeft: '20px', marginRight: '10px' }} className={styles.unfollow} onClick={() => handleUnfollow()}>Unfollow</button>}
                             </div>
                         )}
                     </div>
-                        {isAdmin && userId == id && userType == type && (
+                        {isAdmin && userId == id && userType == 'company' && (
                             <svg onClick={() => setShowEditIntro(true)} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                 <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
                             </svg>
@@ -167,13 +194,13 @@ function CompanyProfile() {
                 <div className={styles.profileContainer}>
                     <h1 className={styles.titles} style={{ paddingTop: '10px'}}>Overview</h1>
                     <p className={styles.about}>{memberData.about}</p>
-                    {isAdmin && userId == id && userType == type && (
+                    {isAdmin && userId == id && userType == 'company' && (
                         <svg onClick={() => setShowEditAbout(true)} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                             <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
                         </svg>
                     )}
                 </div>
-            ) : isAdmin && userId == id && userType == type && (
+            ) : isAdmin && userId == id && userType == 'company' && (
                 <div className={styles.profileContainer} style={{ display: 'flex' }}>
                     <h1 className={styles.titles} style={{ color: 'rgba(0, 0, 0, 0.6)'}}>Add an about section</h1>
                     <button onClick={() => setShowEditAbout(true)} className={styles.createPost}>Add about</button>
@@ -183,7 +210,7 @@ function CompanyProfile() {
             <div className={styles.profileContainer}>
                 <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                     <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Page activity</h1>
-                        {isAdmin && userId == id && userType == type && (
+                        {isAdmin && userId == id && userType == 'company' && (
                             <button onClick={() => setShowNewPost(true)} className={styles.createPost} type='button'>Create a post</button>
                         )}
                 </div>
@@ -223,7 +250,7 @@ function CompanyProfile() {
                 <div className={styles.profileContainer}>
                     <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                         <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Recent job openings</h1>
-                        {isAdmin && userId == id && userType == type && (
+                        {isAdmin && userId == id && userType == 'company' && (
                             <button onClick={() => setShowNewJobPost(true)} className={styles.createPost} type='button'>Create a job post</button>
                         )}
                     </div>
@@ -241,7 +268,7 @@ function CompanyProfile() {
 
                                             <div >
                                                 <p className={styles.jobDetails}>{job.location}</p>
-                                                {isAdmin && userId == id && userType == type && (
+                                                {isAdmin && userId == id && userType == 'company' && (
                                                     <>
                                                         <button 
                                                             onClick={(e) => handleStatusChange(job.public, job.id)} 
@@ -259,7 +286,7 @@ function CompanyProfile() {
                         ))}                
                     </ul>
                 </div>
-            ) : isAdmin && userId == id && userType == type && (
+            ) : isAdmin && userId == id && userType == 'company' && (
                 <div className={styles.profileContainer} style={{ display: 'flex' }}>
                     <h1 className={styles.titles} style={{ color: 'rgba(0, 0, 0, 0.6)'}}>Post your first job</h1>
                     <button onClick={() => setShowNewJobPost(true)} className={styles.createPost}>Create job post</button>

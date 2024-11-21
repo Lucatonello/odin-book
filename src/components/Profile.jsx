@@ -15,7 +15,6 @@ import EditExperience from './edit&add-Components/EditExperience';
 import NewEducation from './edit&add-Components/NewEducation';
 import EditEducation from './edit&add-Components/EditEducation';
 import NewSkill from './edit&add-Components/NewSkill';
-import CompanyProfile from './CompanyProfile';
 import NewMessageForm from './NewMessageForm';
 
 import styles from '../styles/Profile.module.css'; 
@@ -46,44 +45,39 @@ function Profile() {
     const userId = localStorage.getItem('authorid');
     const userType = localStorage.getItem('type');
     const { id } = useParams();
-    const { type } = useParams();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(localStorage);
-        if (userId == id && userType == type) {
+        if (userId == id && userType === 'user') {
             setIsAdmin(true);
         } else return
-    }, [id, userId, userType, type]);
+    }, [id, userId, userType]);
 
     useEffect(() => {
         const getMemberData = async () => {
-            if (type == 'user') {
-                const response = await memberQueries.getUserData(type, id);
+                const response = await memberQueries.getUserData('user', id);
                 const data = await response.json();
                 setMemberData(data);
                 console.log('memberData:', data)
                 console.log('followers count: ', data.followers_count);
                 setIsLoading(false);
-            } 
         } 
         getMemberData();
-    }, [id, type]);
+    }, [id]);
 
     useEffect(() => {
         const getMemberActivity = async () => {
-            const response = await memberQueries.getMemberActivity(type, id);
+            const response = await memberQueries.getMemberActivity('user', id);
             const data = await response.json();
             setMemberActivity(data);
             console.log(data)
         }
         getMemberActivity();
-    }, [id, type]);
+    }, [id]);
 
     useEffect(() => {
         const getUserExperience = async () => {
-            if (type === 'user') {
                 //get experience data
                 const experienceResponse = await memberQueries.getUserExperience(id)
                 const experienceData = await experienceResponse.json();
@@ -100,22 +94,21 @@ function Profile() {
                 const skillsData = await skillsResponse.json();
                 setUserSkills(skillsData);
                 console.log('skills data', skillsData);
-            } else return
         }
         getUserExperience();
-    }, [id, type])
+    }, [id])
 
     useEffect(() => {
         //check if the user already follows/connected with the visited profile
         const checkFollow = async () => {
-            const response = await memberQueries.checkFollow(userId, id, userType, type);
+            const response = await memberQueries.checkFollow(userId, id, userType, 'user');
             const data = await response.json();
             setIsFollowing(data.isFollowing);
             setIsConnected(data.isConnected);
             console.log('follow and connect status: ', data);
         }
         checkFollow();
-    }, [userId, id, userType, type]);
+    }, [userId, id, userType]);
 
     const handleDeleteSkill = async (skillid) => {
         const response = await memberQueries.deleteSkill(skillid);
@@ -127,13 +120,13 @@ function Profile() {
     };
 
     const handleFollow = async () => {
-        const response = await memberQueries.follow(userId, id, userType, type);
+        const response = await memberQueries.follow(userId, id, userType, 'user');
         const result = await response.json();
         if (result.isDone) window.location.reload();
     };
 
     const handleUnfollow = async () => {
-        const response = await memberQueries.unfollow(userId, id, userType, type);
+        const response = await memberQueries.unfollow(userId, id, userType, 'user');
         const result = await response.json();
         if (result.isDone) window.location.reload();
 
@@ -163,7 +156,6 @@ function Profile() {
     }
     return (
         <>
-            {type == 'user' ? (
                 <div>
                     {/* Pop up tabs */}
                     {showEditIntro && <EditIntro onHide={() => setShowEditIntro(false)} memberData={memberData} />}
@@ -188,7 +180,7 @@ function Profile() {
                             />
                         </div>
                         <h1 className={styles.username}>
-                            {type === 'user' ? memberData.username : memberData.name}
+                            {memberData.username}
                         </h1>
                         {memberData.summary && (
                             <strong style={{ marginBottom: '10px', marginTop: '3px' }} className={styles.summary}>{memberData.summary} </strong>
@@ -222,10 +214,10 @@ function Profile() {
                                 ) : <button style={{ marginLeft: '20px', marginRight: '10px' }} className={styles.connect} onClick={() => handleUnfollow()}>Unfollow</button>}
                                 {userType !== 'company' && !isConnected ? (
                                     <button onClick={() => handleConnect()} className={styles.connect}>Connect</button>
-                                ) : isAdmin && userId == id && userType == type && <button onClick={() => setShowNewMessage(true)} className={styles.follow} style={{ marginLeft: '0'}}>Message</button>}
+                                ) : isAdmin && userId == id && userType == 'user' && <button onClick={() => setShowNewMessage(true)} className={styles.follow} style={{ marginLeft: '0'}}>Message</button>}
                             </div>
                         )}
-                        {isAdmin && userId == id && userType == type && (
+                        {isAdmin && userId == id && userType == 'user' && (
                             <svg onClick={() => setShowEditIntro(true)} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                 <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
                             </svg>
@@ -237,13 +229,13 @@ function Profile() {
                         <div className={styles.profileContainer}>
                             <h1 className={styles.titles} style={{ paddingTop: '10px'}}>About</h1>
                             <p className={styles.about}>{memberData.about}</p>
-                            {isAdmin && userId == id && userType == type && (
+                            {isAdmin && userId == id && userType == 'user' && (
                                 <svg onClick={() => setShowEditAbout(true)} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                     <path d="M200-200h50.46l409.46-409.46-50.46-50.46L200-250.46V-200Zm-60 60v-135.38l527.62-527.39q9.07-8.24 20.03-12.73 10.97-4.5 23-4.5t23.3 4.27q11.28 4.27 19.97 13.58l48.85 49.46q9.31 8.69 13.27 20 3.96 11.31 3.96 22.62 0 12.07-4.12 23.03-4.12 10.97-13.11 20.04L275.38-140H140Zm620.38-570.15-50.23-50.23 50.23 50.23Zm-126.13 75.9-24.79-25.67 50.46 50.46-25.67-24.79Z"/>
                                 </svg>
                             )}
                         </div>
-                    ) : isAdmin && userId == id && userType == type && (
+                    ) : isAdmin && userId == id && userType == 'user' && (
                         <div className={styles.profileContainer} style={{ display: 'flex' }}>
                             <h1 className={styles.titles} style={{ color: 'rgba(0, 0, 0, 0.6)'}}>Add an about section</h1>
                             <button onClick={() => setShowEditAbout(true)} className={styles.createPost}>Add about</button>
@@ -254,7 +246,7 @@ function Profile() {
                     <div className={styles.profileContainer}>
                         <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                             <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Activity</h1>
-                            {isAdmin && userId == id && userType == type && (
+                            {isAdmin && userId == id && userType == 'user' && (
                                 <button onClick={() => setShowNewPost(true)} className={styles.createPost} type='button'>Create a post</button>
                             )}
                         </div>
@@ -294,7 +286,7 @@ function Profile() {
                         <div className={styles.profileContainer}>
                             <div className={styles.top}>
                                 <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Experience</h1>
-                                {isAdmin && userId == id && userType == type && (
+                                {isAdmin && userId == id && userType == 'user' && (
                                     <div style={{ display: 'flex' }}>
                                         <svg onClick={() => setShowNewExperience(true)} className={styles.close} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                             <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
@@ -324,7 +316,7 @@ function Profile() {
                                                 <p className={styles.experienceP} style={{ color: '#555' }}>{exp.location}</p>
                                                 {exp.description && <p>- {exp.description}</p>}
                                             </div>
-                                            {isAdmin && userId == id && userType == type && (
+                                            {isAdmin && userId == id && userType == 'user' && (
                                                 <div style={{ position: 'relative' }}>
                                                     <svg onClick={() => {
                                                         setShowEditExperience(true);
@@ -340,7 +332,7 @@ function Profile() {
                                 )}
                             </ul>
                         </div>
-                    ) : isAdmin ? userId == id && userType == type && (
+                    ) : isAdmin ? userId == id && userType == 'user' && (
                         <div className={styles.profileContainer} style={{ display: 'flex' }}>
                             <h1 className={styles.titles} style={{ color: 'rgba(0, 0, 0, 0.6)'}}>Add first experience</h1>
                             <button onClick={() => setShowNewExperience(true)} className={styles.createPost}>New experience</button>
@@ -352,7 +344,7 @@ function Profile() {
                         <div className={styles.profileContainer}>
                             <div className={styles.top}>
                                 <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Education</h1>
-                                {isAdmin && userId == id && userType == type && (
+                                {isAdmin && userId == id && userType == 'user' && (
                                     <svg onClick={() => setShowNewEducation(true)} className={styles.close} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                         <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
                                     </svg>
@@ -379,7 +371,7 @@ function Profile() {
                                                     <p className={styles.experienceP} style={{ color: '#555' }}>{ed.location}</p>
                                                     {ed.description && <p>- {ed.description}</p>}
                                             </div>
-                                            {isAdmin && userId == id && userType == type && (
+                                            {isAdmin && userId == id && userType == 'user' && (
                                             <div style={{ position: 'relative' }}>
                                                 <svg onClick={() => {
                                                     setShowEditEducation(true);
@@ -394,7 +386,7 @@ function Profile() {
                                     ))}
                                 </ul>
                         </div>
-                    ) : isAdmin ? userId == id && userType == type && (
+                    ) : isAdmin ? userId == id && userType == 'user' && (
                         <div className={styles.profileContainer} style={{ display: 'flex' }}>
                             <h1 className={styles.titles} style={{ color: 'rgba(0, 0, 0, 0.6)'}}>Add first education</h1>
                             <button onClick={() => setShowNewEducation(true)} className={styles.createPost}>New education</button>
@@ -407,7 +399,7 @@ function Profile() {
                         <div className={styles.profileContainer}>
                             <div className={styles.top}>
                                 <h1 className={styles.titles} style={{ paddingTop: '10px' }}>Skills</h1>
-                                {isAdmin && userId == id && userType == type && (
+                                {isAdmin && userId == id && userType == 'user' && (
                                     <svg onClick={() => setShowNewSkill(true)} className={styles.close} style={{ margin: 'auto 20px auto 0px' }} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                         <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
                                     </svg>
@@ -418,7 +410,7 @@ function Profile() {
                                     {userSkills.map(skill => (
                                         <li key={skill.id} style={{ borderBottom: '1px solid #e8e8e8', width: '90%', display: 'flex', justifyContent: 'space-between', marginLeft: '20px' }}>
                                             <p>{skill.skill}</p>
-                                            {isAdmin && userId == id && userType == type && (
+                                            {isAdmin && userId == id && userType == 'user' && (
                                                 <svg onClick={() => handleDeleteSkill(skill.id)} style={{ margin: 'auto 5px' }} className={styles.close} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                                                     <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
                                                 </svg>
@@ -428,7 +420,7 @@ function Profile() {
                                 </ul>
                             )}
                         </div>
-                    ) : isAdmin ? userId == id && userType == type && (
+                    ) : isAdmin ? userId == id && userType == 'user' && (
                         <div className={styles.profileContainer} style={{ display: 'flex' }}>
                             <h1 className={styles.titles} style={{ color: 'rgba(0, 0, 0, 0.6)'}}>Add first skill</h1>
                             <button onClick={() => setShowNewSkill(true)} className={styles.createPost}>New skill</button>
@@ -437,9 +429,6 @@ function Profile() {
                     ) : null}
 
                 </div>
-            ) : (
-                <CompanyProfile />
-            )}
         </>
     );
 } 

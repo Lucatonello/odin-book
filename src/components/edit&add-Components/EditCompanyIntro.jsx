@@ -28,7 +28,12 @@ function EditCompanyIntro({ onHide, memberData }) {
         }
 
         console.log('f data', filteredData);
-        await memberQueries.updateCompanyIntro(filteredData, userid);
+        const response = await memberQueries.updateCompanyIntro(filteredData, userid);
+        const result = await response.json();
+        
+        if (result.isDone) {
+            window.location.reload();
+        }
     }
     return (
         <div className={styles.overlay} onClick={onHide}>

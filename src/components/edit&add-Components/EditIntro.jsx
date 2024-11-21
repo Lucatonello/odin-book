@@ -32,6 +32,8 @@ function EditIntro({ onHide, memberData }) {
         console.log('f data', filteredData);
         const response = await memberQueries.updateUserIntro(filteredData, userid);
         const result = await response.json();
+
+        console.log('result: ', result);
         
         if (result.isDone) {
             window.location.reload();
