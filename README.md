@@ -1,6 +1,6 @@
-# LinkedIn Clone - Frontend
+# Odin-book - Frontend
 
-This is the frontend for the LinkedIn Clone, a web application that replicates core features of LinkedIn. Users can register as individuals or companies, create posts, build networks, explore job opportunities, and interact with others in a professional environment.
+This is the frontend for the LinkedIn Clone, a web application that replicates core features of LinkedIn. Users can register as individuals or companies, create posts, build networks, explore job opportunities, and interact with others in a professional environment. I made this app as the final project of [The Odin Project](https://www.theodinproject.com).
 
 ## Features
 
@@ -37,9 +37,7 @@ This is the frontend for the LinkedIn Clone, a web application that replicates c
   - Receive notifications for connection requests, new followers, and interactions on posts.
 
 ### Messaging
-- **Chat with other users**:
-  - Message other users.
-  -View conversation history to keep track of past messages.
+- **Chat with other users**: Message other users and view conversation history to keep track of past messages.
 
 ### Post Creation and Interaction
 - **Create Posts**: Share updates. Companies can also share announcements or promotional content.
@@ -48,8 +46,7 @@ This is the frontend for the LinkedIn Clone, a web application that replicates c
 
 ### Additional Features
 - **404 Page**: Friendly page displayed when a non-existent route is accessed.
-- **Dynamic UX UI**:
-  - Polished user experience for both individuals and companies.
+- **Dynamic UX UI**: Polished user experience for both individuals and companies.
 
 Feel free to explore the app and experience a professional networking platform designed from the ground up!
 
