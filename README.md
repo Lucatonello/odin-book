@@ -72,11 +72,11 @@ To run this project locally, follow these steps:
    ```bash  
    git clone https://github.com/Lucatonello/odin-book.git  
    cd odin-book
-2. **Install dependencies and start the session**
+2. **Install dependencies and start the session**:
    make sure you have Node.js installed, then run:
    ```bash
-  npm install
-  npm run dev
+    npm install
+    npm run dev
 
 3. **Acces the app**
    Open your browser and navigate to http://localhost:5173
