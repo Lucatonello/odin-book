@@ -3,6 +3,10 @@
 This is the frontend for the LinkedIn Clone, a web application that replicates core features of LinkedIn. Users can register as individuals or companies, create posts, build networks, explore job opportunities, and interact with others in a professional environment. I made this app as the final project of [The Odin Project](https://www.theodinproject.com).
 
 ---
+## See the Page Live  
+Explore the app live at [Odin-book Live Demo](https://serene-liger-43f45f.netlify.app/signup).  
+
+---
 
 # Tech stack
 The frontend is built using the following technologies:  
@@ -60,6 +64,28 @@ The frontend is built using the following technologies:
 - **Dynamic UX UI**: Polished user experience for both individuals and companies.
 
 Feel free to explore the app and experience a professional networking platform designed from the ground up!
+
+---
+
+### Run it locally
+To run this project locally, follow these steps:  
+1. **Clone the repository**
+   ```bash  
+   git clone https://github.com/Lucatonello/odin-book.git  
+   cd odin-book
+2. **Install dependencies**
+ make sure you have Node.js installed, then run:
+ ```bash
+npm install
+
+3. **Start the session**
+  ```bash
+npm run dev
+
+4. **Access the app**
+Open your browser and navigate to http://localhost:5173
+
+---
 
 ### Check out the backend
 - [See the backend here](https://github.com/Lucatonello/odin-book-backend)
