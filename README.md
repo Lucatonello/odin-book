@@ -2,6 +2,17 @@
 
 This is the frontend for the LinkedIn Clone, a web application that replicates core features of LinkedIn. Users can register as individuals or companies, create posts, build networks, explore job opportunities, and interact with others in a professional environment. I made this app as the final project of [The Odin Project](https://www.theodinproject.com).
 
+---
+
+# Tech stack
+The frontend is built using the following technologies:  
+
+- **React**
+- **CSS Modules**
+- **JavaScript (ES6)**
+- **HTML5**
+- **React Router**
+
 ## Features
 
 ### General
