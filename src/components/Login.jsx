@@ -80,7 +80,7 @@ function Login() {
 
         try {
             localStorage.setItem('type', 'user');
-                const response = await authQueries.loginUser('Luca Tonello', '123', type);
+                const response = await authQueries.loginUser('Demo User', '123', type);
                 const data = await response.json();
     
                 if (response.ok) {
